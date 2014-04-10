@@ -1,0 +1,21 @@
+//
+//  IRJSonContentCreateor.h
+//  iRDataCollectorForAppStore
+//
+//  Created by LN on 13-9-18.
+//  Copyright (c) 2013年 LN. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface IRJSonContentCreateor : NSObject
+
++(NSString *)createClientJSON;
+
++(NSString *)createSessionJSON;
+
++(NSString *)createLocationJSON;
+
++(NSString *)createNetFlowRateJSON;
+
+@end

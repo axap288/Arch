@@ -1,0 +1,23 @@
+//
+//  DeviceFlowRateInfo.h
+//  iRDataCollectorForEnterprise
+//
+//  Created by LiuNian on 13-11-27.
+//  Copyright (c) 2013年 LiuNian. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+
+
+@interface DeviceFlowRateInfo : NSManagedObject
+
+@property (nonatomic, retain) NSString * netType;
+@property (nonatomic, retain) NSNumber * sendFlow;
+@property (nonatomic, retain) NSNumber * recFlow;
+@property (nonatomic, retain) NSString * hour;
+@property (nonatomic, retain) NSString * ssid;
+@property (nonatomic, retain) NSString * carrier;
+@property (nonatomic, retain) NSString * ts;
+
+@end

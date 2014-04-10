@@ -1,0 +1,22 @@
+//
+//  DeviceFlowRateInfo.m
+//  iRDataCollectorForEnterprise
+//
+//  Created by LiuNian on 13-11-27.
+//  Copyright (c) 2013年 LiuNian. All rights reserved.
+//
+
+#import "DeviceFlowRateInfo.h"
+
+
+@implementation DeviceFlowRateInfo
+
+@dynamic netType;
+@dynamic sendFlow;
+@dynamic recFlow;
+@dynamic hour;
+@dynamic ssid;
+@dynamic carrier;
+@dynamic ts;
+
+@end

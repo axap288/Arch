@@ -1,0 +1,153 @@
+//
+//  IRLocationMonitor.m
+//  iRDataCollectorForEnterprise
+//
+//  Created by LiuNian on 13-11-11.
+//  Copyright (c) 2013年 LiuNian. All rights reserved.
+//
+
+#import "IRLocationMonitor.h"
+#import "IRCoreDataManager.h"
+#import "IRConfigManager.h"
+#import "IRAssistant.h"
+#import "IRConstant.h"
+
+
+@implementation IRLocationMonitor
+
+-(id)init{
+    self = [super init];
+    if (self) {
+         self.locationInfoArray = [NSMutableArray array];
+    }
+    return self;
+}
+
+-(void)startMonitor
+{
+    double delayInSeconds = 10; //避免程序启动后立即发送，延时十秒发送。
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    NSString *value = [IRAssistant getPropertyWithKey:P_LocationServiceinterval];
+    float interval = [value intValue] * 3600.0f;
+//        float interval = 10.0f;
+         DDLogInfo(@"[位置监测]:启动定位监测监控，定位频率:%@小时/次",value);
+        self.timerforLocation = [NSTimer scheduledTimerWithTimeInterval:interval  target:self   selector:@selector(starLocationTask) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.timerforLocation forMode:NSRunLoopCommonModes];
+        [[NSRunLoop currentRunLoop] run];
+//        [self.timerforLocation fire];
+    });
+}
+
+-(void)stopMonitor
+{
+    [self.timerforLocation invalidate];
+    self.timerforLocation = nil;
+    DDLogInfo(@"[位置监测]:启动定位监测监控已关闭");
+}
+
+-(void)starLocationTask
+{
+    BOOL runEnable =  [IRConfigManager switchValue:LocationSwitch];
+    if (!runEnable) {
+        DDLogInfo(@"[位置监测]:已被禁止运行!");
+        return;
+    }
+    
+    if (locationManager==nil)
+    {
+        locationManager =[[CLLocationManager alloc] init];
+    }
+    
+    if ([CLLocationManager locationServicesEnabled])
+    {
+        locationManager.delegate=self;
+        locationManager.desiredAccuracy=kCLLocationAccuracyBest;
+        locationManager.distanceFilter=10.0f;
+        [locationManager startUpdatingLocation];
+    }
+    hasLocated = NO;
+}
+
+-(void)endLocationTask
+{
+    [locationManager stopUpdatingLocation];
+    locationManager.delegate = nil;
+    locationManager = nil;
+}
+
+#pragma mark -
+#pragma mark CLLocationManagerDelegate
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    if (hasLocated) {
+        return;
+    }else{
+        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+        [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+            if(placemarks && placemarks.count > 0)
+            {
+                curLocation = newLocation.coordinate;
+//                NSLog(@"经度:%.20f",curLocation.longitude);
+//                NSLog(@"纬度:%.20f",curLocation.latitude);
+//                //do something
+//                CLPlacemark *topResult = [placemarks objectAtIndex:0];
+//                NSLog(@"name:%@",topResult.name);
+//                NSLog(@"thoroughfare:%@",topResult.thoroughfare);
+//                NSLog(@"locality:%@",topResult.locality);
+//                NSLog(@"subLocality:%@",topResult.subLocality);
+//                NSLog(@"administrativeArea:%@",topResult.administrativeArea);
+//                NSLog(@"subAdministrativeArea:%@",topResult.subAdministrativeArea);
+//                NSLog(@"ISOcountryCode:%@",topResult.ISOcountryCode);
+//                NSLog(@"country:%@",topResult.country);
+//                NSLog(@"inlandWater:%@",topResult.inlandWater);
+//                NSLog(@"areasOfInterest:%@",topResult.areasOfInterest);
+                CLPlacemark *topResult = [placemarks objectAtIndex:0];
+                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                [dic setObject:@"" forKey:@"province"];
+                [dic setObject:topResult.administrativeArea == nil?@"":topResult.administrativeArea forKey:@"city"];
+                [dic setObject:topResult.subLocality == nil ?@"":topResult.subLocality forKey:@"district"];
+                [dic setObject:topResult.name forKey:@"addr"];
+                [dic setObject:V_COUNTRY  forKey:K_COUNTRY];
+                [dic setObject:V_TS forKey:K_TS];
+                [dic setObject:V_UID forKey:K_UID];
+                [dic setObject:[NSNumber numberWithFloat:curLocation.latitude] forKey:@"radius"];
+                [dic setObject:[NSNumber numberWithFloat:curLocation.longitude] forKey:@"lng"];
+                
+                DDLogInfo(@"[位置监测]:找到位置:%@",topResult.name);
+                
+                NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                NSString*strDate =[dateFormatter stringFromDate:[NSDate date]];
+                [dic setObject:strDate forKey:@"standardtime"];
+                
+                self.logFilePath = [IRFileTool getFullPath:LOG_FILE_LOCATION];
+                NSLog(@"locationFilePath:%@",self.logFilePath);
+
+                
+                if (![[NSFileManager defaultManager] fileExistsAtPath:self.logFilePath]) {
+                    [self.locationInfoArray addObject:dic];
+                }else{
+                    self.locationInfoArray = [NSMutableArray arrayWithContentsOfFile:self.logFilePath];
+                    [self.locationInfoArray addObject:dic];
+                }
+                DDLogInfo(@"[位置监测]:位置信息写入到记录文件!");
+                NSLog(@"self.locationInfoArray  : %@",[self.locationInfoArray description]);
+                [self.locationInfoArray writeToFile:self.logFilePath atomically:NO];
+            }
+        }];
+        
+        [self endLocationTask];
+        hasLocated = YES;
+    }
+
+    
+    
+//    [_search reverseGeocode:curLocation];
+    
+//    IRCoreDataManager *cdmanager = [IRCoreDataManager shareInstance];
+//    [cdmanager saveNewLocationWithLatitude:curLocation.latitude andLongitude:curLocation.longitude];
+}
+
+@end

@@ -1,0 +1,40 @@
+//
+//  IRLocationMonitor.h
+//  iRDataCollectorForAppStore
+//
+//  Created by LN on 13-9-17.
+//  Copyright (c) 2013年 LN. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "BMapKit.h"
+
+
+@interface IRBaiduLocationMonitor : NSObject </*BMKMapViewDelegate,*/ BMKSearchDelegate,BMKGeneralDelegate,BMKUserLocationDelegate>
+{
+    BMKMapManager* _mapManager;
+    float latitude_temp;
+    float longitude_temp;
+    NSString *addressTemp;
+//    BMKMapView* _mapView;
+    BMKUserLocation* _userLocation;
+    BMKSearch* _search;
+}
+
+//@property (nonatomic,strong) NSString *city;
+//@property (nonatomic,strong) NSString *district;
+//@property (assign) float latitude; //经度
+//@property (assign) float
+
+@property (nonatomic,strong) NSString *logFilePath;
+
+@property (nonatomic,strong) NSMutableArray *locationInfoArray;
+
+@property(nonatomic,strong) NSTimer *timerforLocation ;
+
+
+-(void)startMonitor;
+
+-(void)stopMonitor;
+
+@end

@@ -1,0 +1,280 @@
+//
+//  IRDataCollect.m
+//  iResearcher
+//
+//  Created by liu nian on 13-6-25.
+//  Copyright (c) 2013年 Liunian. All rights reserved.
+//
+
+#import "IRAPPDataCollect.h"
+#import "IRsysMonitor.h"
+#import "IRFileTool.h"
+#import "IRConstant.h"
+#import "IRAssistant.h"
+#import "IRCoreDataManager.h"
+#import "AppRunTimeInfo.h"
+#import "IRConfigManager.h"
+
+
+static NSMutableArray *appbox;
+static NSMutableDictionary *appNamesInfo;
+static NSMutableDictionary *appRecordInfo;
+static NSString *currentApp;
+static NSDate  *beginLockedStateTime;
+//static NSTimer *timerforDataPersistence;
+static NSDate *nextHour;//下一个整点时间（记录电池损耗而设置）
+static BOOL lockstate;
+
+#define SPRINGBOARD_STATE @"SpringBord"
+#define LOCKED_STATE @"Locked"
+#define SPRINGBOARD_CH @"主屏状态(非APP)"
+#define LOCKED_CH @"锁屏状态(非APP)"
+
+
+
+@implementation IRAPPDataCollect
+
++(void)collectAPPPackageInBox:(NSString *)packageName  withAppName:(NSString *)appName withProcessName:(NSString *)processName
+{
+
+    
+    if ([packageName isEqualToString:LOCKED_STATE]  ||  [packageName isEqualToString:SPRINGBOARD_STATE]  ) {
+        return;
+    }
+    
+    if (appName == nil || processName == nil) {
+        return;
+    }
+    
+    //    DDLogInfo(@"[进程统计]:监测到APP启动 - %@",packageName);
+    IRCoreDataManager  *CDManager = [IRCoreDataManager shareInstance];
+    [CDManager saveAppInfoUseCDWithPackageName:packageName AppName:appName processName:processName];
+}
+
+
+
+
+//此处的处理逻辑请参考《关于检测APP运行时间的计算逻辑》
++(void)recordAppRunTime:(NSString *)packageName
+{
+    
+    if ([packageName isEqualToString:LOCKED_STATE] || [packageName isEqualToString:SPRINGBOARD_STATE]) {
+        //YES
+        if (currentApp == nil) {
+            return;
+        }else{
+            NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSString *time =[dateFormatter stringFromDate:[NSDate date]];
+            
+            IRCoreDataManager  *CDManager = [IRCoreDataManager shareInstance];
+            [CDManager updateEndTime:currentApp endTime:time];
+            currentApp = nil;
+        }
+    }else{
+        //NO
+        if (currentApp == nil) {
+            NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSString *time =[dateFormatter stringFromDate:[NSDate date]];
+            
+            IRCoreDataManager  *CDManager = [IRCoreDataManager shareInstance];
+            [CDManager updateEndTime:currentApp endTime:time];
+            
+            [CDManager saveRunTimeInfoUseCDWithPackageName:packageName startTime:time endTime:time];
+            currentApp = packageName;
+        }else{
+            if (![currentApp isEqualToString:packageName]) {
+                NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                NSString *time =[dateFormatter stringFromDate:[NSDate date]];
+                
+                IRCoreDataManager  *CDManager = [IRCoreDataManager shareInstance];
+                [CDManager updateEndTime:currentApp endTime:time];
+                [CDManager saveRunTimeInfoUseCDWithPackageName:packageName startTime:time endTime:time];
+                currentApp = packageName;
+            }
+        }
+    }
+}
+
++(void)runTimer
+{
+    //启动一个线程做监控
+    
+    
+    float interval = 3.0;
+    DDLogInfo(@"[进程统计]:启动后台APP进程监测，扫描时间%.0f秒",interval);
+    NSTimer *timerforColllect = [NSTimer scheduledTimerWithTimeInterval:interval  target:[IRAPPDataCollect class] selector:@selector(collectTask) userInfo:nil repeats:YES];
+    [timerforColllect fire];
+    
+    //    [IRAPPDataCollect startDataPersistenceTimer];
+}
+
++(void)collectTask
+{
+    
+    BOOL runEnable =  [IRConfigManager switchValue:ApplicationSwitch];
+    if (!runEnable) {
+        DDLogInfo(@"[进程统计]:APP进程监测已被禁止运行!");
+        return;
+    }
+    
+    //启动一个电量监测
+    if (nextHour == nil) {
+        nextHour =  [IRAssistant getNextIntegralHourDate];
+    }else{
+        NSTimeInterval  interval =  [nextHour timeIntervalSinceNow];
+        if (interval <  0) {
+            double  level = [IRSysInfo batteryLevel];
+            //            NSLog(@"battery level : %f",level);
+            DDLogInfo(@"当前电量为: %0.2f %@",level,@"%");
+            nextHour = nil;
+        }
+    }
+    
+    NSString *runningAppPackage = [IRsysMonitor getActiveAppsBySpringBoard];
+    
+    if ([runningAppPackage isEqualToString:LOCKED_STATE]) {
+        //如果进入锁屏状态，则记录锁屏开始时间
+        if (!lockstate) {
+            
+            if (beginLockedStateTime == nil) {
+                beginLockedStateTime = [NSDate date];
+            }
+            
+            NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:beginLockedStateTime];
+            if (interval > 10.0f) {
+                DDLogInfo(@"[总控制]监测到本机已锁屏 !");
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_OF_LOCKED_STATE object:nil];
+                lockstate = YES;
+            }
+        }
+        
+    }else{
+        if (lockstate) {
+            //用户解除锁屏状态，则同意发送接触锁屏通知
+            DDLogInfo(@"[总控制]监测到锁屏结束 !");
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_OF_END_LOCKED_STATE object:nil];
+            beginLockedStateTime = nil;
+            lockstate = NO;
+        }
+        NSString *runningAPPName = [IRsysMonitor getAppNameByIdentifier:runningAppPackage];
+//        NSString *processName = [IRsysMonitor getProcessNameByIdentifier:runningAppPackage];//与ivan协商后，此监测端不生成进程名
+        NSString *processName = @"";
+        [IRAPPDataCollect collectAPPPackageInBox:runningAppPackage withAppName:runningAPPName withProcessName:processName];
+        [IRAPPDataCollect recordAppRunTime:runningAppPackage];
+    }
+    
+    
+}
+
+/*
++(void)dataPersistenceTask
+{
+    NSString *appbox_persistenceFile = [IRFileTool getFullPath:APPBOX_LOG_NAME];
+    NSString *appNamesInfo_persistenceFile = [IRFileTool getFullPath:APPNAMEINFO_LOG_NAME];
+    NSString *appRecordInfo_persistenceFile = [IRFileTool getFullPath:APPRECORDINFO_LOG_NAME];
+    
+    if (appbox != nil) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:appbox_persistenceFile]) {
+            NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:appbox_persistenceFile];
+            
+            for (NSString *package in appbox) {
+                if (![array containsObject:package]) {
+                    [array addObject:package];
+                }
+            }
+            
+            [array writeToFile:appbox_persistenceFile atomically:YES];
+        }else{
+            [appbox writeToFile:appbox_persistenceFile atomically:YES];
+        }
+        appbox = nil;
+    }
+    
+    if (appNamesInfo != nil) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:appNamesInfo_persistenceFile]) {
+            NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithContentsOfFile:appNamesInfo_persistenceFile];
+            
+            for (NSString *packageName in [appNamesInfo allKeys]) {
+                if (![dic objectForKey:packageName]) {
+                    [dic setObject:[appNamesInfo objectForKey:packageName] forKey:packageName];
+                }
+            }
+            
+            [dic writeToFile:appNamesInfo_persistenceFile atomically:YES];
+        }else{
+            [appNamesInfo writeToFile:appNamesInfo_persistenceFile atomically:YES];
+        }
+        appNamesInfo = nil;
+    }
+    
+    if (appRecordInfo != nil) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath:appRecordInfo_persistenceFile]) {
+            
+            NSMutableDictionary *dic  = [NSMutableDictionary dictionaryWithContentsOfFile:appRecordInfo_persistenceFile];
+            //取出持久化的数据结构，再加上最新的数据
+            for (NSString *packageName in [appRecordInfo allKeys]) {
+                if ([dic objectForKey:packageName] != nil) {
+                    //                    NSLog(@"DEBUG:dic : %@",[dic description]);
+                    NSMutableArray *array = [dic objectForKey:packageName];
+                    //                    NSLog(@"DEBUG:array : %@",[array description]);
+                    [array addObjectsFromArray:[appRecordInfo objectForKey:packageName]];
+                    [dic setObject:array forKey:packageName];
+                }else{
+                    [dic setObject:[appRecordInfo objectForKey:packageName] forKey:packageName];
+                }
+            }
+            [dic writeToFile:appRecordInfo_persistenceFile atomically:YES];
+        }else{
+            [appRecordInfo writeToFile:appRecordInfo_persistenceFile atomically:YES];
+        }
+        appRecordInfo = nil;
+    }
+}
+*/
+
+
++(void)printAppBox
+{
+    NSLog(@"最近运行过的应用有:%@",[appbox description]);
+    NSLog(@"运行时间统计:%@",[appRecordInfo description]);
+}
+
+/*
+ +(NSArray *)getAppBox
+ {
+ //    NSString *appbox_FilePath = [IRFileTool getFullPath:APPBOX_LOG_NAME];
+ //    NSArray *appboxArray = [NSArray arrayWithContentsOfFile:appbox_FilePath];
+ if (appbox == nil) {
+ appbox = [NSArray array];
+ }
+ return appbox;
+ }
+ 
+ +(NSDictionary *)getAppRecordInfo
+ {
+ //    NSString *appRecordInfo_FilePath = [IRFileTool getFullPath:APPRECORDINFO_LOG_NAME];
+ //    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:appRecordInfo_FilePath];
+ if (appRecordInfo == nil) {
+ appRecordInfo = [NSDictionary dictionary];
+ }
+ return appRecordInfo;
+ }
+ 
+ +(NSDictionary *)getAPPNames
+ {
+ //    NSString *appNamesInfo_filePaht = [IRFileTool getFullPath:APPNAMEINFO_LOG_NAME];
+ //    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:appNamesInfo_filePaht];
+ if (appNamesInfo == nil) {
+ appNamesInfo = [NSDictionary dictionary];
+ }
+ return appNamesInfo;
+ }
+ */
+
+
+
+@end
+

@@ -1,0 +1,256 @@
+//
+//  IRJSonContentCreateor.m
+//  iRDataCollectorForAppStore
+//
+//  Created by LN on 13-9-18.
+//  Copyright (c) 2013年 LN. All rights reserved.
+//
+
+#import "IRJSonContentCreateor.h"
+#import "SBJson.h"
+#import "SBJsonParser.h"
+#import "SBJsonStreamWriter.h"
+#import "IRsysMonitor.h"
+#import "IRSysInfo.h"
+#import "IRFileTool.h"
+#import "IRConstant.h"
+#import "IRAPPDataCollect.h"
+#import "IRAssistant.h"
+#import "AppInfo.h"
+#import "AppRunTimeInfo.h"
+#import "DeviceFlowRateInfo.h"
+#import "IRCoreDataManager.h"
+#import "LocationInfo.h"
+#import "DeviceFlowRateInfo.h"
+
+@implementation IRJSonContentCreateor
+
+
++(NSString *)createClientJSON
+{    
+    NSMutableDictionary *content = [NSMutableDictionary dictionary];
+    [content setObject:V_UID forKey:K_UID];
+    [content setObject:V_SCREEN forKey:K_SCREEN];
+    [content setObject:V_TS forKey:K_TS];
+    [content setObject:V_OS_VER forKey:K_OS_VER];
+    [content setObject:V_APPID forKey:K_APPID];
+    [content setObject:V_IMEI forKey:K_IMEI];
+    [content setObject:V_SDK_VER forKey:K_SDK_VER];
+    [content setObject:V_NETWORK forKey:K_NETWORK];
+    [content setObject:V_COUNTRY forKey:K_COUNTRY];
+    [content setObject:V_ISCRACK forKey:K_ISCRACK];
+    [content setObject:V_DEVICE_MODEL forKey:K_DEVICE_MODEL];
+    [content setObject:V_DD forKey:K_DD];
+    [content setObject:V_TIMEZONE forKey:K_TIMEZONE];
+    [content setObject:V_MAC_HASH forKey:K_MAC_HASH];
+    [content setObject:V_DEVICE_NAME forKey:K_DEVICE_NAME];
+    [content setObject:V_OS_NAME forKey:K_OS_NAME];
+    [content setObject:V_CARRIER forKey:K_CARRIER];
+    [content setObject:V_PHONENUM forKey:K_PHONENUM];
+    [content setObject:V_CHANNEL forKey:K_CHANNEL];
+    [content setObject:@"" forKey:K_CPU];
+    
+    NSMutableDictionary *clientDic = [NSMutableDictionary dictionary];
+    [clientDic setObject:[NSArray arrayWithObject:content] forKey:K_CLIENT];
+    
+    NSString *json = [IRAssistant makeJsonString:clientDic];
+    return json;
+}
+
++(NSString *)createSessionJSON
+{
+    IRCoreDataManager *cdManager = [IRCoreDataManager shareInstance];
+    NSString *radius,*lng ,*city,*district;
+    NSMutableDictionary *session = [NSMutableDictionary dictionary];
+    
+    //提取位置记录文件
+//    NSString *locationLogFilePath = [IRFileTool getFullPath:LOG_FILE_LOCATION];
+    NSArray *locationsArray = [cdManager getAllLocationInfo];
+    if (locationsArray == nil || [locationsArray count] == 0) {
+        radius = @"0.0";
+        lng = @"0.0";
+        city = @"";
+        district = @"";
+    }else{
+        NSDictionary *loationDic = [locationsArray lastObject];
+        radius = [loationDic objectForKey:K_RADIUS];
+        lng = [loationDic objectForKey:K_latitude];
+        city = [loationDic objectForKey:K_CITY];
+        district = [loationDic objectForKey:K_DISTRICT];
+    }
+    
+    
+    [session setObject:V_UID forKey:K_UID];
+    [session setObject:V_TS forKey:K_TS];
+    [session setObject:V_OS_VER forKey:K_OS_VER];
+    [session setObject:V_APPID forKey:K_APPKEY];
+    [session setObject:radius forKey:K_RADIUS];
+    [session setObject:V_SDK_VER forKey:K_SDK_VER];
+    [session setObject:V_NETWORK forKey:K_NETWORK];
+    [session setObject:city forKey:K_CITY];
+    [session setObject:V_ISCRACK forKey:K_ISCRACK];
+    [session setObject:V_DEVICE_MODEL forKey:K_DEVICE_MODEL];
+    [session setObject:V_DD forKey:K_DD];
+    [session setObject:V_TIMEZONE forKey:K_TIMEZONE];
+    [session setObject:V_MAC_HASH forKey:K_MAC_HASH];
+    [session setObject:V_DEVICE_NAME forKey:K_DEVICE_NAME];
+    [session setObject:V_CARRIER  forKey:K_CARRIER];
+    [session setObject:district forKey:K_DISTRICT];
+    [session setObject:lng forKey:K_latitude];
+    [session setObject:V_SCREEN forKey:K_SCREEN];
+    [session setObject:V_IMEI forKey:K_IMEI];
+    [session setObject:@"" forKey:K_CPU];
+    [session setObject:@"" forKey:K_IP];
+    [session setObject:V_COUNTRY forKey:K_COUNTRY];
+    [session setObject:V_OS_NAME forKey:K_OS_NAME];
+    [session setObject:V_APPKEY forKey:K_APPKEY];
+    [session setObject:V_COL1 forKey:K_COL1];
+    [session setObject:V_COL2 forKey:K_COL2];
+    [session setObject:V_COL3 forKey:K_COL3];
+
+    //在生成json之前，先收集现有的APP运行数据
+//    [IRAPPDataCollect  dataPersistenceTask];
+    
+    NSMutableArray *sessionArray = [NSMutableArray array];
+    
+    NSArray *appPackages = [cdManager getAPPsInfo];
+    for (AppInfo *appInfo in appPackages) {
+        
+        NSMutableArray *page_list = [NSMutableArray array];
+        NSArray *appRunTimeInfos = [cdManager getAPPRunTimesInfo:appInfo.packageName];
+        for (AppRunTimeInfo *runtimeinfo in appRunTimeInfos) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setObject:runtimeinfo.end_time forKey:@"end_time"];
+            [dic setObject:runtimeinfo.start_time forKey:@"start_time"];
+            [dic setObject:appInfo.packageName forKey:@"page_name"];
+            [dic setObject:runtimeinfo.duration forKey:@"duration"];
+            [page_list addObject:dic];
+        }
+        
+        NSString *appid = appInfo.packageName;
+        NSString *channel = @"";
+        NSString *app_name =  appInfo.appName == nil?@"":appInfo.appName ;
+        NSString *appver = @"";
+        NSString *run_time =[NSString stringWithFormat:@"%i",[page_list count]];
+        NSString *page_count = [NSString stringWithFormat:@"%i",[page_list count]];
+        NSString *app_proc =   appInfo.processName == nil?@"":appInfo.processName;
+        
+        NSMutableDictionary *temp = [NSMutableDictionary dictionary];
+        [temp setObject:appid forKey:@"appid"];
+        [temp setObject:channel forKey:@"channel"];
+        [temp setObject:app_name forKey:@"app_name"];
+        [temp setObject:appver forKey:@"appver"];
+        [temp setObject:page_count forKey:@"page_count"];
+        [temp setObject:run_time forKey:@"run_time"];
+        [temp setObject:app_proc forKey:@"app_proc"];
+        [temp setObject:page_list forKey:@"page_list"];
+        
+        [sessionArray addObject:temp];
+    }
+    
+    /*
+    //提取线程记录文件( 已废弃 )
+    NSMutableArray *sessionArray = [NSMutableArray array];
+    NSString  *appNameInfoLogFilePath = [IRFileTool getFullPath:APPNAMEINFO_LOG_NAME];
+    NSDictionary *appNameInfoDic = [NSDictionary dictionaryWithContentsOfFile:appNameInfoLogFilePath];
+    
+    NSString *appRunRecordLogFilePath = [IRFileTool getFullPath:APPRECORDINFO_LOG_NAME];
+    NSDictionary *runRecordInfoDic = [NSDictionary dictionaryWithContentsOfFile:appRunRecordLogFilePath];
+    if (runRecordInfoDic != nil) {
+        for (NSString *appPackageName in [runRecordInfoDic allKeys]) {
+            
+            NSArray *page_list = [runRecordInfoDic objectForKey:appPackageName];
+            
+            NSString *appid = appPackageName;
+            NSString *channel = @"";
+            NSString *app_name =  [(NSArray *)[appNameInfoDic objectForKey:appPackageName] objectAtIndex:0] == nil?@"":[(NSArray *)[appNameInfoDic objectForKey:appPackageName] objectAtIndex:0] ;
+            NSString *appver = @"";
+            NSString *run_time =[NSString stringWithFormat:@"%i",[page_list count]];
+            NSString *page_count = [NSString stringWithFormat:@"%i",[page_list count]];
+            NSString *app_proc =   [(NSArray *)[appNameInfoDic objectForKey:appPackageName] objectAtIndex:1] == nil?@"": [(NSArray *)[appNameInfoDic objectForKey:appPackageName] objectAtIndex:1] ;
+            
+            NSMutableDictionary *temp = [NSMutableDictionary dictionary];
+            [temp setObject:appid forKey:@"appid"];
+            [temp setObject:channel forKey:@"channel"];
+            [temp setObject:app_name forKey:@"app_name"];
+            [temp setObject:appver forKey:@"appver"];
+            [temp setObject:page_count forKey:@"page_count"];
+            [temp setObject:run_time forKey:@"run_time"];
+            [temp setObject:app_proc forKey:@"app_proc"];
+            [temp setObject:page_list forKey:@"page_list"];
+            
+            [sessionArray addObject:temp];
+        }
+    }
+     */
+        [session setObject:sessionArray forKey:K_SESSION];
+        NSString *json = [IRAssistant makeJsonString:session];
+        return json;
+}
+
++(NSString *)createLocationJSON
+{    
+    //提取线程记录文件
+//    NSString *locationLogFilePath = [IRFileTool getFullPath:LOG_FILE_LOCATION];
+//    NSArray *array = [NSArray arrayWithContentsOfFile:locationLogFilePath];
+    NSMutableArray *array = [NSMutableArray array];
+    IRCoreDataManager *cdManager = [IRCoreDataManager shareInstance];
+    NSArray *locationinfos =  [cdManager getAllLocationInfo];
+    for (LocationInfo *info in locationinfos) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:info.addr forKey:@"addr"];
+        [dic setObject:info.city forKey:@"city"];
+        [dic setObject:info.district  forKey:@"district"];
+        [dic setObject:info.province forKey:@"province"];
+        [dic setObject:info.standardtime forKey:@"standardtime"];
+        [dic setObject:V_COUNTRY  forKey:K_COUNTRY];
+        [dic setObject:V_TS forKey:K_TS];
+        [dic setObject:V_UID forKey:K_UID];
+        [dic setObject:info.jingdu forKey:@"radius"];
+        [dic setObject:info.weidu forKey:@"lng"];
+        [array addObject:dic];
+    }
+    
+    if (array != nil) {
+        NSDictionary *dic = [NSDictionary dictionaryWithObject:array forKey:K_LOCATION];
+        NSString *json = [IRAssistant makeJsonString:dic];
+        return json;
+    }
+    
+    return nil;
+}
+
++(NSString *)createNetFlowRateJSON
+{
+    //提取流量记录文件
+//    NSString *netflowRateLogFilePath = [IRFileTool getFullPath:LOG_FILE_FLOWRATE];
+//    NSArray *array = [NSArray arrayWithContentsOfFile:netflowRateLogFilePath];
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    IRCoreDataManager *cdManager = [IRCoreDataManager shareInstance];
+    NSArray *netflowinfos = [cdManager getAllNetFlowInfo];
+    for (DeviceFlowRateInfo *info in netflowinfos) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:info.carrier forKey:@"carrier"];
+        [dic setObject:info.netType forKey:@"net_type"];
+        [dic setObject:info.recFlow forKey:@"rec_flow"];
+        [dic setObject:info.sendFlow forKey:@"send_flow"];
+        [dic setObject:info.ssid forKey:@"ssid"];
+        [dic setObject:info.ts forKey:@"ts"];
+        [array addObject:dic];
+    }
+
+    if (array != nil) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObject:array forKey:K_DEVICE_FLOW];
+        [dic setObject:V_UID forKey:K_UID];
+        [dic setObject:array forKey:K_DEVICE_FLOW];
+        NSString *json = [IRAssistant makeJsonString:dic];
+        return json;
+    }
+    return nil;
+}
+
+
+
+@end

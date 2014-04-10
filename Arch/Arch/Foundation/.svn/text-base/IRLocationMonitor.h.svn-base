@@ -1,0 +1,30 @@
+//
+//  IRLocationMonitor.h
+//  iRDataCollectorForEnterprise
+//
+//  Created by LiuNian on 13-11-11.
+//  Copyright (c) 2013年 LiuNian. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+
+
+@interface IRLocationMonitor : NSObject<CLLocationManagerDelegate>
+{
+    CLLocationManager *  locationManager;
+    CLLocationCoordinate2D   curLocation;
+    BOOL hasLocated;
+}
+
+@property(nonatomic,strong) NSTimer *timerforLocation ;
+@property (nonatomic,strong) NSMutableArray *locationInfoArray;
+@property (nonatomic,strong) NSString *logFilePath;
+
+
+-(void)startMonitor;
+
+-(void)stopMonitor;
+
+@end

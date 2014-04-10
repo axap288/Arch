@@ -1,0 +1,46 @@
+//
+//  IRDataCollect.h
+//  iResearcher
+//
+//  Created by liu nian on 13-6-25.
+//  Copyright (c) 2013年 Liunian. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+#define APPBOX_LOG_NAME @"appbox.log"
+#define APPNAMEINFO_LOG_NAME @"appNamesInfo.log"
+#define APPRECORDINFO_LOG_NAME @"appRecordInfo.log"
+
+@interface IRAPPDataCollect : NSObject
+
+
+
+//收集APP到集合中
+
+//+(void)collectAPPPackageInBox:(NSString *)packageName;
+
+//+(void)collectAPPPackageInBox:(NSString *)packageName  withAppName:(NSString *)appName withProcessName:(NSString *)processName;
+
+//记录应用得运行时间
+//+(void)recordAppRunTime:(NSString *)packageName;
+
+//+(NSArray *)getAppBox;
+
+//+(void)printAppBox;
+
+//+(NSDictionary *)getAppRecordInfo;
+
+//+(NSDictionary *)getAPPNames;
+
+//启动监控定时器
++(void)runTimer;
+//启动数据持久的定时器
+//+(void)startDataPersistenceTimer;
+//关闭数据持久的定时器
+//+(void)stopDataPersistenceTimer;
+//监控数据持久化操作
+//+(void)dataPersistenceTask;
+
+
+@end

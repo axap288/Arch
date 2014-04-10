@@ -1,0 +1,32 @@
+//
+//  IRConfigManager.h
+//  iRDataCollectorForEnterprise
+//
+//  Created by LiuNian on 13-12-3.
+//  Copyright (c) 2013年 LiuNian. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+typedef enum {
+    ApplicationSwitch  = 0,             /// app监测开关
+	LocationSwitch,               /// 地理位置开关
+	FlowRateSwitch,    /// 流量开关
+    RecordLogSwitch,  //日志记录开关
+    WIFIOnlySendSwitch,//仅用wifi开关
+    TestSwitch//测试开关
+} switchItem;
+
+#define PROPERTY_FILE @"IRProperty"
+
+@interface IRConfigManager : NSObject
+
++(void)updateConfigFromServer;
+
+//取值
++(NSString *)getConfigValue:(NSString *)key;
+
+//取开关值
++(BOOL)switchValue:(switchItem)item;
+
+@end

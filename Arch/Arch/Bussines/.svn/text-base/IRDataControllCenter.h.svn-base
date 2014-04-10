@@ -1,0 +1,25 @@
+//
+//  IRDataControllCenter.h
+//  iRDataCollectorForAppStore
+//
+//  Created by LiuNian on 13-9-22.
+//  Copyright (c) 2013年 LN. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface IRDataControllCenter : NSObject
+{
+    BOOL needSendDataflag; //用来判断是否已经发送到服务器数据的信号
+    BOOL onlyWifiSendEnable;
+}
+
+@property (nonatomic,strong)  NSTimer *timer;
+
+-(void)sendZipFileToServer;
+
+-(void)stopSendZipFileToServer;
+
+
+@end
+

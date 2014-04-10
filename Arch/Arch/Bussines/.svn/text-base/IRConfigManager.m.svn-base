@@ -1,0 +1,100 @@
+//
+//  IRConfigManager.m
+//  iRDataCollectorForEnterprise
+//
+//  Created by LiuNian on 13-12-3.
+//  Copyright (c) 2013年 LiuNian. All rights reserved.
+//
+
+#import "IRConfigManager.h"
+#import  "IRAssistant.h"
+#import  "SBJson.h"
+
+@implementation IRConfigManager
+
++ (void)updateConfigFromServer
+{
+    NSString *url = [IRConfigManager getConfigValue:@"configurl"];
+    NSString *appkey = [IRConfigManager getConfigValue:@"appKey"];
+    NSString *fullUrl = [NSString stringWithFormat:@"%@?appkey=%@&platform=ios",url,appkey];
+    NSString *result =  [IRAssistant serverRequest:fullUrl];
+    if (result) {
+        if (![result isEqualToString:@"error"]) {
+            SBJsonParser * parser = [[SBJsonParser alloc] init];
+            NSError * error = nil;
+            NSMutableDictionary *jsonDic = [parser objectWithString:result error:&error];
+            NSString *appkey = [jsonDic objectForKey:@"appkey"];
+            NSString *configurl = [jsonDic objectForKey:@"configurl"];
+            NSString *sendzipurl = [jsonDic objectForKey:@"trackerdataurl"];
+            NSString *onlywifisend = [jsonDic objectForKey:@"onlywifisend"];
+            NSString *notification = [jsonDic objectForKey:@"notification"];
+            NSString *inputmethod = [jsonDic objectForKey:@"inputmethod"];
+            NSString *flow = [jsonDic objectForKey:@"flow"];
+            NSString *clientinfo = [jsonDic objectForKey:@"clientinfo"];
+            NSString *application = [jsonDic objectForKey:@"application"];
+            
+            NSLog(@"%@",appkey);
+            NSLog(@"%@",configurl);
+            NSLog(@"%@",onlywifisend);
+            NSLog(@"%@",notification);
+            NSLog(@"%@",inputmethod);
+            NSLog(@"%@",flow);
+            NSLog(@"%@",clientinfo);
+            NSLog(@"%@",application);
+        }
+    }
+}
+
+//取值
++(NSString *)getConfigValue:(NSString *)key
+{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:PROPERTY_FILE ofType:@"plist"];
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+    return [dictionary objectForKey:key];
+}
+
+//取开关值
++(BOOL)switchValue:(switchItem)item
+{
+    NSString *key = nil;
+    switch (item) {
+        case ApplicationSwitch:
+        {
+            key = @"application_switch";
+        }
+            break;
+        case LocationSwitch:
+        {
+            key = @"location_switch";
+        }
+            break;
+        case FlowRateSwitch:
+        {
+            key = @"flowRate_switch";
+        }
+            break;
+        case RecordLogSwitch:
+        {
+            key = @"log_swith";
+        }
+            break;
+        case WIFIOnlySendSwitch:
+        {
+            key = @"onlywifisend";
+        }
+            break;
+        case TestSwitch:
+        {
+            key = @"test_swith";
+        }
+        default:
+            break;
+    }
+    if (key) {
+        NSString *value = [self getConfigValue:key];
+        return [value isEqualToString:@"1"];
+    }
+    return NO;
+}
+
+@end

@@ -1,0 +1,348 @@
+//
+//  IRDataControllCenter.m
+//  iRDataCollectorForAppStore
+//
+//  Created by LiuNian on 13-9-22.
+//  Copyright (c) 2013年 LN. All rights reserved.
+//
+
+#import "IRDataControllCenter.h"
+#import "IRJSonContentCreateor.h"
+#import "IRFileTool.h"
+#import "ZipArchive.h"
+#import  "SSZipArchive.h"
+#import "IRSysInfo.h"
+#import "IRAssistant.h"
+#import "IRConstant.h"
+#import "IRAPPDataCollect.h"
+#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
+#import "IRCoreDataManager.h"
+#import "IRConfigManager.h"
+
+
+@interface IRDataControllCenter(private)
+
+//将session jSON写入到文件
+//return: 生成的文件路径（或nil）
+-(NSString *)makeSessionJsonToFile;
+//将location jSON内容写入文件
+-(NSString *)makeLocationJsonToFile;
+//将client JSON 内容写入文件
+-(NSString *)makeClientJsonToFile;
+//打包zip文件
+-(NSString *)zipToFiles;
+//发送到服务器
+-(BOOL)sendZipFileToServer;
+
+@end
+
+@implementation IRDataControllCenter
+
+-(void)sendZipFileToServer
+{
+
+    
+    if (![self.timer isValid]) {
+        needSendDataflag = YES;
+        NSString *intervalValue = [IRAssistant getPropertyWithKey:P_SendFileInterval];
+//        float interval = [intervalValue floatValue] * 3600;
+        float interval =  [intervalValue floatValue] * 3600;
+        DDLogInfo(@"[数据处理]:启动后台定时数据发送，检测频率: %@ 小时/次",intervalValue);
+        
+//        double delayInSeconds = 600; //避免程序启动后立即发送，延时十分钟发送。
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            self.timer =  [NSTimer scheduledTimerWithTimeInterval:interval  target:self selector:@selector(mainTask) userInfo:nil repeats:YES];
+            [self.timer fire];
+//        });
+
+    }
+}
+
+-(void)stopSendZipFileToServer
+{
+    DDLogInfo(@"[数据处理]:停止后台数据处理程序.");
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+-(void)mainTask
+{
+    onlyWifiSendEnable =  [IRConfigManager switchValue:WIFIOnlySendSwitch];
+    if (onlyWifiSendEnable) {
+        if ([IRSysInfo dataNetworkTypeFromStatusBar] != NETWORK_TYPE_WIFI ){
+            DDLogInfo(@"[数据处理]:未发送数据!当前设置只允许在wifi下发送");
+            return;
+        }
+    }
+    
+    //判断当前的小时数
+    NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH"];
+    NSString *HourStr =[dateFormatter stringFromDate:[NSDate date]];
+    int hour = [HourStr intValue];
+    
+    
+    int sendDataToServerHour = 0;
+    
+    //测试模式开启的话sendDataToServerHour 直接等于 当前小时
+    if ([IRConfigManager switchValue:TestSwitch]) {
+        DDLogInfo(@"[数据处理]:测试模式开启!立即发送数据");
+        sendDataToServerHour = hour;
+    }else{
+        //读取配置文件中定义的发送时间
+        sendDataToServerHour = [[IRAssistant getPropertyWithKey:P_sendHour] intValue];
+        DDLogInfo(@"[数据处理]:发送到服务器的时间为: %d 点",sendDataToServerHour);
+    }
+    
+    
+    //判断时间允许并且可上传信号为YES,则启动发送
+    if (hour == sendDataToServerHour) {
+        if (needSendDataflag) {
+            NSString *zipFilePath = [self zipToFiles];
+            if (zipFilePath == nil) {
+                return;
+            }
+            
+            NSString *postURLStr = [IRAssistant getPropertyWithKey:P_postUrl];
+            DDLogInfo(@"[数据处理]:发送服务器地址:%@",postURLStr);
+            NSURL *url = [NSURL URLWithString:postURLStr];
+            ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+            [request setRequestMethod:@"POST"];
+            [request addFile:zipFilePath forKey:@"content"];
+            [request setShouldStreamPostDataFromDisk:YES];
+            [request startSynchronous];
+            NSError *error = [request error];
+            if (!error) {
+                NSString *response = [request responseString];
+                NSLog(@"response:%@",response);
+                if (![response isEqualToString:@"error"]) {
+                    //            NSLog(@"INFO: send zip file success!");
+                    DDLogInfo(@"[数据处理]:成功发送zip包文件到服务器!");
+                    //文件发送成功后把
+                    [IRFileTool removeFileWithFilePath:zipFilePath];
+                    //数据发送成功后，发送信号为NO，表示同一时间内不能再继续发送第二次
+                    needSendDataflag = NO;
+                }else{
+                    DDLogInfo(@"[数据处理]:未收到服务器返回的消息");
+                }
+            }else{
+                DDLogInfo(@"[数据处理]:发送失败! - %@",[error localizedDescription]);
+            }
+        }
+    }else{
+        //在其他时刻，是发送数据信号为YES
+        needSendDataflag = YES;
+    }
+}
+
+
+-(NSString *)zipToFiles
+{
+    NSString *sessionJsonFileName =[self makeSessionJsonToFile];
+    NSString *locationJsonFileName = [self makeLocationJsonToFile];
+    NSString *netflowRateFileName = [self makeNetlowRateJsonToFile];
+    
+    NSString *clientSendflag = [[NSUserDefaults standardUserDefaults] objectForKey:@"clientSendflag"];
+    
+    //满足此条件表示没有需要发送LOG的需要
+    if (sessionJsonFileName == nil && locationJsonFileName == nil && clientSendflag != nil) {
+        return nil;
+    }
+    
+    //zip文件名格式：：log_yyyyMMddHHmmss_<uid>
+    
+    NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+    [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+    NSString*strDate =[dateformat stringFromDate:[NSDate date]];
+
+    
+    
+    NSString *dirName =[NSString stringWithFormat:@"log_%@_%@",strDate,[IRSysInfo getUDID]];
+    NSString *zipFileName = [NSString stringWithFormat: @"%@.zip",dirName];
+    NSString *zipPath = [IRFileTool getFullPath:zipFileName];
+
+//    ZipArchive * zipArchive = [[ZipArchive alloc] init];
+//    [zipArchive CreateZipFile2:zipPath];
+    
+    //标记client文件是否已发送
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"clientSendflag"] == nil){
+        NSString *clientJsonFileName = [self makeClientJsonToFile];
+        NSString *clientJsonFilePath = [IRFileTool getFullPath:clientJsonFileName];
+//        [zipArchive addFileToZip:clientJsonFilePath newname:clientJsonFileName];
+        [IRFileTool movieFile:clientJsonFilePath toDir:dirName];
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"clientSendflag"];
+    }
+    
+    
+    if (sessionJsonFileName != nil) {
+        NSString *sessionJsonFilePath = [IRFileTool getFullPath:sessionJsonFileName];
+        [IRFileTool movieFile:sessionJsonFileName toDir:dirName];
+    }
+    if (locationJsonFileName != nil) {
+        NSString *locationJsonFilePath = [IRFileTool getFullPath:locationJsonFileName];
+        [IRFileTool movieFile:locationJsonFileName toDir:dirName];
+    }
+    if (netflowRateFileName != nil) {
+        NSString *netFlowRateJsonFilePath = [IRFileTool getFullPath:netflowRateFileName];
+        [IRFileTool movieFile:netflowRateFileName toDir:dirName];
+    }
+
+//    [zipArchive addFileToZip:[IRFileTool getFullPath:dirName] newname:[IRFileTool getFullPath:dirName] ];
+    
+    BOOL zipSuccess =  [SSZipArchive createZipFileAtPath:zipPath withContentsOfDirectory:[IRFileTool getFullPath:dirName]];
+
+    
+    if(zipSuccess)
+    {
+//        NSLog(@"INFO:Create zip file success.");
+        //删除无用的文件
+        if (sessionJsonFileName != nil) {
+            BOOL success = [IRFileTool removeFile:sessionJsonFileName];
+            //同时删除元数据文件
+            if (success) {
+                //测试模式下不清空元数据
+                if (![IRConfigManager switchValue:TestSwitch]) {
+                    IRCoreDataManager *cdManager = [IRCoreDataManager shareInstance];
+                    [cdManager removeAllAppInfos];
+                    [cdManager removeAllAppRunTimes];
+                }
+            }
+        }
+        
+        if (locationJsonFileName != nil) {
+            BOOL success = [IRFileTool removeFile:locationJsonFileName];
+            //同时删除元数据文件
+            if (success) {
+                //测试模式下不清空元数据
+                if (![IRConfigManager switchValue:TestSwitch]) {
+                    IRCoreDataManager *cdManager = [IRCoreDataManager shareInstance];
+                    [cdManager removeAllLocationInfo];
+                }
+            }
+        }
+        
+        if (netflowRateFileName != nil) {
+            BOOL success = [IRFileTool removeFile:netflowRateFileName];
+            //同时删除元数据文件
+            if (success) {
+                //测试模式下不清空元数据
+                     if (![IRConfigManager switchValue:TestSwitch]) {
+                         IRCoreDataManager *cdManager = [IRCoreDataManager shareInstance];
+                         [cdManager removeAllNetFlowInfo];
+                     }
+            }
+        }
+        //再次将zip包压缩成一个带密码的zip包,密码:ert253g（为保持和android端兼容.......）
+        NSString *secoundzipFileName = [NSString stringWithFormat:@"data_%@.zip",strDate];
+        NSString *secoundzipPath = [IRFileTool getFullPath:secoundzipFileName];
+        
+        ZipArchive * zipArchive2 = [[ZipArchive alloc] init];
+        [zipArchive2 CreateZipFile2:secoundzipPath Password:@"ert253g"];
+        [zipArchive2 addFileToZip:zipPath newname:zipFileName];
+        
+        if ([zipArchive2 CloseZipFile2]) {
+            DDLogInfo(@"[数据处理]:二次创建zip文件成功!");
+//            [IRFileTool removeFileWithFilePath:zipPath];
+            return secoundzipPath;
+        }
+    }
+    
+    return nil;
+}
+
+-(NSString *)makeSessionJsonToFile
+{
+    NSString *jsonStr = [IRJSonContentCreateor createSessionJSON];
+    if (jsonStr != nil) {
+        
+        NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+        [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+        NSString*strDate =[dateformat stringFromDate:[NSDate date]];
+        
+        NSString *fileName = [NSString stringWithFormat:@"session_%@",strDate];
+        NSString *fullPath = [IRFileTool getFullPath:fileName];
+        NSError *error;
+        [jsonStr writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        if (error == nil) {
+            DDLogInfo(@"[数据处理]:生成Session统计的JSON文件成功!文件名:%@",fileName);
+            return fileName;
+        }else{
+            NSLog(@"ERROR:%@",[error localizedDescription]);
+        }
+    }
+    return nil;
+}
+
+-(NSString *)makeLocationJsonToFile
+{
+    NSString *jsonStr = [IRJSonContentCreateor createLocationJSON];
+    if (jsonStr != nil) {
+        
+        NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+        [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+        NSString*strDate =[dateformat stringFromDate:[NSDate date]];
+        
+        NSString *fileName = [NSString stringWithFormat:@"location__%@",strDate];
+        NSString *fullPath = [IRFileTool getFullPath:fileName];
+        NSError *error;
+        [jsonStr writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        if (error == nil) {
+            DDLogInfo(@"[数据处理]:生成位置统计的JSON文件成功!文件名:%@",fileName);
+            return fileName;
+        }else{
+            NSLog(@"ERROR:%@",[error localizedDescription]);
+        }
+    }
+    return nil;
+
+}
+
+-(NSString *)makeClientJsonToFile
+{
+    NSString *jsonStr = [IRJSonContentCreateor createClientJSON];
+    if (jsonStr != nil) {
+        
+        NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+        [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+        NSString*strDate =[dateformat stringFromDate:[NSDate date]];
+        
+        NSString *fileName = [NSString stringWithFormat:@"client_%@",strDate];
+        NSString *fullPath = [IRFileTool getFullPath:fileName];
+        NSError *error;
+        [jsonStr writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        if (error == nil) {
+            DDLogInfo(@"[数据处理]:生成Client的JSON文件成功!文件名:%@",fileName);
+            return fileName;
+        }else{
+            NSLog(@"ERROR:%@",[error localizedDescription]);
+        }
+    }
+    return nil;
+}
+
+-(NSString *)makeNetlowRateJsonToFile
+{
+    NSString *jsonStr = [IRJSonContentCreateor createNetFlowRateJSON];
+    if (jsonStr != nil) {
+        NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+        [dateformat setDateFormat:@"yyyyMMddHHmmss"];
+        NSString*strDate =[dateformat stringFromDate:[NSDate date]];
+        
+        NSString *fileName = [NSString stringWithFormat:@"device_flow_%@",strDate];
+        NSString *fullPath = [IRFileTool getFullPath:fileName];
+        NSError *error;
+        [jsonStr writeToFile:fullPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+        if (error == nil) {
+            DDLogInfo(@"[数据处理]:生成流量统计的的JSON文件成功!文件名:%@",fileName);
+            return fileName;
+        }else{
+            NSLog(@"ERROR:%@",[error localizedDescription]);
+        }
+    }
+    return nil;
+}
+
+
+@end

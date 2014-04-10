@@ -1,0 +1,231 @@
+//
+//  IRLocationMonitor.m
+//  iRDataCollectorForAppStore
+//
+//  Created by LN on 13-9-17.
+//  Copyright (c) 2013年 LN. All rights reserved.
+//
+
+#import "IRBaiduLocationMonitor.h"
+#import "IRFileTool.h"
+#import "IRConstant.h"
+#import "IRAssistant.h"
+
+
+
+
+@implementation IRBaiduLocationMonitor
+
+
+-(id)init{
+    self = [super init];
+    if (self) {
+        
+        // 要使用百度地图，先启动BaiduMapManager
+        _mapManager = [[BMKMapManager alloc]init];
+        
+        // 要使用百度地图，先启动BaiduMapManager
+//        _mapManager = [[BMKMapManager alloc]init];
+        
+        //这里的密钥是通过axap288@gmail.com的百度帐号申请的
+//        BOOL ret = [_mapManager start:@"FA4b922de42b12d3e13e56f2707236c5" generalDelegate:self];
+//        if (!ret) {
+//            NSLog(@"manager start failed!");
+//        }
+//
+//        self.locationInfoArray = [NSMutableArray array];
+        
+//        _mapView = [[BMKMapView alloc] initWithFrame:CGRectZero];
+//        _mapView.delegate = self;
+        
+//        _userLocation = [[BMKUserLocation alloc] init];
+//        _userLocation.delegate = self;
+      
+        
+//        _search = [[BMKSearch alloc] init];
+//        _search.delegate = self;
+        
+
+//        NSLog(@"logFilePath:%@",logFilePath);
+        //此通知是为了能让程序再退出后台前关闭定位而避免crash
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endMonitor) name:NOTIFICATION_OF_CLOSEBAIDULOCATIONSERVICE object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMonitor) name:NOTIFICATION_OF_RESTARTBAIDULOCATIONSERVICE object:nil];
+
+    }
+    
+    return self;
+}
+
+-(void)startMonitor
+{
+//     _mapView.showsUserLocation = YES;
+//    _mapView.delegate = self;
+
+     double delayInSeconds = 10; //避免程序启动后立即发送，延时十秒发送。
+     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+         NSString *value = [IRAssistant getPropertyWithKey:P_LocationServiceinterval];
+         float interval = [value intValue] * 3600.0f;
+//         float interval = 10.0f;
+//         DDLogInfo(@"[位置监测]:启动定位监测监控，定位频率:%@小时/次",value);
+          self.timerforLocation = [NSTimer scheduledTimerWithTimeInterval:interval  target:self   selector:@selector(starLocationTask) userInfo:nil repeats:YES];
+         [self.timerforLocation fire];
+     });    
+}
+
+-(void)stopMonitor
+{
+    [self.timerforLocation invalidate];
+    self.timerforLocation = nil;
+    DDLogInfo(@"[位置监测]:关闭定位监测监控!");
+}
+
+-(void)starLocationTask
+{
+    
+    //这里的密钥是通过axap288@gmail.com的百度帐号申请的
+    BOOL ret = [_mapManager start:@"FA4b922de42b12d3e13e56f2707236c5" generalDelegate:self];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+        DDLogInfo(@"[位置监测]:定位服务打开失败");
+        return;
+    }
+    
+    _userLocation = [[BMKUserLocation alloc] init];
+    _userLocation.delegate = self;
+    
+    _search = [[BMKSearch alloc] init];
+    _search.delegate = self;
+    
+    [_userLocation startUserLocationService];
+    _userLocation.delegate = self;
+    _search.delegate = self;
+    DDLogInfo(@"[位置监测]:定位服务已打开");
+}
+
+-(void)endLocationTask
+{
+    [_userLocation stopUserLocationService];
+    _search.delegate = nil;
+    _userLocation.delegate = nil;
+    _search.delegate = nil;
+    _mapManager = nil;
+    _userLocation = nil;
+    _search = nil;
+    [_mapManager stop];
+//    _mapManager = nil;
+    DDLogInfo(@"[位置监测]:定位服务结束!");
+}
+
+
+/**
+ *用户位置更新后，会调用此函数
+ *@param mapView 地图View
+ *@param userLocation 新的用户位置
+ */
+/*
+- (void)mapView:(BMKMapView *)mapView didUpdateUserLocation:(BMKUserLocation *)userLocation
+{
+    if (userLocation != nil) {
+        if (userLocation.location.coordinate.latitude != latitude_temp || userLocation.location.coordinate.longitude != longitude_temp) {
+            latitude_temp = userLocation.location.coordinate.latitude;
+            longitude_temp = userLocation.location.coordinate.longitude;
+            
+            CLLocationCoordinate2D pt = (CLLocationCoordinate2D){userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude};
+            [_search reverseGeocode:pt];
+        }
+	}
+}
+ */
+
+- (void)viewDidGetLocatingUser:(CLLocationCoordinate2D)userLoc
+{
+    [_search reverseGeocode:userLoc];
+}
+
+- (void)mapViewDidStopLocatingUser:(BMKMapView *)mapView
+{
+    DDLogInfo(@"[位置监测]:定位服务停止!");
+}
+
+- (void)mapView:(BMKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
+{
+    DDLogInfo(@"[位置监测]:定位服务失败! %@",error);
+}
+
+
+
+- (void)onGetAddrResult:(BMKAddrInfo*)result errorCode:(int)error
+{
+    if (error == 0) {
+        BMKGeocoderAddressComponent *component = [result addressComponent];
+        /*
+        NSLog(@"%f",result.geoPt.latitude);
+        NSLog(@"%f",result.geoPt.longitude);
+        NSLog(@"%@",[component city]);
+        NSLog(@"%@",[component district]);
+        NSLog(@"%@",[component province]);
+        NSLog(@"%@",[result strAddr]);
+         */
+        
+        if (![addressTemp isEqualToString:[result strAddr]]) {
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            [dic setObject:[component province] forKey:@"province"];
+            [dic setObject:[component city] forKey:@"city"];
+            [dic setObject:[component district] forKey:@"district"];
+            [dic setObject:[result strAddr] forKey:@"addr"];
+            [dic setObject:V_COUNTRY  forKey:K_COUNTRY];
+            [dic setObject:V_TS forKey:K_TS];
+            [dic setObject:V_UID forKey:K_UID];
+            [dic setObject:[NSNumber numberWithFloat:result.geoPt.latitude] forKey:@"radius"];
+            [dic setObject:[NSNumber numberWithFloat:result.geoPt.longitude] forKey:@"lng"];
+            
+            DDLogInfo(@"[位置监测]:找到位置:%@",[result strAddr]);
+            
+            NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSString*strDate =[dateFormatter stringFromDate:[NSDate date]];
+            [dic setObject:strDate forKey:@"standardtime"];
+            
+            //将获取的结果写入到文件
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSString *documentsDirectory = [paths objectAtIndex:0];
+//            self.logFilePath = [documentsDirectory stringByAppendingPathComponent:LOCATION_LOG_FILE];
+            self.logFilePath = [IRFileTool getFullPath:LOG_FILE_LOCATION];
+            
+            if (![[NSFileManager defaultManager] fileExistsAtPath:self.logFilePath]) {
+                [self.locationInfoArray addObject:dic];
+            }else{
+                self.locationInfoArray = [NSMutableArray arrayWithContentsOfFile:self.logFilePath];
+                [self.locationInfoArray addObject:dic];
+            }
+            DDLogInfo(@"[位置监测]:位置信息写入到记录文件!");
+            [self.locationInfoArray writeToFile:self.logFilePath atomically:NO];
+            addressTemp = [result strAddr];
+            //关闭定位监测
+            [self endLocationTask];
+        }
+    }
+}
+
+-(void)dealloc
+{
+//    [super dealloc];
+    if (_search != nil) {
+//        [_search release];
+        _search = nil;
+    }
+    if (_userLocation != nil) {
+        _userLocation = nil;
+    }
+//    if (_mapView) {
+//        [_mapView release];
+//        _mapView = nil;
+//    }
+    
+//    [[NSNotificationCenter defaultCenter]  remo];
+
+}
+
+
+@end
