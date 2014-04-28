@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 LN. All rights reserved.
 //
 
-#import "IRFileTool.h"
+#import "AHFileTool.h"
 
-@implementation IRFileTool
+@implementation AHFileTool
 
 
 +(void)wirteContent:(NSString *)content toFIle:(NSString *)fileName
@@ -63,7 +63,7 @@
 
 +(BOOL)removeFile:(NSString *)filename
 {
-    NSString *filePath = [IRFileTool getFullPath:filename];
+    NSString *filePath = [AHFileTool getFullPath:filename];
     NSFileManager * fileManager = [NSFileManager defaultManager];
     
     BOOL success = NO;
@@ -109,7 +109,7 @@
         }
      }
     
-    NSString *sourcefilePath = [IRFileTool getFullPath:sourcefileName];
+    NSString *sourcefilePath = [AHFileTool getFullPath:sourcefileName];
     NSString *targetfilePath = [NSString stringWithFormat:@"%@/%@",dirPath,sourcefileName];
     success =  [fileManager moveItemAtPath:sourcefilePath toPath:targetfilePath error:&error];
     if (!success) {

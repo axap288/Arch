@@ -6,13 +6,11 @@
 //  Copyright (c) 2013年 LN. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #define LOG_FILE_LOCATION     @"IRlocation.log"
 #define  LOG_FILE_FLOWRATE  @"iRDeviceflow.log"
 #define  LOG_MYSELF @"LocalLOG"
 
-@interface IRFileTool : NSObject
+@interface AHFileTool : NSObject
 
 +(void)wirteContent:(NSString *)content toFIle:(NSString *)fileName;
 

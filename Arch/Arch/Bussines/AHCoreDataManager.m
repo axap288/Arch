@@ -6,34 +6,34 @@
 //  Copyright (c) 2013年 LiuNian. All rights reserved.
 //
 
-#import "IRCoreDataManager.h"
-#import "IRFileTool.h"
+#import "AHCoreDataManager.h"
+#import "AHFileTool.h"
 #import "AppRunTimeInfo.h"
 #import "AppInfo.h"
 #import "LocationInfo.h"
 #import "DeviceFlowRateInfo.h"
-#import "IRConstant.h"
+#import "AHConstant.h"
 #import <CoreData/CoreData.h>
 
-static IRCoreDataManager *coreDataManager;
+static AHCoreDataManager *coreDataManager;
 
 
-@interface IRCoreDataManager()
+@interface AHCoreDataManager()
 @property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic,strong) NSManagedObjectModel *managedObjectModel;
 - (void) createManagedObjectContext ;
 @end
 
-@implementation IRCoreDataManager
+@implementation AHCoreDataManager
 
 
-+(IRCoreDataManager *)shareInstance
++(AHCoreDataManager *)shareInstance
 {
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        coreDataManager = [[IRCoreDataManager alloc] init];
+        coreDataManager = [[AHCoreDataManager alloc] init];
     });
     return coreDataManager;
 }
@@ -394,7 +394,7 @@ static IRCoreDataManager *coreDataManager;
     //                       [[self applicationDocumentsDirectory]
     //                        stringByAppendingPathComponent: @"Locations.sqlite"]];
     
-    NSURL *storeUrl = [NSURL fileURLWithPath:[IRFileTool getFullPath:@"Model.sqlite"]];
+    NSURL *storeUrl = [NSURL fileURLWithPath:[AHFileTool getFullPath:@"Model.sqlite"]];
 	NSError *error;
     [self createManagedObjectModel];
     self.persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]

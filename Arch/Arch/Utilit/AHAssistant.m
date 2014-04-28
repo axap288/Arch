@@ -6,10 +6,8 @@
 //  Copyright (c) 2013年 LN. All rights reserved.
 //
 
-#import "IRAssistant.h"
+#import "AHAssistant.h"
 #import "MBProgressHUD.h"
-#import "ASIHTTPRequest.h"
-#import "SBJson.h"
 #import <QuartzCore/QuartzCore.h>
 
 static UIViewController *viewcontroller;
@@ -52,23 +50,32 @@ static UIViewController *viewcontroller;
 }
 
 
-
 // 解析JSON
 + (id)getJsonValue:(NSString *)string {
-    SBJsonParser *jsonParser = [SBJsonParser new];
-    id repr = [jsonParser objectWithString:string];
-    if (!repr)
-        NSLog(@"-JSONValue failed. Error trace is: %@",[jsonParser error]);
-    return repr;
-} 
+    //    SBJsonParser *jsonParser = [SBJsonParser new];
+    //    id repr = [jsonParser objectWithString:string];
+    //    if (!repr)
+    //       DDLogInfo(@"-JSONValue failed. Error trace is: %@",[jsonParser error]);
+    //    return repr;
+    NSError *error = nil;
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    if (error != nil) {
+        return nil;
+    }
+    return dic;
+}
 
 // 生成JSON
 + (NSString *)makeJsonString:(id)objects {
-    SBJsonWriter *jsonWriter = [SBJsonWriter new];
-    NSString *json = [jsonWriter stringWithObject:objects];
-    if (!json)
-        NSLog(@"-JSONRepresentation failed. Error trace is: %@", [jsonWriter error]);
-    return json;
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:objects options:NSJSONWritingPrettyPrinted error:&error];
+    if ([jsonData length] > 0 && error == nil){
+        return [[NSString alloc] initWithData:jsonData
+                                     encoding:NSUTF8StringEncoding];;
+    }else{
+        return nil;
+    }
 }
 
 +(NSString *)getPropertyWithKey:(NSString *)key
@@ -84,36 +91,6 @@ static UIViewController *viewcontroller;
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     NSString *ts =[dateFormatter stringFromDate:[NSDate date]];
     return ts;
-}
-
-+(NSString *)serverRequest:(NSString *)url
-{
-    MBProgressHUD *progress ;
-//    [SVProgressHUD show];
-    
-    NSURL *targetUrl = [NSURL URLWithString:url];
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:targetUrl];
-    [request setTimeOutSeconds:30];
-    [request addRequestHeader:@"Content-Type" value:@"application/xml;charset=gb2312;"];
-    [request startSynchronous];
-    NSError *error = [request error];
-    if (!error) {
-//        [progress hide:YES];
-        NSData *data = [request responseData];
-        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-        NSString *str =[[NSString alloc] initWithData:data encoding:enc];
-        // 以下一句很重要，将目标地址的页面编码变成utf-8,否则页面解析不成功
-        //        str =  [str stringByReplacingOccurrencesOfString:@"gb2312" withString:@"utf-8"];
-        return str;
-    }else{
-//        [SVProgressHUD showErrorWithStatus:@"网络请求失败，请稍候再试"];
-//        progress.labelText = @"网络请求失败，请稍候再试";
-//        progress.mode = MBProgressHUDModeCustomView;
-//        [progress hide:YES afterDelay:1.5];
-        NSLog(@"%@",error);
-        //如果因为发生error错误，则返回error，调用者根据error做相应处理
-    }
-    return nil;
 }
 
 //单位转换
@@ -145,6 +122,65 @@ static UIViewController *viewcontroller;
     NSDateComponents *comps = [calendar components: NSEraCalendarUnit |NSYearCalendarUnit | NSMonthCalendarUnit| NSDayCalendarUnit| NSHourCalendarUnit | NSMinuteCalendarUnit fromDate: date];
     [comps setMinute:00];
     return [calendar dateFromComponents:comps];
+}
+
++(BOOL)sendFileToHTTPServer:(NSString *)postURLStr withFilePath:(NSString *)filepath
+{
+    NSString *fileName = [filepath lastPathComponent];//获取文件名
+    NSData *data = [NSData dataWithContentsOfFile:filepath];
+    
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
+    [urlRequest setURL:[NSURL URLWithString:postURLStr]];
+    [urlRequest setHTTPMethod:@"POST"];
+    
+    NSString *myboundary = @"---------------------------14737809831466499882746641449";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",myboundary];
+    [urlRequest addValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    NSMutableData *postData = [NSMutableData data]; //[NSMutableData dataWithCapacity:[data length] + 512];
+    [postData appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    //    [postData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"%@\"\r\n", fileName]dataUsingEncoding:NSUTF8StringEncoding]];
+    [postData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file1\"; filename=\"%@\"\r\n", fileName]dataUsingEncoding:NSUTF8StringEncoding]];
+    [postData appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [postData appendData:[NSData dataWithData:data]];
+    [postData appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", myboundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [urlRequest setHTTPBody:postData];
+    NSError *error;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:nil error:&error];
+    NSString *response = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+    if (!error) {
+        if (![response isEqualToString:@"error"]) {
+            DDLogInfo(@"[数据处理]:成功发送文件到服务器!");
+            return YES;
+        }else{
+            DDLogInfo(@"[数据处理]:服务器返回消息有错误");
+            return NO;
+        }
+    }else{
+        DDLogInfo(@"[数据处理]:发送失败! - error:%@",[error localizedDescription]);
+        return NO;
+    }
+}
+
++(NSString *)serverRequest:(NSString *)url
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod: @"GET"];
+    
+    NSError *requestError;
+    NSURLResponse *urlResponse = nil;
+    NSData *response1 = [NSURLConnection sendSynchronousRequest:request returningResponse:&urlResponse error:&requestError];
+    if (!requestError) {
+        NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSString *str =[[NSString alloc] initWithData:response1 encoding:enc];
+        return str;
+    }else{
+        DDLogInfo(@"%@",requestError);
+    }
+    return nil;
 }
 
 @end

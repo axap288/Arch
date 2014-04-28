@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IRSysInfo.h"
+#import "AHSysInfo.h"
 
-@interface IRNetWorkflowRateStatistics : NSObject
+@interface AHNetWorkflowRateStatistics : NSObject
 {
     int wifiSent;
     int wifiReceived;

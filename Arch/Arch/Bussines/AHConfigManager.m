@@ -6,20 +6,20 @@
 //  Copyright (c) 2013年 LiuNian. All rights reserved.
 //
 
-#import "IRConfigManager.h"
-#import  "IRAssistant.h"
+#import "AHConfigManager.h"
+#import  "AHAssistant.h"
 //#import  "SBJson.h"
-#import "IRConstant.h"
+#import "AHConstant.h"
 
 
 
 
-@implementation IRConfigManager
+@implementation AHConfigManager
 
 + (void)updateConfigFromServer
 {
-    NSString *url = [IRConfigManager getConfigValue:@"configurl"];
-    NSString *appkey = [IRConfigManager getConfigValue:@"appKey"];
+    NSString *url = [AHConfigManager getConfigValue:@"configurl"];
+    NSString *appkey = [AHConfigManager getConfigValue:@"appKey"];
     NSString *fullUrl = [NSString stringWithFormat:@"%@?appkey=%@",url,appkey];
     NSString *result =  [IRAssistant serverRequest:fullUrl];
     NSMutableArray *notificationNames = [NSMutableArray array];
@@ -46,7 +46,7 @@
             
 //            NSString *plistPath = [[NSBundle mainBundle] pathForResource:PROPERTY_FILE ofType:@"plist"];
 //            NSDictionary *temp = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-            NSString *plistPath = [IRFileTool getFullPath:PROPERTY_FILE];
+            NSString *plistPath = [AHFileTool getFullPath:PROPERTY_FILE];
             NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
             
             if (sendinterval != nil &&  ![[dictionary objectForKey:@"SendFile_Interval_Time"] isEqualToString:sendinterval] ) {
@@ -145,7 +145,7 @@
 +(NSString *)getConfigValue:(NSString *)key
 {
 //    NSString *plistPath = [[NSBundle mainBundle] pathForResource:PROPERTY_FILE ofType:@"plist"];
-    NSString *plistPath = [IRFileTool getFullPath:PROPERTY_FILE];
+    NSString *plistPath = [AHFileTool getFullPath:PROPERTY_FILE];
     NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     return [dictionary objectForKey:key];
 }
@@ -158,7 +158,7 @@
         return;
     }
     
-    NSString *plistPath = [IRFileTool getFullPath:PROPERTY_FILE];
+    NSString *plistPath = [AHFileTool getFullPath:PROPERTY_FILE];
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     [dictionary setValue:value forKey:key];
     [dictionary writeToFile:plistPath atomically:NO];

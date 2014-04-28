@@ -6,8 +6,6 @@
 //  Copyright (c) 2013年 LN. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #define PROPERTY_FILE @"IRProperty"
 
 
@@ -15,9 +13,6 @@
 
 //指示器
 + (void)showProgressHUDMessage:(NSString *)message toVIew:(UIView *)view;
-
-//网络请求
-+(NSString *)serverRequest:(NSString *)url;
 
 + (id)getJsonValue:(NSString *)string ;
 
@@ -34,5 +29,10 @@
 + (NSDate *)getNextIntegralHourDate;
 
 +(NSString *)getDateFormateYYMMDD;
+
+//网络请求
++(NSString *)serverRequest:(NSString *)url;
+//发送文件到服务器
++(BOOL)sendFileToHTTPServer:(NSString *)postURLStr withFilePath:(NSString *)filepath;
 
 @end

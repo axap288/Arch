@@ -6,8 +6,6 @@
 //  Copyright (c) 2013年 LiuNian. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 #define NOTIFICATION_NAME_changeSendFileIntervalTime @"changeSendFileIntervalTimeNotification" //更改发送间隔时间通知
 #define NOTIFICATION_NAME_changeAppKey @"changeAppKeyNotification"  //更改APPKEY通知
 #define NOTIFICATION_NAME_changeconfigurl @"changeConfigurlNotification"    //更改配置文件ＵＲＬ通知
@@ -29,7 +27,7 @@ typedef enum {
 
 
 
-@interface IRConfigManager : NSObject
+@interface AHConfigManager : NSObject
 
 +(void)updateConfigFromServer;
 

@@ -5,40 +5,40 @@
 //  Created by LN on 13-9-17.
 //  Copyright (c) 2013年 LN. All rights reserved.
 //
-#import "IRsysMonitor.h"
-#import "IRSysInfo.h"
-#import "IRFileTool.h"
-#import "IRAssistant.h"
-#import "IRConfigManager.h"
+#import "AHsysMonitor.h"
+#import "AHSysInfo.h"
+#import "AHFileTool.h"
+#import "AHAssistant.h"
+#import "AHConfigManager.h"
 
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 
 //========JSON中用到的KEY和VALUE===========
-#define V_UID               [IRSysInfo getUDID]
+#define V_UID               [AHSysInfo getUDID]
 #define V_SCREEN       [NSString stringWithFormat:@"%.f*%.f",[[UIScreen mainScreen]bounds].size.width,[[UIScreen mainScreen]bounds].size.height]
-#define V_TS                    [IRSysInfo getUnixTimeStamp:[NSDate date]]
+#define V_TS                    [AHSysInfo getUnixTimeStamp:[NSDate date]]
 #define V_APPID             [[NSBundle mainBundle] bundleIdentifier]
-#define V_MAC_HASH [IRSysInfo getMacWithMD5]
+#define V_MAC_HASH [AHSysInfo getMacWithMD5]
 #define V_DEVICE_MODEL [[UIDevice currentDevice] model]
-#define V_DEVICE_NAME   [IRSysInfo getDeviceName]
+#define V_DEVICE_NAME   [AHSysInfo getDeviceName]
 #define V_CPU @""
 #define V_IMEI  @""
 #define V_SDK_VER @""
 #define V_NETWORK @""
-#define V_COUNTRY [IRSysInfo getCountryCode]
-#define V_OS_VER [IRSysInfo getSystemVersion]
-#define V_ISCRACK [IRSysInfo isJailbroken]?@"YES":@"NO"
+#define V_COUNTRY [AHSysInfo getCountryCode]
+#define V_OS_VER [AHSysInfo getSystemVersion]
+#define V_ISCRACK [AHSysInfo isJailbroken]?@"YES":@"NO"
 #define V_DD [IRAssistant getDateFormateYYMMDD]
 #define V_TIMEZONE [[NSString alloc] initWithFormat:@"%d",[[NSTimeZone localTimeZone] secondsFromGMT]]
 #define V_OS_NAME @"ios"
-#define V_CARRIER [IRSysInfo getCarrierName]
+#define V_CARRIER [AHSysInfo getCarrierName]
 #define V_PHONENUM @""
 #define V_CHANNEL @""
 #define V_APPKEY [IRConfigManager getConfigValue:@"appKey"]
-#define V_COL1 [IRSysInfo getCFUUID]
-#define V_COL2 [IRSysInfo getUUID]
-#define V_COL3 [IRSysInfo getIDFA]
+#define V_COL1 [AHSysInfo getCFUUID]
+#define V_COL2 [AHSysInfo getUUID]
+#define V_COL3 [AHSysInfo getIDFA]
 
 
 #define K_UID @"uid"

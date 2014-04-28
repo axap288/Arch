@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IRCoreDataManager : NSObject
+@interface AHCoreDataManager : NSObject
 
-+(IRCoreDataManager *)shareInstance;
++(AHCoreDataManager *)shareInstance;
 
 //获取已保存的APP信息
 -(NSArray *)getAPPsInfo;

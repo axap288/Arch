@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IRsysMonitor : NSObject 
+@interface AHsysMonitor : NSObject
 
-+(NSString *)getActiveAppsBySpringBoard;
++(NSDictionary*)getActiveAppsBySpringBoard;
 
-+(NSString *)getProcessNameByIdentifier:(NSString *)identifier;
+//+(NSString *)getActiveAppsBySpringBoard;
 
-+(NSString *)getAppNameByIdentifier:(NSString *)identifier;
+//+(NSString *)getProcessNameByIdentifier:(NSString *)identifier;
+
+//+(NSString *)getAppNameByIdentifier:(NSString *)identifier;
 
 
 @end

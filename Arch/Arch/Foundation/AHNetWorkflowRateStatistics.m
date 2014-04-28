@@ -6,13 +6,13 @@
 //  Copyright (c) 2013年 LN. All rights reserved.
 //
 
-#import "IRNetWorkflowRateStatistics.h"
-#import "IRConstant.h"
-#import "IRAssistant.h"
-#import "IRCoreDataManager.h"
-#import  "IRConfigManager.h"
+#import "AHNetWorkflowRateStatistics.h"
+#import "AHConstant.h"
+#import "AHAssistant.h"
+#import "AHCoreDataManager.h"
+#import  "AHConfigManager.h"
 
-@implementation IRNetWorkflowRateStatistics
+@implementation AHNetWorkflowRateStatistics
 
 
 -(id)init
@@ -37,7 +37,7 @@
     DDLogInfo(@"[流量监测]: 下次扫描时间时间:%@",nextHour);
     double delayInSeconds = interval;
     //是否开启测试模式
-    if ([IRConfigManager switchValue:TestSwitch]) {
+    if ([AHConfigManager switchValue:TestSwitch]) {
         delayInSeconds = 20;//20秒
     }
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -48,7 +48,7 @@
 
 -(void)startTimerForStatistics
 {
-    BOOL runEnable =  [IRConfigManager switchValue:FlowRateSwitch];
+    BOOL runEnable =  [AHConfigManager switchValue:FlowRateSwitch];
     if (!runEnable) {
         DDLogInfo(@"[流量监测]:已被禁止运行!");
         return;
@@ -58,7 +58,7 @@
     int leeway = 0;
     
     //开启测试模式
-    if ([IRConfigManager switchValue:TestSwitch]) {
+    if ([AHConfigManager switchValue:TestSwitch]) {
         interval = 60;
     }
     
@@ -112,7 +112,7 @@
             [wifiFlowRatedic setObject:hourStr forKey:@"hour"];
             [wwanFlowRatedic setObject:ts forKey:K_TS];
             
-            IRCoreDataManager *cdmanager = [IRCoreDataManager shareInstance];
+            AHCoreDataManager *cdmanager = [AHCoreDataManager shareInstance];
             [cdmanager saveNetFlowInfo:wifiFlowRatedic];
             [cdmanager saveNetFlowInfo:wwanFlowRatedic];
             
@@ -143,21 +143,21 @@
 
 -(int)getWifiSendTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wifiSendValue = [(NSNumber*) [array objectAtIndex:0 ] intValue];
     return  wifiSendValue;
 }
 
 -(int)getWifiReviceTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wifireceivedValue = [(NSNumber*) [array objectAtIndex:1 ] intValue];
     return  wifireceivedValue;
 }
 
 -(int)getMobileSendTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wwanSendValue = [(NSNumber*) [array objectAtIndex:2 ] intValue];
     return  wwanSendValue;
     
@@ -165,7 +165,7 @@
 
 -(int)getMobileReviceTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wwanReceivedValue = [(NSNumber*) [array objectAtIndex:3 ] intValue];
     return  wwanReceivedValue;
 }

@@ -6,7 +6,6 @@
 //  Copyright (c) 2013年 LN. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 
@@ -29,7 +28,7 @@ typedef enum {
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 
-@interface IRSysInfo : NSObject
+@interface AHSysInfo : NSObject
 
 +(BOOL)isJailbroken; //YES:Jailbroken
 //UDID

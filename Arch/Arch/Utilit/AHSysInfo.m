@@ -8,14 +8,12 @@
 
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
-#import "IRSysInfo.h"
+#import "AHSysInfo.h"
 #import "OpenUDID.h"
-#import "IOPowerSources.h"
-#import "IOPSKeys.h"
 #import <AdSupport/ASIdentifierManager.h>
 
 
-@implementation IRSysInfo
+@implementation AHSysInfo
 
 +(NSString *)getUDID
 {
@@ -52,21 +50,21 @@
 
 +(NSString *)getWifiSendTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wifiSendValue = [(NSNumber*) [array objectAtIndex:0 ] intValue];
     return  [NSString stringWithFormat:@"%i",wifiSendValue];
 }
 
 +(NSString *)getWifiReviceTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wifireceivedValue = [(NSNumber*) [array objectAtIndex:1 ] intValue];
     return  [NSString stringWithFormat:@"%i",wifireceivedValue];
 }
 
 +(NSString *)getMobileSendTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wwanSendValue = [(NSNumber*) [array objectAtIndex:2 ] intValue];
     return  [NSString stringWithFormat:@"%i",wwanSendValue];
  
@@ -74,7 +72,7 @@
 
 +(NSString *)getMobileReviceTraffic
 {
-    NSArray *array = [IRSysInfo getDataCounters];
+    NSArray *array = [AHSysInfo getDataCounters];
     int wwanReceivedValue = [(NSNumber*) [array objectAtIndex:3 ] intValue];
     return  [NSString stringWithFormat:@"%i",wwanReceivedValue];
  
@@ -82,7 +80,7 @@
 
 +(NSString *)getMacWithMD5
 {
-    NSString *macAddr = [IRSysInfo getMacAddress:FALSE];
+    NSString *macAddr = [AHSysInfo getMacAddress:FALSE];
     const char *original_str = [macAddr UTF8String];
     unsigned char result[CC_MD5_DIGEST_LENGTH];
     CC_MD5(original_str, strlen(original_str), result);
