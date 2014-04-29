@@ -10,4 +10,28 @@
 
 @implementation AHDataController
 
++(AHDataController *)shareInstance
+{
+    static AHDataController *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[AHDataController alloc] init];
+    });
+    return instance;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
+-(void)dataStore:(NSDictionary *)data
+{
+    
+}
+
 @end

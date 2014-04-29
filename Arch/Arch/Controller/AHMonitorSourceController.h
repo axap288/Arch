@@ -27,9 +27,29 @@
  *  @return dic形式
  */
 -(NSDictionary *)startMonitorSourceAndGetResult;
+/**
+ *  获取监测源ID
+ *
+ *  @return id
+ */
+-(NSString *)getMonitorSourceId;
 
 @end
 
 @interface AHMonitorSourceController : NSObject
+
+@property (nonatomic,strong) NSMutableArray *monitorSource;//监测源集合
+
++(AHMonitorSourceController *)shareInstance;
+
+-(void)runMonitors;
+
+-(void)stopMonitors;
+
+-(void)runMonitorWithtMonitorSourceId:(NSString *)monitorSourceId;
+
+-(void)stopMonitorWithMonitorSourceId:(NSString *)monitorSourceId;
+
+
 
 @end
