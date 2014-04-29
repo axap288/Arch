@@ -10,18 +10,14 @@
 #import "AppRunTimeInfo.h"
 
 
-
 @implementation AppInfo
 
-@dynamic appName;
-@dynamic packageName;
-@dynamic processName;
-@dynamic runTimes;
+//@dynamic appName;
+//@dynamic packageName;
+//@dynamic processName;
+//@dynamic runTimes;
 
-@end
-
-@implementation AppInfo(CoreDataGeneratedAccessors)
-
+/*
 - (void)insertObject:(AppRunTimeInfo *)value inRunTimesAtIndex:(NSUInteger)idx
 {
     NSArray *array =  [self.runTimes array];
@@ -41,6 +37,6 @@
     [temp replaceObjectAtIndex:idx withObject:value];
     self.runTimes = [NSOrderedSet orderedSetWithArray:temp];
 }
-
+*/
 
 @end

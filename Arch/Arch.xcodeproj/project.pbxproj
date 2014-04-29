@@ -12,7 +12,6 @@
 		1F11ECCB18F63C590044C79B /* Arch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ECCA18F63C590044C79B /* Arch.m */; };
 		1F11ECEE18F63CE60044C79B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC318F63C590044C79B /* Foundation.framework */; };
 		1F11ECF018F63CE60044C79B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECEF18F63CE60044C79B /* CoreGraphics.framework */; };
-		1F11ECF118F63CE60044C79B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECD418F63C590044C79B /* UIKit.framework */; };
 		1F11ECF718F63CE60044C79B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F11ECF518F63CE60044C79B /* InfoPlist.strings */; };
 		1F11ECF918F63CE60044C79B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ECF818F63CE60044C79B /* main.m */; };
 		1F11ECFD18F63CE60044C79B /* AHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ECFC18F63CE60044C79B /* AHAppDelegate.m */; };
@@ -32,15 +31,21 @@
 		1F11ED8318F647D10044C79B /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED7B18F647D10044C79B /* DDFileLogger.m */; };
 		1F11ED8418F647D10044C79B /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED7D18F647D10044C79B /* DDLog.m */; };
 		1F11ED8518F647D10044C79B /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED7F18F647D10044C79B /* DDTTYLogger.m */; };
-		1F11ED8818F648310044C79B /* AHCoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED8618F648310044C79B /* AHCoreDataManager.m */; };
 		1F11ED9318F649940044C79B /* AppInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED8A18F649940044C79B /* AppInfo.m */; };
 		1F11ED9418F649940044C79B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED8B18F649940044C79B /* Model.xcdatamodeld */; };
 		1F11ED9518F649940044C79B /* DeviceFlowRateInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED8E18F649940044C79B /* DeviceFlowRateInfo.m */; };
 		1F11ED9618F649940044C79B /* AppRunTimeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED9018F649940044C79B /* AppRunTimeInfo.m */; };
 		1F11ED9718F649940044C79B /* LocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED9218F649940044C79B /* LocationInfo.m */; };
-		1F12BBE0190F0F9A0073C2C1 /* AHMonitorSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F12BBDF190F0F9A0073C2C1 /* AHMonitorSourceController.m */; };
-		1F12BBE3190F0FE90073C2C1 /* AHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F12BBE2190F0FE90073C2C1 /* AHDataController.m */; };
-		1F12BBE6190F105B0073C2C1 /* AHTransmitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F12BBE5190F105B0073C2C1 /* AHTransmitController.m */; };
+		1FF4A292190F44A20083E37B /* AHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28D190F44A20083E37B /* AHDataController.m */; };
+		1FF4A293190F44A20083E37B /* AHMonitorSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28F190F44A20083E37B /* AHMonitorSourceController.m */; };
+		1FF4A294190F44A20083E37B /* AHTransmitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A291190F44A20083E37B /* AHTransmitController.m */; };
+		1FF4A298190F45DE0083E37B /* AHAppRunMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A297190F45DE0083E37B /* AHAppRunMonitorSource.m */; };
+		1FF4A29B190F45FD0083E37B /* AHNetWorkflowMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A29A190F45FD0083E37B /* AHNetWorkflowMonitorSource.m */; };
+		1FF4A29C190F4F700083E37B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ED5D18F641E70044C79B /* UIKit.framework */; };
+		1FF4A29D190F4F730083E37B /* libArch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC018F63C590044C79B /* libArch.a */; };
+		1FF4A2A1190F7D240083E37B /* AHMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A2A0190F7D240083E37B /* AHMainViewController.m */; };
+		1FF4A2A3190F813C0083E37B /* AHMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF4A2A2190F813C0083E37B /* AHMainView.xib */; };
+		1FF4A2A8190FB3C40083E37B /* AHAppRunParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A2A7190FB3C40083E37B /* AHAppRunParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -103,8 +108,6 @@
 		1F11ED7D18F647D10044C79B /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
 		1F11ED7E18F647D10044C79B /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
 		1F11ED7F18F647D10044C79B /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		1F11ED8618F648310044C79B /* AHCoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHCoreDataManager.m; sourceTree = "<group>"; };
-		1F11ED8718F648310044C79B /* AHCoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHCoreDataManager.h; sourceTree = "<group>"; };
 		1F11ED8918F649940044C79B /* AppInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppInfo.h; sourceTree = "<group>"; };
 		1F11ED8A18F649940044C79B /* AppInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppInfo.m; sourceTree = "<group>"; };
 		1F11ED8C18F649940044C79B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -114,12 +117,22 @@
 		1F11ED9018F649940044C79B /* AppRunTimeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppRunTimeInfo.m; sourceTree = "<group>"; };
 		1F11ED9118F649940044C79B /* LocationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfo.h; sourceTree = "<group>"; };
 		1F11ED9218F649940044C79B /* LocationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationInfo.m; sourceTree = "<group>"; };
-		1F12BBDE190F0F9A0073C2C1 /* AHMonitorSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHMonitorSourceController.h; sourceTree = "<group>"; };
-		1F12BBDF190F0F9A0073C2C1 /* AHMonitorSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHMonitorSourceController.m; sourceTree = "<group>"; };
-		1F12BBE1190F0FE90073C2C1 /* AHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHDataController.h; sourceTree = "<group>"; };
-		1F12BBE2190F0FE90073C2C1 /* AHDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHDataController.m; sourceTree = "<group>"; };
-		1F12BBE4190F105B0073C2C1 /* AHTransmitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHTransmitController.h; sourceTree = "<group>"; };
-		1F12BBE5190F105B0073C2C1 /* AHTransmitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHTransmitController.m; sourceTree = "<group>"; };
+		1FF4A28C190F44A20083E37B /* AHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHDataController.h; sourceTree = "<group>"; };
+		1FF4A28D190F44A20083E37B /* AHDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHDataController.m; sourceTree = "<group>"; };
+		1FF4A28E190F44A20083E37B /* AHMonitorSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHMonitorSourceController.h; sourceTree = "<group>"; };
+		1FF4A28F190F44A20083E37B /* AHMonitorSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHMonitorSourceController.m; sourceTree = "<group>"; };
+		1FF4A290190F44A20083E37B /* AHTransmitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHTransmitController.h; sourceTree = "<group>"; };
+		1FF4A291190F44A20083E37B /* AHTransmitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHTransmitController.m; sourceTree = "<group>"; };
+		1FF4A296190F45DE0083E37B /* AHAppRunMonitorSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHAppRunMonitorSource.h; sourceTree = "<group>"; };
+		1FF4A297190F45DE0083E37B /* AHAppRunMonitorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHAppRunMonitorSource.m; sourceTree = "<group>"; };
+		1FF4A299190F45FD0083E37B /* AHNetWorkflowMonitorSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHNetWorkflowMonitorSource.h; sourceTree = "<group>"; };
+		1FF4A29A190F45FD0083E37B /* AHNetWorkflowMonitorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHNetWorkflowMonitorSource.m; sourceTree = "<group>"; };
+		1FF4A29E190F506E0083E37B /* Arch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arch.h; sourceTree = "<group>"; };
+		1FF4A29F190F7D240083E37B /* AHMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHMainViewController.h; sourceTree = "<group>"; };
+		1FF4A2A0190F7D240083E37B /* AHMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHMainViewController.m; sourceTree = "<group>"; };
+		1FF4A2A2190F813C0083E37B /* AHMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AHMainView.xib; sourceTree = "<group>"; };
+		1FF4A2A6190FB3C40083E37B /* AHAppRunParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHAppRunParser.h; sourceTree = "<group>"; };
+		1FF4A2A7190FB3C40083E37B /* AHAppRunParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHAppRunParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,8 +149,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF4A29C190F4F700083E37B /* UIKit.framework in Frameworks */,
+				1FF4A29D190F4F730083E37B /* libArch.a in Frameworks */,
 				1F11ECF018F63CE60044C79B /* CoreGraphics.framework in Frameworks */,
-				1F11ECF118F63CE60044C79B /* UIKit.framework in Frameworks */,
 				1F11ECEE18F63CE60044C79B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,7 +193,6 @@
 		1F11ECC518F63C590044C79B /* Arch */ = {
 			isa = PBXGroup;
 			children = (
-				1F12BBDD190F0F200073C2C1 /* Controller */,
 				1F11ED1818F63F8B0044C79B /* 3Part */,
 				1F11ED1918F63F8B0044C79B /* Bussines */,
 				1F11ED2218F63F8B0044C79B /* Utilit */,
@@ -203,10 +216,14 @@
 		1F11ECF218F63CE60044C79B /* ArchDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1FF4A29E190F506E0083E37B /* Arch.h */,
 				1F11ECFB18F63CE60044C79B /* AHAppDelegate.h */,
 				1F11ECFC18F63CE60044C79B /* AHAppDelegate.m */,
 				1F11ECFE18F63CE60044C79B /* Images.xcassets */,
 				1F11ECF318F63CE60044C79B /* Supporting Files */,
+				1FF4A29F190F7D240083E37B /* AHMainViewController.h */,
+				1FF4A2A0190F7D240083E37B /* AHMainViewController.m */,
+				1FF4A2A2190F813C0083E37B /* AHMainView.xib */,
 			);
 			path = ArchDemo;
 			sourceTree = "<group>";
@@ -235,8 +252,9 @@
 		1F11ED1918F63F8B0044C79B /* Bussines */ = {
 			isa = PBXGroup;
 			children = (
-				1F11ED8618F648310044C79B /* AHCoreDataManager.m */,
-				1F11ED8718F648310044C79B /* AHCoreDataManager.h */,
+				1FF4A2A5190FB1160083E37B /* DataParsers */,
+				1FF4A295190F44DC0083E37B /* MonitorSource */,
+				1FF4A28B190F44A20083E37B /* Controller */,
 				1F11ED7018F6471B0044C79B /* AHConfigManager.m */,
 				1F11ED7118F6471B0044C79B /* AHConfigManager.h */,
 			);
@@ -321,17 +339,37 @@
 			path = Lumberjack;
 			sourceTree = "<group>";
 		};
-		1F12BBDD190F0F200073C2C1 /* Controller */ = {
+		1FF4A28B190F44A20083E37B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1F12BBDE190F0F9A0073C2C1 /* AHMonitorSourceController.h */,
-				1F12BBDF190F0F9A0073C2C1 /* AHMonitorSourceController.m */,
-				1F12BBE1190F0FE90073C2C1 /* AHDataController.h */,
-				1F12BBE2190F0FE90073C2C1 /* AHDataController.m */,
-				1F12BBE4190F105B0073C2C1 /* AHTransmitController.h */,
-				1F12BBE5190F105B0073C2C1 /* AHTransmitController.m */,
+				1FF4A28C190F44A20083E37B /* AHDataController.h */,
+				1FF4A28D190F44A20083E37B /* AHDataController.m */,
+				1FF4A28E190F44A20083E37B /* AHMonitorSourceController.h */,
+				1FF4A28F190F44A20083E37B /* AHMonitorSourceController.m */,
+				1FF4A290190F44A20083E37B /* AHTransmitController.h */,
+				1FF4A291190F44A20083E37B /* AHTransmitController.m */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		1FF4A295190F44DC0083E37B /* MonitorSource */ = {
+			isa = PBXGroup;
+			children = (
+				1FF4A296190F45DE0083E37B /* AHAppRunMonitorSource.h */,
+				1FF4A297190F45DE0083E37B /* AHAppRunMonitorSource.m */,
+				1FF4A299190F45FD0083E37B /* AHNetWorkflowMonitorSource.h */,
+				1FF4A29A190F45FD0083E37B /* AHNetWorkflowMonitorSource.m */,
+			);
+			path = MonitorSource;
+			sourceTree = "<group>";
+		};
+		1FF4A2A5190FB1160083E37B /* DataParsers */ = {
+			isa = PBXGroup;
+			children = (
+				1FF4A2A6190FB3C40083E37B /* AHAppRunParser.h */,
+				1FF4A2A7190FB3C40083E37B /* AHAppRunParser.m */,
+			);
+			path = DataParsers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -379,6 +417,11 @@
 			attributes = {
 				CLASSPREFIX = AH;
 				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					1F11ECEC18F63CE60044C79B = {
+						DevelopmentTeam = H4TG7H4M52;
+					};
+				};
 			};
 			buildConfigurationList = 1F11ECBB18F63C590044C79B /* Build configuration list for PBXProject "Arch" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -404,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F11ECF718F63CE60044C79B /* InfoPlist.strings in Resources */,
+				1FF4A2A3190F813C0083E37B /* AHMainView.xib in Resources */,
 				1F11ECFF18F63CE60044C79B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,24 +459,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F12BBE6190F105B0073C2C1 /* AHTransmitController.m in Sources */,
+				1FF4A294190F44A20083E37B /* AHTransmitController.m in Sources */,
+				1FF4A298190F45DE0083E37B /* AHAppRunMonitorSource.m in Sources */,
 				1F11ED8418F647D10044C79B /* DDLog.m in Sources */,
 				1F11ED5718F63FF50044C79B /* AHSysInfo.m in Sources */,
 				1F11ED8318F647D10044C79B /* DDFileLogger.m in Sources */,
 				1F11ED5C18F6405E0044C79B /* OpenUDID.m in Sources */,
+				1FF4A293190F44A20083E37B /* AHMonitorSourceController.m in Sources */,
+				1FF4A2A8190FB3C40083E37B /* AHAppRunParser.m in Sources */,
 				1F11ED9518F649940044C79B /* DeviceFlowRateInfo.m in Sources */,
 				1F11ED6B18F645230044C79B /* AHAssistant.m in Sources */,
+				1FF4A292190F44A20083E37B /* AHDataController.m in Sources */,
 				1F11ED9718F649940044C79B /* LocationInfo.m in Sources */,
 				1F11ED9418F649940044C79B /* Model.xcdatamodeld in Sources */,
-				1F12BBE0190F0F9A0073C2C1 /* AHMonitorSourceController.m in Sources */,
-				1F11ED8818F648310044C79B /* AHCoreDataManager.m in Sources */,
 				1F11ED9618F649940044C79B /* AppRunTimeInfo.m in Sources */,
 				1F11ED8118F647D10044C79B /* DDAbstractDatabaseLogger.m in Sources */,
 				1F11ED8518F647D10044C79B /* DDTTYLogger.m in Sources */,
 				1F11ED9318F649940044C79B /* AppInfo.m in Sources */,
-				1F12BBE3190F0FE90073C2C1 /* AHDataController.m in Sources */,
 				1F11ED6F18F645740044C79B /* MBProgressHUD.m in Sources */,
 				1F11ED6418F644090044C79B /* AHNetWorkflowRateStatistics.m in Sources */,
+				1FF4A29B190F45FD0083E37B /* AHNetWorkflowMonitorSource.m in Sources */,
 				1F11ED6118F643130044C79B /* AHsysMonitor.m in Sources */,
 				1F11ECCB18F63C590044C79B /* Arch.m in Sources */,
 				1F11ED8218F647D10044C79B /* DDASLLogger.m in Sources */,
@@ -446,6 +492,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF4A2A1190F7D240083E37B /* AHMainViewController.m in Sources */,
 				1F11ECF918F63CE60044C79B /* main.m in Sources */,
 				1F11ECFD18F63CE60044C79B /* AHAppDelegate.m in Sources */,
 			);
@@ -562,6 +609,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -574,6 +622,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ArchDemo/ArchDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -584,6 +633,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -592,6 +642,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ArchDemo/ArchDemo-Prefix.pch";
 				INFOPLIST_FILE = "ArchDemo/ArchDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

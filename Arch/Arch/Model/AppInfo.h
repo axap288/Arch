@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @class AppRunTimeInfo;
 
-@interface AppInfo : NSManagedObject
+@interface AppInfo:NSObject
 @property (nonatomic, retain) NSString * appName;
 @property (nonatomic, retain) NSString * packageName;
 @property (nonatomic, retain) NSString * processName;
 @property (nonatomic, retain) NSOrderedSet *runTimes;
 @end
 
+/*
 @interface AppInfo (CoreDataGeneratedAccessors)
 - (void)insertObject:(AppRunTimeInfo *)value inRunTimesAtIndex:(NSUInteger)idx;
 - (void)removeObjectFromRunTimesAtIndex:(NSUInteger)idx;
@@ -31,3 +31,4 @@
 - (void)removeRunTimes:(NSOrderedSet *)values;
 @end
 
+*/

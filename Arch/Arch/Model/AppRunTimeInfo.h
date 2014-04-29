@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 
-@interface AppRunTimeInfo : NSManagedObject
+@interface AppRunTimeInfo : NSObject
 
 @property (nonatomic, retain) NSNumber * duration;
 @property (nonatomic, retain) NSString * end_time;

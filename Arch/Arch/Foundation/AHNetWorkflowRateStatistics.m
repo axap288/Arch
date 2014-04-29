@@ -9,7 +9,7 @@
 #import "AHNetWorkflowRateStatistics.h"
 #import "AHConstant.h"
 #import "AHAssistant.h"
-#import "AHCoreDataManager.h"
+//#import "AHCoreDataManager.h"
 #import  "AHConfigManager.h"
 
 @implementation AHNetWorkflowRateStatistics
@@ -112,9 +112,9 @@
             [wifiFlowRatedic setObject:hourStr forKey:@"hour"];
             [wwanFlowRatedic setObject:ts forKey:K_TS];
             
-            AHCoreDataManager *cdmanager = [AHCoreDataManager shareInstance];
-            [cdmanager saveNetFlowInfo:wifiFlowRatedic];
-            [cdmanager saveNetFlowInfo:wwanFlowRatedic];
+//            AHCoreDataManager *cdmanager = [AHCoreDataManager shareInstance];
+//            [cdmanager saveNetFlowInfo:wifiFlowRatedic];
+//            [cdmanager saveNetFlowInfo:wwanFlowRatedic];
             
 //            NSString *deviceFlowLog = [IRFileTool getFullPath:LOG_FILE_FLOWRATE];
 //            NSLog(@"deviceFlowlog:%@",deviceFlowLog);

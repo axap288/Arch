@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum
+{
+    apprunCategory,
+    networkflowCategory
+    
+}MonitorSourceCategory;
 
 /**
  *  监测源要遵循的协议
@@ -28,17 +34,17 @@
  */
 -(NSDictionary *)startMonitorSourceAndGetResult;
 /**
- *  获取监测源ID
+ *  获取监测源类别
  *
  *  @return id
  */
--(NSString *)getMonitorSourceId;
+-(MonitorSourceCategory)getMonitorSourceCategory;
 
 @end
 
 @interface AHMonitorSourceController : NSObject
 
-@property (nonatomic,strong) NSMutableArray *monitorSource;//监测源集合
+@property (nonatomic,strong) NSMutableArray *monitorSources;//监测源集合
 
 +(AHMonitorSourceController *)shareInstance;
 
@@ -46,9 +52,10 @@
 
 -(void)stopMonitors;
 
--(void)runMonitorWithtMonitorSourceId:(NSString *)monitorSourceId;
+-(void)addMonitorWithtMonitorSourceId:(NSString *)monitorSourceId;
 
--(void)stopMonitorWithMonitorSourceId:(NSString *)monitorSourceId;
+-(void)removeMonitorWithMonitorSourceId:(MonitorSourceCategory)monitorSourceCategory;
+
 
 
 

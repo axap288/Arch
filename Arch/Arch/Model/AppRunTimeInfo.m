@@ -11,8 +11,8 @@
 
 @implementation AppRunTimeInfo
 
-@dynamic duration;
-@dynamic end_time;
-@dynamic start_time;
+//@dynamic duration;
+//@dynamic end_time;
+//@dynamic start_time;
 
 @end
