@@ -10,6 +10,7 @@
 
 typedef enum
 {
+    baseInfoCategory,
     apprunCategory,
     networkflowCategory
     

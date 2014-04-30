@@ -27,9 +27,20 @@
  */
 -(NSDictionary *)startMonitorSourceAndGetResult
 {
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"1212121" forKey:@"result"];
-    return dic;
+    NSMutableDictionary *NewflowRate = [NSMutableDictionary dictionary];
+    [NewflowRate setObject:[NSNumber numberWithInt:networkflowCategory] forKey:@"MonitorSourceCategory"];
+    [NewflowRate setObject:@"46001" forKey:@"carrier"];
+    [NewflowRate setObject:@"9" forKey:@"hour"];
+    [NewflowRate setObject:@"12345" forKey:@"wifi_rec_flow"];
+    [NewflowRate setObject:@"12345" forKey:@"wifi_send_flow"];
+
+    [NewflowRate setObject:@"12345" forKey:@"wwan_rec_flow"];
+    [NewflowRate setObject:@"12345" forKey:@"wwan_send_flow"];
+    
+    [NewflowRate setObject:@"1234567890" forKey:@"ssid"];
+    [NewflowRate setObject:@"2013-09-17 09:17:48" forKey:@"ts"];
+    
+    return NewflowRate;
 }
 
 /**

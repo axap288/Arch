@@ -10,13 +10,17 @@
 #import "AppInfo.h"
 #import "AppRunTimeInfo.h"
 #import "AHMonitorSourceController.h"
-
-#import "AHAppRunParser.h"
+#import "AHAssistant.h"
 
 @implementation AHDataController
 {
-    NSMutableArray *apprunArray;
-    NSMutableArray *networkflowArray;
+    
+    NSMutableDictionary *totalDic;
+
+    
+//    NSMutableArray *apprunArray;
+//    NSMutableArray *networkflowArray;
+//    NSMutableArray *baseInfoArray;
 }
 
 +(AHDataController *)shareInstance
@@ -33,7 +37,10 @@
 {
     self = [super init];
     if (self) {
-        apprunArray = [NSMutableArray array];
+//        apprunArray = [NSMutableArray array];
+//        networkflowArray = [NSMutableArray array];
+        
+        totalDic = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -41,49 +48,44 @@
 
 -(void)dataStore:(NSDictionary *)data
 {
-    NSNumber *category = [data objectForKey:@"category"];
-    id result = [data objectForKey:@"result"];
+    NSNumber *category = [data objectForKey:@"MonitorSourceCategory"];
+//    NSDictionary result = [data objectForKey:@"result"];
     
     switch ([category intValue]) {
         case apprunCategory:
         {
-            [apprunArray addObject:result];
+            NSArray *arrayInTotalDic =  [totalDic objectForKey:@"app_run"];
+            NSMutableArray *apprunArray = arrayInTotalDic == nil?[NSMutableArray array]:[NSMutableArray arrayWithArray:arrayInTotalDic];
+            [apprunArray addObject:data];
+            [totalDic setObject:apprunArray forKey:@"app_run"];
         }
             break;
         case networkflowCategory:
         {
-            [networkflowArray addObject:result];
+            NSArray *arrayInTotalDic =  [totalDic objectForKey:@"device_flow"];
+            NSMutableArray *networkflowArray = arrayInTotalDic == nil?[NSMutableArray array]:[NSMutableArray arrayWithArray:arrayInTotalDic];
+            [networkflowArray addObject:data];
+            [totalDic setObject:networkflowArray forKey:@"device_flow"];
         }
             break;
+        case baseInfoCategory:
+        {
+            NSDictionary *dicInTotalDic =  [totalDic objectForKey:@"baseinfo"];
+            if (dicInTotalDic == nil) {
+                [totalDic setObject:data forKey:@"baseinfo"];
+            }
+        }
         default:
             break;
     }
+    
+    //测试
+    NSLog(@"totalDic %@",totalDic);
 }
 
 -(void)outputJsonString
 {
-    NSMutableDictionary *totalDic = [NSMutableDictionary dictionary];
-    /**
-     *  app运行数据解析
-     */
-    NSMutableArray *tempArray = [NSMutableArray array];
-    [apprunArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        AppInfo *appinfo = obj;
-        AppRunTimeInfo *appRunInfo = [appinfo.runTimes firstObject];
-        NSMutableDictionary *temp = [NSMutableDictionary dictionary];
-        [temp setObject:appinfo.appName forKey:@"app_name"];
-        [temp setObject:appinfo.packageName forKey:@"appid"];
-        [temp setObject:appinfo.runTimes forKey:@"run_time"];
-        [temp setObject:appRunInfo.start_time forKey:@"start_time"];
-        [temp setObject:appRunInfo.end_time forKey:@"end_time"];
-        [temp setObject:appRunInfo.duration forKey:@"duration"];
-        
-        [apprunArray addObject:temp];
-    }];
-    
-    [totalDic setObject:apprunArray forKey:@"app_run"];
     NSLog(@"totalDic %@",totalDic);
-    
 }
 
 @end

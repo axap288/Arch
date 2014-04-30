@@ -8,6 +8,7 @@
 
 #import "AHMainViewController.h"
 #import "Arch.h"
+#import "AHDataController.h"
 
 @interface AHMainViewController ()
 @property (nonatomic,strong) Arch *arch;

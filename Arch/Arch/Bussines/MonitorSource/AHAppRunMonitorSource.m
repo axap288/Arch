@@ -30,24 +30,14 @@
 -(NSDictionary *)startMonitorSourceAndGetResult
 {
     
-    AppInfo *info = [[AppInfo alloc] init];
-    info.packageName = @"com.tencent.wechat";
-    info.processName = @"";
-    info.appName = @"微信";
-    
-    AppRunTimeInfo *runtimeInfo = [[AppRunTimeInfo alloc] init];
-    runtimeInfo.start_time = @"2014-04-29 10:10:10";
-    runtimeInfo.end_time = @"2014-04-29 10:20:10";
-    runtimeInfo.duration = [NSNumber numberWithFloat:600];
-    
-    NSMutableOrderedSet *set = [NSMutableOrderedSet orderedSet];
-    [set addObject:runtimeInfo];
-    
-    info.runTimes = set;
-    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:[NSNumber numberWithInt:apprunCategory] forKey:@"category"];
-    [dic setObject:info forKey:@"result"];
+    [dic setObject:[NSNumber numberWithInt:apprunCategory] forKey:@"MonitorSourceCategory"];
+    [dic setObject:@"com.tencent.wechat" forKey:@"packageName"];
+    [dic setObject:@"微信" forKey:@"appName"];
+    [dic setObject:@"2014-04-29 10:10:10" forKey:@"start_time"];
+    [dic setObject:@"2014-04-29 10:20:10" forKey:@"end_time"];
+    [dic setObject:[NSNumber numberWithFloat:600] forKey:@"duration"];
+    
     return dic;
 }
 

@@ -10,6 +10,8 @@
 #import "AHAppRunMonitorSource.h"
 #import "AHNetWorkflowMonitorSource.h"
 #import "AHDataController.h"
+#import "AHDeviceInfoMonitorSource.h"
+#import "MSWeakTimer.h"
 
 @interface AHMonitorSourceController()
 
@@ -47,9 +49,12 @@
         
         AHAppRunMonitorSource *appMS = [[AHAppRunMonitorSource alloc] init];
         AHNetWorkflowMonitorSource *netWorkflowMS = [[AHNetWorkflowMonitorSource alloc] init];
-        
+        AHDeviceInfoMonitorSource *deviceInfoMS = [[AHDeviceInfoMonitorSource alloc] init];
+
+        //添加监测源
         [self.monitorSources addObject:appMS];
         [self.monitorSources addObject:netWorkflowMS];
+        [self.monitorSources addObject:deviceInfoMS];
         
     }
     return self;
@@ -59,27 +64,35 @@
 {
     for (id<MonitorSource> monitorSource in self.monitorSources) {
         
+        //给每个监测源分配一个定时器
         if ([monitorSource respondsToSelector:@selector(startMonitorSourceAndGetResult)]) {
             float interval = [monitorSource onceIntervalTime];
             
-            NSDictionary *dic = [NSDictionary dictionaryWithObject:monitorSource forKey:@"monitorSource"];
-            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES];
-            [timer fire];
-            
-            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-            [runLoop addTimer:timer forMode:NSDefaultRunLoopMode];
-            
-            switch ([monitorSource getMonitorSourceCategory]) {
-                case apprunCategory:
-                    [self.timers setObject:timer forKey:@"apprun"];
-                    break;
-                case networkflowCategory:
-                    [self.timers setObject:timer forKey:@"networkflow"];
-                    break;
-                default:
-                    break;
+            //如果interval∫
+            if (interval == 0) {
+                if ([monitorSource respondsToSelector:@selector(startMonitorSourceAndGetResult)]) {
+                    NSDictionary *result = [monitorSource startMonitorSourceAndGetResult];
+                    [self.dataController dataStore:result];
+                }
+            }else{
+                
+                NSDictionary *dic = [NSDictionary dictionaryWithObject:monitorSource forKey:@"monitorSource"];
+//                NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES];
+//                [timer fire];
+                MSWeakTimer *timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+                
+                switch ([monitorSource getMonitorSourceCategory]) {
+                    case apprunCategory:
+                        [self.timers setObject:timer forKey:@"apprun"];
+                        break;
+                    case networkflowCategory:
+                        [self.timers setObject:timer forKey:@"networkflow"];
+                        break;
+                    default:
+                        break;
+                }
+                
             }
-            
         }
     }
 }
