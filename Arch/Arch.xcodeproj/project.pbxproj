@@ -120,6 +120,8 @@
 		1F11ED9218F649940044C79B /* LocationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationInfo.m; sourceTree = "<group>"; };
 		1F3658271910DB1000F67293 /* MSWeakTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSWeakTimer.h; sourceTree = "<group>"; };
 		1F3658281910DB1000F67293 /* MSWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSWeakTimer.m; sourceTree = "<group>"; };
+		1F36582B1910E18200F67293 /* tosjson (1).txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "tosjson (1).txt"; sourceTree = "<group>"; };
+		1F36582C1910E18200F67293 /* tosjson.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tosjson.txt; sourceTree = "<group>"; };
 		1FF4A28C190F44A20083E37B /* AHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHDataController.h; sourceTree = "<group>"; };
 		1FF4A28D190F44A20083E37B /* AHDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHDataController.m; sourceTree = "<group>"; };
 		1FF4A28E190F44A20083E37B /* AHMonitorSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHMonitorSourceController.h; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				1F11ECF218F63CE60044C79B /* ArchDemo */,
 				1F11ECC218F63C590044C79B /* Frameworks */,
 				1F11ECC118F63C590044C79B /* Products */,
+				1F36582A1910E18200F67293 /* interface_doc */,
 			);
 			sourceTree = "<group>";
 		};
@@ -349,6 +352,15 @@
 				1F3658281910DB1000F67293 /* MSWeakTimer.m */,
 			);
 			path = MSWeakTimer;
+			sourceTree = "<group>";
+		};
+		1F36582A1910E18200F67293 /* interface_doc */ = {
+			isa = PBXGroup;
+			children = (
+				1F36582B1910E18200F67293 /* tosjson (1).txt */,
+				1F36582C1910E18200F67293 /* tosjson.txt */,
+			);
+			path = interface_doc;
 			sourceTree = "<group>";
 		};
 		1FF4A28B190F44A20083E37B /* Controller */ = {
