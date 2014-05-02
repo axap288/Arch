@@ -8,20 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- *  对象到json转换协议
- */
-@protocol AHDataParser <NSObject>
-
-@required
-
--(NSString *)dataToJsonWith:(NSArray *)dataArray;
-
-@end
 
 @interface AHDataController : NSObject
 
 +(AHDataController *)shareInstance;
+
+@property (atomic,strong) NSMutableDictionary *totalDic;
 
 /**
  *  数据存储

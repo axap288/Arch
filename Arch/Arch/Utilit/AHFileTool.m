@@ -10,6 +10,10 @@
 
 @implementation AHFileTool
 
++(NSString *)getDocumentPath
+{
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+}
 
 +(void)wirteContent:(NSString *)content toFIle:(NSString *)fileName
 {

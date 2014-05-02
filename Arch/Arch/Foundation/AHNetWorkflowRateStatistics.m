@@ -30,7 +30,7 @@
 -(void)startWork
 {
     //第一次运行时间，计算好整点运行的时间
-    NSDate *nextHour = [IRAssistant getNextIntegralHourDate];
+    NSDate *nextHour = [AHAssistant getNextIntegralHourDate];
     NSTimeInterval  interval =  [nextHour timeIntervalSinceNow];
 //    DDLogInfo(@"interval : %f",interval);
     DDLogInfo(@"[流量监测]:启动流量监测定时器");

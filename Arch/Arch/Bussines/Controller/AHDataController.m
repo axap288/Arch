@@ -7,21 +7,36 @@
 //
 
 #import "AHDataController.h"
-#import "AppInfo.h"
-#import "AppRunTimeInfo.h"
 #import "AHMonitorSourceController.h"
 #import "AHAssistant.h"
+#import "MSWeakTimer.h"
+#import "AHFileTool.h"
+#import "AHTransmitController.h"
+#import "AHFileTool.h"
+
+
+#define  dataArchiveFileName @"archData.archive"
+
+@interface AHDataController()
+
+/**
+ *  输出json数据
+ */
+-(void)outputJsonString;
+/**
+ *  用于数据输出后的数据清理操作
+ */
+-(void)clearData;
+
+@end
 
 @implementation AHDataController
 {
-    
-    NSMutableDictionary *totalDic;
-
-    
-//    NSMutableArray *apprunArray;
-//    NSMutableArray *networkflowArray;
-//    NSMutableArray *baseInfoArray;
+    MSWeakTimer *timer;
+    NSDictionary *basdinfo;
+    AHTransmitController *transmitController;
 }
+
 
 +(AHDataController *)shareInstance
 {
@@ -40,52 +55,92 @@
 //        apprunArray = [NSMutableArray array];
 //        networkflowArray = [NSMutableArray array];
         
-        totalDic = [NSMutableDictionary dictionary];
+        transmitController = [AHTransmitController getInstance];
+        
+        NSString *archiveFilePath = [[self getDocumentPath] stringByAppendingPathComponent:dataArchiveFileName];
+        self.totalDic = [NSKeyedUnarchiver unarchiveObjectWithFile: archiveFilePath];
+        if (self.totalDic == nil) {
+            self.totalDic = [NSMutableDictionary dictionary];
+        }
+        
+        //启动定时任务，开启定时发送
+        float interval = 5.0f;
+        timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timerTask) userInfo:nil repeats:YES dispatchQueue:dispatch_get_main_queue()];
+        [timer fire];
     }
     return self;
+}
+
+-(void)timerTask
+{
+    if (self.totalDic != nil) {
+        //输出json串
+        [self outputJsonString];
+        //数据清理
+//        [self clearData];
+    }
 }
 
 
 -(void)dataStore:(NSDictionary *)data
 {
     NSNumber *category = [data objectForKey:@"MonitorSourceCategory"];
-//    NSDictionary result = [data objectForKey:@"result"];
+    if (self.totalDic == nil) {
+        self.totalDic = [NSMutableDictionary dictionary];
+    }
+
     
     switch ([category intValue]) {
         case apprunCategory:
         {
-            NSArray *arrayInTotalDic =  [totalDic objectForKey:@"app_run"];
+            NSArray *arrayInTotalDic =  [self.totalDic objectForKey:@"app_run"];
             NSMutableArray *apprunArray = arrayInTotalDic == nil?[NSMutableArray array]:[NSMutableArray arrayWithArray:arrayInTotalDic];
             [apprunArray addObject:data];
-            [totalDic setObject:apprunArray forKey:@"app_run"];
+            [self.totalDic setObject:apprunArray forKey:@"app_run"];
         }
             break;
         case networkflowCategory:
         {
-            NSArray *arrayInTotalDic =  [totalDic objectForKey:@"device_flow"];
+            NSArray *arrayInTotalDic =  [self.totalDic objectForKey:@"device_flow"];
             NSMutableArray *networkflowArray = arrayInTotalDic == nil?[NSMutableArray array]:[NSMutableArray arrayWithArray:arrayInTotalDic];
             [networkflowArray addObject:data];
-            [totalDic setObject:networkflowArray forKey:@"device_flow"];
+            [self.totalDic setObject:networkflowArray forKey:@"device_flow"];
         }
             break;
         case baseInfoCategory:
         {
-            NSDictionary *dicInTotalDic =  [totalDic objectForKey:@"baseinfo"];
-            if (dicInTotalDic == nil) {
-                [totalDic setObject:data forKey:@"baseinfo"];
-            }
+            basdinfo = data;
         }
         default:
             break;
     }
     
-    //测试
-    NSLog(@"totalDic %@",totalDic);
+    if (basdinfo) {
+        [self.totalDic setObject:basdinfo forKey:@"baseinfo"];
+    }
+
+    NSString *archiveFilePath = [[AHFileTool getDocumentPath] stringByAppendingPathComponent:dataArchiveFileName];
+    [NSKeyedArchiver archiveRootObject:self.totalDic toFile:archiveFilePath];
+    
 }
 
 -(void)outputJsonString
 {
-    NSLog(@"totalDic %@",totalDic);
+    NSString *jsonStr = [AHAssistant makeJsonString:self.totalDic];
+//    [transmitController sendJson:jsonStr];
+    [transmitController sendJsonData:jsonStr withTarget:monitorTarget];
+}
+
+-(void)clearData
+{
+    [self.totalDic removeAllObjects];
+    self.totalDic = nil;
+//    [AHFileTool removeFile:dataArchiveFileName];
+}
+
+-(NSString *)getDocumentPath
+{
+    return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
 }
 
 @end

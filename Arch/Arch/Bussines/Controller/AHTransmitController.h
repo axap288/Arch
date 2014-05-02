@@ -8,6 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef enum
+{
+    monitorTarget,
+    eventTarget
+}sendTarget;
+
 @interface AHTransmitController : NSObject
+
+
++(AHTransmitController *)getInstance;
+
+-(void)sendJsonData:(NSString *)jsonstr withTarget:(sendTarget)target;
 
 @end

@@ -12,6 +12,8 @@
 
 @interface AHFileTool : NSObject
 
++(NSString *)getDocumentPath;
+
 +(void)wirteContent:(NSString *)content toFIle:(NSString *)fileName;
 
 +(NSString *)getFullPath:(NSString *)filename ;

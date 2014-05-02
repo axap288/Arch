@@ -77,9 +77,9 @@
             }else{
                 
                 NSDictionary *dic = [NSDictionary dictionaryWithObject:monitorSource forKey:@"monitorSource"];
-//                NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES];
-//                [timer fire];
-                MSWeakTimer *timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+
+                MSWeakTimer *timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+                [timer fire];
                 
                 switch ([monitorSource getMonitorSourceCategory]) {
                     case apprunCategory:
@@ -97,7 +97,7 @@
     }
 }
 
--(void)timeTaskWithMonitorSource:(NSTimer*)theTimer
+-(void)timeTaskWithMonitorSource:(MSWeakTimer*)theTimer
 {
     id<MonitorSource> monitorSource = [theTimer.userInfo objectForKey:@"monitorSource"];
     if ([monitorSource respondsToSelector:@selector(startMonitorSourceAndGetResult)]) {

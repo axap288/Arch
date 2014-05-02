@@ -21,7 +21,7 @@
     NSString *url = [AHConfigManager getConfigValue:@"configurl"];
     NSString *appkey = [AHConfigManager getConfigValue:@"appKey"];
     NSString *fullUrl = [NSString stringWithFormat:@"%@?appkey=%@",url,appkey];
-    NSString *result =  [IRAssistant serverRequest:fullUrl];
+    NSString *result =  [AHAssistant serverRequest:fullUrl];
     NSMutableArray *notificationNames = [NSMutableArray array];
     if (result) {
         if (![result isEqualToString:@"error"]) {

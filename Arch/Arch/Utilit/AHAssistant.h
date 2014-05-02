@@ -9,7 +9,7 @@
 #define PROPERTY_FILE @"IRProperty"
 
 
-@interface IRAssistant : NSObject
+@interface AHAssistant : NSObject
 
 //指示器
 + (void)showProgressHUDMessage:(NSString *)message toVIew:(UIView *)view;
@@ -19,6 +19,8 @@
 + (NSString *)makeJsonString:(id)objects ;
 
 +(NSString *)getPropertyWithKey:(NSString *)key;
+
++ (BOOL)reachabilityCheck;
 
 //流量单位换算
 +(NSString *)bytesToAvaiUnit:(int)bytes;
@@ -32,7 +34,16 @@
 
 //网络请求
 +(NSString *)serverRequest:(NSString *)url;
+
++(BOOL)simpleRequestUseGetMethod:(NSString *)url;
 //发送文件到服务器
 +(BOOL)sendFileToHTTPServer:(NSString *)postURLStr withFilePath:(NSString *)filepath;
+
+//gzip压缩数据
++(NSData*)gzipData:(NSData*)uncompressedData;
+//gzip解压缩数据
++ (NSData *)ungzipData:(NSData *)compressedData;
+
+
 
 @end
