@@ -23,8 +23,6 @@
 @end
 
 @implementation AHMonitorSourceController
-{
-}
 
 +(AHMonitorSourceController *)shareInstance
 {
@@ -68,19 +66,18 @@
         if ([monitorSource respondsToSelector:@selector(startMonitorSourceAndGetResult)]) {
             float interval = [monitorSource onceIntervalTime];
             
-            //如果interval∫
+            //如果interval为0，表示此监测源只需运行一次即可
             if (interval == 0) {
-                if ([monitorSource respondsToSelector:@selector(startMonitorSourceAndGetResult)]) {
                     NSDictionary *result = [monitorSource startMonitorSourceAndGetResult];
                     [self.dataController dataStore:result];
-                }
             }else{
                 
                 NSDictionary *dic = [NSDictionary dictionaryWithObject:monitorSource forKey:@"monitorSource"];
-
-                MSWeakTimer *timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
-                [timer fire];
                 
+                __block MSWeakTimer *timer;
+                
+
+                /*
                 switch ([monitorSource getMonitorSourceCategory]) {
                     case apprunCategory:
                         [self.timers setObject:timer forKey:@"apprun"];
@@ -91,7 +88,22 @@
                     default:
                         break;
                 }
+                 */
                 
+                //判断是否是延时启动
+                if ([monitorSource respondsToSelector:@selector(delayTime)]) {
+                    //是则获取延时启动时间
+                    NSLog(@"延时:%f秒启动",[monitorSource delayTime]);
+                    float delayInSeconds = [monitorSource delayTime];
+                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                        timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+                        [timer fire];
+                    });
+                }else{
+                    timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+                      [timer fire];
+                }
             }
         }
     }
@@ -100,10 +112,8 @@
 -(void)timeTaskWithMonitorSource:(MSWeakTimer*)theTimer
 {
     id<MonitorSource> monitorSource = [theTimer.userInfo objectForKey:@"monitorSource"];
-    if ([monitorSource respondsToSelector:@selector(startMonitorSourceAndGetResult)]) {
-        NSDictionary *result = [monitorSource startMonitorSourceAndGetResult];
-        [self.dataController dataStore:result];
-    }
+    NSDictionary *result = [monitorSource startMonitorSourceAndGetResult];
+    [self.dataController dataStore:result];
 }
 
 -(void)stopMonitors

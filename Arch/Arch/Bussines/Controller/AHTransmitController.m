@@ -40,6 +40,11 @@
     self = [super init];
     if (self) {
         float interval = 10;
+        
+        self.dataCache = [NSKeyedUnarchiver unarchiveObjectWithFile:[self getArchiveFilePath]];
+        if (self.dataCache == nil) {
+            self.dataCache = [NSMutableArray array];
+        }
         self.timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(runLoopCheckSendDataService) userInfo:nil repeats:YES dispatchQueue:dispatch_get_main_queue()];
         [self.timer fire];
     }
@@ -48,7 +53,7 @@
 
 -(void)runLoopCheckSendDataService
 {
-    if (self.dataCache != nil && [self.dataCache count] != 0) {
+    if ([self.dataCache count] != 0) {
         
         NSMutableArray *sendSuccessArray = [NSMutableArray array];
         [self.dataCache enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -69,8 +74,7 @@
         }];
         
         [self.dataCache removeObjectsInArray:sendSuccessArray];
-        NSString *archiveFilePath = [[AHFileTool getDocumentPath] stringByAppendingPathComponent:cacheArchiveFileName];
-        [NSKeyedArchiver archiveRootObject:self.dataCache toFile:archiveFilePath];
+        [NSKeyedArchiver archiveRootObject:self.dataCache toFile:[self getArchiveFilePath]];
     }
 }
 
@@ -108,8 +112,7 @@
     }else{
         //如果网络不通则先缓存数据
         [self.dataCache addObject:data];
-        NSString *archiveFilePath = [[AHFileTool getDocumentPath] stringByAppendingPathComponent:cacheArchiveFileName];
-        [NSKeyedArchiver archiveRootObject:self.dataCache toFile:archiveFilePath];
+        [NSKeyedArchiver archiveRootObject:self.dataCache toFile:[self getArchiveFilePath]];
 
     }
 }
@@ -150,6 +153,12 @@
     NSString *uncompressStr =  [[NSString alloc] initWithData:uncompressedData encoding:NSUTF8StringEncoding];
 
     return uncompressStr;
+}
+
+-(NSString *)getArchiveFilePath
+{
+    NSString *archiveFilePath = [[AHFileTool getDocumentPath] stringByAppendingPathComponent:cacheArchiveFileName];
+    return archiveFilePath;
 }
 
 

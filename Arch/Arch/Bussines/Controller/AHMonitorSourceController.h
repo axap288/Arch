@@ -41,6 +41,15 @@ typedef enum
  */
 -(MonitorSourceCategory)getMonitorSourceCategory;
 
+@optional
+
+/**
+ *  开始运行前的等待时间
+ *
+ *  @return <#return value description#>
+ */
+-(float)delayTime;
+
 @end
 
 @interface AHMonitorSourceController : NSObject

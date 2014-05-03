@@ -36,6 +36,11 @@
 		1F11ED9618F649940044C79B /* AppRunTimeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED9018F649940044C79B /* AppRunTimeInfo.m */; };
 		1F11ED9718F649940044C79B /* LocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED9218F649940044C79B /* LocationInfo.m */; };
 		1F3658291910DB1000F67293 /* MSWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3658281910DB1000F67293 /* MSWeakTimer.m */; };
+		1FB7260A19137390008D3AB2 /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7260919137390008D3AB2 /* MTAudioPlayer.m */; };
+		1FB7260F19137596008D3AB2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36F19128455001D686E /* AudioToolbox.framework */; };
+		1FB72610191375A5008D3AB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB7260C19137555008D3AB2 /* AVFoundation.framework */; };
+		1FB726121913760D008D3AB2 /* silence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1FB726111913760D008D3AB2 /* silence.wav */; };
+		1FB726141913A765008D3AB2 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB726131913A765008D3AB2 /* AdSupport.framework */; };
 		1FBBB35F1911FD8D001D686E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB35E1911FD8D001D686E /* libz.dylib */; };
 		1FBBB3601911FDB7001D686E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB35E1911FD8D001D686E /* libz.dylib */; };
 		1FBBB36319126E84001D686E /* AHReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBB36219126E84001D686E /* AHReachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -136,6 +141,11 @@
 		1F3658281910DB1000F67293 /* MSWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSWeakTimer.m; sourceTree = "<group>"; };
 		1F36582B1910E18200F67293 /* tosjson (1).txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "tosjson (1).txt"; sourceTree = "<group>"; };
 		1F36582C1910E18200F67293 /* tosjson.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tosjson.txt; sourceTree = "<group>"; };
+		1FB7260819137390008D3AB2 /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAudioPlayer.h; sourceTree = "<group>"; };
+		1FB7260919137390008D3AB2 /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAudioPlayer.m; sourceTree = "<group>"; };
+		1FB7260C19137555008D3AB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1FB726111913760D008D3AB2 /* silence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = silence.wav; sourceTree = "<group>"; };
+		1FB726131913A765008D3AB2 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		1FBBB35E1911FD8D001D686E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		1FBBB36119126E84001D686E /* AHReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHReachability.h; sourceTree = "<group>"; };
 		1FBBB36219126E84001D686E /* AHReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHReachability.m; sourceTree = "<group>"; };
@@ -185,6 +195,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FB726141913A765008D3AB2 /* AdSupport.framework in Frameworks */,
+				1FB72610191375A5008D3AB2 /* AVFoundation.framework in Frameworks */,
+				1FB7260F19137596008D3AB2 /* AudioToolbox.framework in Frameworks */,
 				1FBBB378191286D5001D686E /* SystemConfiguration.framework in Frameworks */,
 				1FBBB377191286C2001D686E /* CoreFoundation.framework in Frameworks */,
 				1FBBB376191286A8001D686E /* CoreTelephony.framework in Frameworks */,
@@ -224,6 +237,8 @@
 		1F11ECC218F63C590044C79B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FB726131913A765008D3AB2 /* AdSupport.framework */,
+				1FB7260C19137555008D3AB2 /* AVFoundation.framework */,
 				1FBBB374191284D7001D686E /* CoreTelephony.framework */,
 				1FBBB372191284C2001D686E /* CoreFoundation.framework */,
 				1FBBB36F19128455001D686E /* AudioToolbox.framework */,
@@ -267,6 +282,7 @@
 		1F11ECF218F63CE60044C79B /* ArchDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1FB726111913760D008D3AB2 /* silence.wav */,
 				1FF4A29E190F506E0083E37B /* Arch.h */,
 				1F11ECFB18F63CE60044C79B /* AHAppDelegate.h */,
 				1F11ECFC18F63CE60044C79B /* AHAppDelegate.m */,
@@ -293,6 +309,7 @@
 		1F11ED1818F63F8B0044C79B /* 3Part */ = {
 			isa = PBXGroup;
 			children = (
+				1FB7260719137390008D3AB2 /* MTAudioPlayer */,
 				1F3658261910DB1000F67293 /* MSWeakTimer */,
 				1F11ED7318F647D10044C79B /* Lumberjack */,
 				1F11ED6C18F645740044C79B /* MBProgressHUB */,
@@ -410,6 +427,15 @@
 			path = interface_doc;
 			sourceTree = "<group>";
 		};
+		1FB7260719137390008D3AB2 /* MTAudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				1FB7260819137390008D3AB2 /* MTAudioPlayer.h */,
+				1FB7260919137390008D3AB2 /* MTAudioPlayer.m */,
+			);
+			path = MTAudioPlayer;
+			sourceTree = "<group>";
+		};
 		1FF4A28B190F44A20083E37B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,6 +538,7 @@
 			files = (
 				1F11ECF718F63CE60044C79B /* InfoPlist.strings in Resources */,
 				1FF4A2A3190F813C0083E37B /* AHMainView.xib in Resources */,
+				1FB726121913760D008D3AB2 /* silence.wav in Resources */,
 				1F11ECFF18F63CE60044C79B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,6 +551,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FF4A2AB19109FFF0083E37B /* AHDeviceInfoMonitorSource.m in Sources */,
+				1FB7260A19137390008D3AB2 /* MTAudioPlayer.m in Sources */,
 				1FF4A294190F44A20083E37B /* AHTransmitController.m in Sources */,
 				1FF4A298190F45DE0083E37B /* AHAppRunMonitorSource.m in Sources */,
 				1F11ED8418F647D10044C79B /* DDLog.m in Sources */,
@@ -691,7 +719,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ArchDemo/ArchDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -712,7 +740,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ArchDemo/ArchDemo-Prefix.pch";
 				INFOPLIST_FILE = "ArchDemo/ArchDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

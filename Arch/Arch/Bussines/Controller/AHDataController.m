@@ -64,7 +64,7 @@
         }
         
         //启动定时任务，开启定时发送
-        float interval = 5.0f;
+        float interval = 30.0f;
         timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timerTask) userInfo:nil repeats:YES dispatchQueue:dispatch_get_main_queue()];
         [timer fire];
     }
@@ -77,19 +77,22 @@
         //输出json串
         [self outputJsonString];
         //数据清理
-//        [self clearData];
+        [self clearData];
     }
 }
 
 
 -(void)dataStore:(NSDictionary *)data
 {
+    if (data  == nil) {
+        return;
+    }
+    
     NSNumber *category = [data objectForKey:@"MonitorSourceCategory"];
     if (self.totalDic == nil) {
         self.totalDic = [NSMutableDictionary dictionary];
     }
 
-    
     switch ([category intValue]) {
         case apprunCategory:
         {
@@ -127,15 +130,15 @@
 -(void)outputJsonString
 {
     NSString *jsonStr = [AHAssistant makeJsonString:self.totalDic];
-//    [transmitController sendJson:jsonStr];
-    [transmitController sendJsonData:jsonStr withTarget:monitorTarget];
+    NSLog(@"json Str:%@",jsonStr);
+//    [transmitController sendJsonData:jsonStr withTarget:monitorTarget];
 }
 
 -(void)clearData
 {
     [self.totalDic removeAllObjects];
     self.totalDic = nil;
-//    [AHFileTool removeFile:dataArchiveFileName];
+    [AHFileTool removeFile:dataArchiveFileName];
 }
 
 -(NSString *)getDocumentPath
