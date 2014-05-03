@@ -8,17 +8,68 @@
 
 #import "AHAppDelegate.h"
 #import "Arch.h"
-#import "AHMainViewController.h"
+#import "AHDemoMainViewController.h"
+#import "AHDemoLeftSideViewController.h"
+#import "AHDemoRightViewController.h"
+#import "MMNavigationController.h"
+
+#import "MMDrawerController.h"
+
+@interface AHAppDelegate()
+
+@property (nonatomic,strong) MMDrawerController * drawerController;
+
+@end
 
 @implementation AHAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    
+    
+    UIViewController *leftSideViewController = [[AHDemoLeftSideViewController alloc] init];
+    UIViewController *rightSideViewController = [[AHDemoRightViewController alloc] init];
+    UIViewController *centerViewController =  [[AHDemoMainViewController alloc] initWithNibName:@"AHMainView" bundle:nil];
+    
+    UINavigationController * navigationController = [[MMNavigationController alloc] initWithRootViewController:centerViewController];
+
+    
+    UINavigationController * rightSideNavController = [[MMNavigationController alloc] initWithRootViewController:rightSideViewController];
+    [rightSideNavController setRestorationIdentifier:@"MMExampleRightNavigationControllerRestorationKey"];
+    UINavigationController * leftSideNavController = [[MMNavigationController alloc] initWithRootViewController:leftSideViewController];
+    [leftSideNavController setRestorationIdentifier:@"MMExampleLeftNavigationControllerRestorationKey"];
+
+
+    
+    if(OSVersionIsAtLeastiOS7()){
+        
+        self.drawerController = [[MMDrawerController alloc]
+                                 initWithCenterViewController:navigationController
+                                 leftDrawerViewController:leftSideNavController
+                                 rightDrawerViewController:rightSideNavController];
+        [self.drawerController setShowsShadow:YES];
+    }
+    else{
+        self.drawerController = [[MMDrawerController alloc]
+                                 initWithCenterViewController:navigationController
+                                 leftDrawerViewController:leftSideNavController
+                                 rightDrawerViewController:rightSideNavController];
+    }
+    
+    [self.drawerController setRestorationIdentifier:@"MMDrawer"];
+    [self.drawerController setMaximumRightDrawerWidth:200.0];
+    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController = [[AHMainViewController alloc] initWithNibName:@"AHMainView" bundle:nil];
+//    self.window.rootViewController = [[AHMainViewController alloc] initWithNibName:@"AHMainView" bundle:nil];
+//    self.window.rootViewController = [[AHDemoLeftSideViewController alloc] init];
+      self.window.rootViewController = self.drawerController;
+
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -12,4 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong,nonatomic) NSString *selectCar;
+@property (strong,nonatomic) NSString *selectSection;
+
 @end

@@ -10,6 +10,10 @@
 
 @interface Arch : NSObject
 
++(Arch *)shareInstanceWithAppid:(NSString *)appid;
+
+-(void)addEventPoint:(NSString *)label withUserInfo:(NSDictionary *)userinfo;
+
 -(void)startMonitor;
 
 -(void)stopMonitor;

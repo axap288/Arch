@@ -10,8 +10,15 @@
 
 @interface Arch : NSObject
 
--(void)startMonitor;
+@property (nonatomic,strong) NSString *appId;
 
++(Arch *)shareInstanceWithAppid:(NSString *)appid;
+
+//启动监测
+-(void)startMonitor;
+//停止监测
 -(void)stopMonitor;
+
+-(void)addEventPoint:(NSString *)label withUserInfo:(NSDictionary *)userinfo;
 
 @end

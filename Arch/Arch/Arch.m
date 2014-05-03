@@ -8,8 +8,10 @@
 
 #import "Arch.h"
 #import "AHMonitorSourceController.h"
+#import "AHTransmitController.h"
 #import "MTAudioPlayer.h"
 #import "MSWeakTimer.h"
+#import "AHAssistant.h"
 
 
 @implementation Arch
@@ -18,12 +20,27 @@
     UIBackgroundTaskIdentifier bgTask;
     NSUInteger deviceSystemVer;
     MSWeakTimer *playaudioTimer;
+    AHTransmitController *transmitController;
+}
+
++(Arch *)shareInstanceWithAppid:(NSString *)appid;
+{
+    static Arch *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance  = [[Arch alloc] init];
+        instance.appId = appid;
+    });
+    return instance;
 }
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
+        
+        transmitController = [AHTransmitController getInstance];
+        
         //获取IOS版本
         deviceSystemVer =  [[[[[UIDevice currentDevice] systemVersion]
                               componentsSeparatedByString:@"."] objectAtIndex:0] intValue];
@@ -32,6 +49,24 @@
 
     }
     return self;
+}
+
+-(void)addEventPoint:(NSString *)label withUserInfo:(NSDictionary *)userinfo
+{
+    NSMutableDictionary *eventDic = [NSMutableDictionary dictionary];
+    [eventDic setObject:self.appId forKey:@"appid"];
+    if (label == nil) {
+        label  = @"";
+    }
+    [eventDic setObject:label forKey:@"event_label"];
+    [eventDic setObject:[[NSDate date] description] forKey:@"event_time"];
+    if (userinfo != nil) {
+        [eventDic addEntriesFromDictionary:userinfo];
+    }
+    
+    NSString *json = [AHAssistant makeJsonString:eventDic];
+    NSLog(@"json:%@",json);
+    //    [transmitController sendJsonData:json withTarget:eventTarget];
 }
 
 -(void)startMonitor

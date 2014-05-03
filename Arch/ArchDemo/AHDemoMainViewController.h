@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AHMainViewController : UIViewController
+@interface AHDemoMainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *startMonitorButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopMonitorButton;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
