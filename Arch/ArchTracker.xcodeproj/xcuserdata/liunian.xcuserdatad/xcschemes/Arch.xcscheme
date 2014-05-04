@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-               BuildableName = "ArchDemo.app"
-               BlueprintName = "ArchDemo"
-               ReferencedContainer = "container:Arch.xcodeproj">
+               BlueprintIdentifier = "1F11ECBF18F63C590044C79B"
+               BuildableName = "libArch.a"
+               BlueprintName = "ArchTracker"
+               ReferencedContainer = "container:ArchTracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-            BuildableName = "ArchDemo.app"
-            BlueprintName = "ArchDemo"
-            ReferencedContainer = "container:Arch.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -48,15 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-            BuildableName = "ArchDemo.app"
-            BlueprintName = "ArchDemo"
-            ReferencedContainer = "container:Arch.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -66,15 +48,6 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-            BuildableName = "ArchDemo.app"
-            BlueprintName = "ArchDemo"
-            ReferencedContainer = "container:Arch.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

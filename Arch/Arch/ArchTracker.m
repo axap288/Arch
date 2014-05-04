@@ -6,7 +6,7 @@
 //
 //
 
-#import "Arch.h"
+#import "ArchTracker.h"
 #import "AHMonitorSourceController.h"
 #import "AHTransmitController.h"
 #import "MTAudioPlayer.h"
@@ -14,7 +14,7 @@
 #import "AHAssistant.h"
 
 
-@implementation Arch
+@implementation ArchTracker
 {
     MTAudioPlayer *audioPlayer;
     UIBackgroundTaskIdentifier bgTask;
@@ -23,16 +23,21 @@
     AHTransmitController *transmitController;
 }
 
-+(Arch *)shareInstanceWithAppid:(NSString *)appid;
++(ArchTracker *)shareInstance
 {
-    static Arch *instance;
+    static ArchTracker *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance  = [[Arch alloc] init];
-        instance.appId = appid;
+        instance  = [[ArchTracker alloc] init];
     });
     return instance;
 }
+
+-(void)startTrackerWithAppId:(NSString *)appid
+{
+    self.appId = appid;
+}
+
 
 - (instancetype)init
 {
@@ -51,8 +56,13 @@
     return self;
 }
 
--(void)addEventPoint:(NSString *)label withUserInfo:(NSDictionary *)userinfo
+-(BOOL)trackEvent:(NSString *)label action:(NSString *)action withUserInfo:(NSDictionary *)userinfo
 {
+    if (_appId == nil) {
+        NSLog(@"ArchTracker error: Not found appid !");
+        return NO;
+    }
+    
     NSMutableDictionary *eventDic = [NSMutableDictionary dictionary];
     [eventDic setObject:self.appId forKey:@"appid"];
     if (label == nil) {
@@ -67,6 +77,7 @@
     NSString *json = [AHAssistant makeJsonString:eventDic];
     NSLog(@"json:%@",json);
     //    [transmitController sendJsonData:json withTarget:eventTarget];
+    return YES;
 }
 
 -(void)startMonitor

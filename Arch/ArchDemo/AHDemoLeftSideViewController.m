@@ -15,12 +15,12 @@
 #import "MMNavigationController.h"
 #import "AHAppDelegate.h"
 
-#import "Arch.h"
+#import "ArchTracker.h"
 
 
 
 @interface AHDemoLeftSideViewController ()
-@property (nonatomic,strong) Arch *arch;
+@property (nonatomic,strong) ArchTracker *archTracker;
 @property (nonatomic,strong) NSArray *sections;
 @property (nonatomic,strong) NSArray *subTopiclist;
 
@@ -39,7 +39,7 @@
                               @[@"价格",@"级别",@"国别"],
                               @[@"降价",@"活动"],
                               ];
-        _arch = [Arch shareInstanceWithAppid:@"arch demo"];
+        self.archTracker = [ArchTracker shareInstanceWithAppid:@"arch demo"];
     }
     return self;
 }
@@ -195,7 +195,7 @@
     
     //加一个用户行为采集点
     NSDictionary *params = @{@"section":title};
-    [_arch addEventPoint: @"选择栏目" withUserInfo:params];
+    [_archTracker addEventPoint: @"选择栏目" withUserInfo:params];
     
     [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

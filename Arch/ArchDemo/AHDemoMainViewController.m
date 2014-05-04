@@ -7,13 +7,13 @@
 //
 
 #import "AHDemoMainViewController.h"
-#import "Arch.h"
+#import "ArchTracker.h"
 #import "AHDataController.h"
 #import "UIViewController+MMDrawerController.h"
 
 
 @interface AHDemoMainViewController ()
-@property (nonatomic,strong) Arch *arch;
+@property (nonatomic,strong) ArchTracker *archTracker;
 @end
 
 @implementation AHDemoMainViewController
@@ -22,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.arch = [Arch shareInstanceWithAppid:@"ArchDemo"];
+        self.archTracker = [ArchTracker shareInstanceWithAppid:@"ArchDemo"];
     }
     return self;
 }
@@ -47,12 +47,12 @@
 
 -(IBAction)clickStartMonitorAction:(id)sender
 {
-    [self.arch startMonitor];
+    [self.archTracker startMonitor];
 }
 
 -(IBAction)clickStopMonitorAction:(id)sender
 {
-    [self.arch stopMonitor];
+    [self.archTracker stopMonitor];
 
 }
 

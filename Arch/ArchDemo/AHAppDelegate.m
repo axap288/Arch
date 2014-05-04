@@ -7,7 +7,6 @@
 //
 
 #import "AHAppDelegate.h"
-#import "Arch.h"
 #import "AHDemoMainViewController.h"
 #import "AHDemoLeftSideViewController.h"
 #import "AHDemoRightViewController.h"

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1F11ECC418F63C590044C79B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC318F63C590044C79B /* Foundation.framework */; };
-		1F11ECC918F63C590044C79B /* Arch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F11ECC818F63C590044C79B /* Arch.h */; };
-		1F11ECCB18F63C590044C79B /* Arch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ECCA18F63C590044C79B /* Arch.m */; };
+		1F11ECC918F63C590044C79B /* ArchTracker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F11ECC818F63C590044C79B /* ArchTracker.h */; };
+		1F11ECCB18F63C590044C79B /* ArchTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ECCA18F63C590044C79B /* ArchTracker.m */; };
 		1F11ECEE18F63CE60044C79B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC318F63C590044C79B /* Foundation.framework */; };
 		1F11ECF718F63CE60044C79B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F11ECF518F63CE60044C79B /* InfoPlist.strings */; };
 		1F11ECF918F63CE60044C79B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ECF818F63CE60044C79B /* main.m */; };
@@ -66,6 +66,7 @@
 		1FBBB376191286A8001D686E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB374191284D7001D686E /* CoreTelephony.framework */; };
 		1FBBB377191286C2001D686E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB372191284C2001D686E /* CoreFoundation.framework */; };
 		1FBBB378191286D5001D686E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36619126F03001D686E /* SystemConfiguration.framework */; };
+		1FCD61D91916108D009012C2 /* libArchTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC018F63C590044C79B /* libArchTracker.a */; };
 		1FD1153D19151D5B00552AD5 /* MMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1153C19151D5B00552AD5 /* MMNavigationController.m */; };
 		1FF4A292190F44A20083E37B /* AHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28D190F44A20083E37B /* AHDataController.m */; };
 		1FF4A293190F44A20083E37B /* AHMonitorSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28F190F44A20083E37B /* AHMonitorSourceController.m */; };
@@ -73,7 +74,6 @@
 		1FF4A298190F45DE0083E37B /* AHAppRunMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A297190F45DE0083E37B /* AHAppRunMonitorSource.m */; };
 		1FF4A29B190F45FD0083E37B /* AHNetWorkflowMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A29A190F45FD0083E37B /* AHNetWorkflowMonitorSource.m */; };
 		1FF4A29C190F4F700083E37B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ED5D18F641E70044C79B /* UIKit.framework */; };
-		1FF4A29D190F4F730083E37B /* libArch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC018F63C590044C79B /* libArch.a */; };
 		1FF4A2A1190F7D240083E37B /* AHDemoMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A2A0190F7D240083E37B /* AHDemoMainViewController.m */; };
 		1FF4A2A3190F813C0083E37B /* AHMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF4A2A2190F813C0083E37B /* AHMainView.xib */; };
 		1FF4A2AB19109FFF0083E37B /* AHDeviceInfoMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A2AA19109FFF0083E37B /* AHDeviceInfoMonitorSource.m */; };
@@ -86,26 +86,26 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				1F11ECC918F63C590044C79B /* Arch.h in CopyFiles */,
+				1F11ECC918F63C590044C79B /* ArchTracker.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F11ECC018F63C590044C79B /* libArch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libArch.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F11ECC018F63C590044C79B /* libArchTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libArchTracker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F11ECC318F63C590044C79B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1F11ECC718F63C590044C79B /* Arch-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Arch-Prefix.pch"; sourceTree = "<group>"; };
-		1F11ECC818F63C590044C79B /* Arch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arch.h; sourceTree = "<group>"; };
-		1F11ECCA18F63C590044C79B /* Arch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Arch.m; sourceTree = "<group>"; };
+		1F11ECC718F63C590044C79B /* ArchTracker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArchTracker-Prefix.pch"; sourceTree = "<group>"; };
+		1F11ECC818F63C590044C79B /* ArchTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArchTracker.h; sourceTree = "<group>"; };
+		1F11ECCA18F63C590044C79B /* ArchTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArchTracker.m; sourceTree = "<group>"; };
 		1F11ECD118F63C590044C79B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1F11ECD418F63C590044C79B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		1F11ECED18F63CE60044C79B /* ArchDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArchDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F11ECED18F63CE60044C79B /* ArchTrackerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArchTrackerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F11ECEF18F63CE60044C79B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1F11ECF418F63CE60044C79B /* ArchDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ArchDemo-Info.plist"; sourceTree = "<group>"; };
+		1F11ECF418F63CE60044C79B /* ArchTrackerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ArchTrackerDemo-Info.plist"; sourceTree = "<group>"; };
 		1F11ECF618F63CE60044C79B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F11ECF818F63CE60044C79B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1F11ECFA18F63CE60044C79B /* ArchDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArchDemo-Prefix.pch"; sourceTree = "<group>"; };
+		1F11ECFA18F63CE60044C79B /* ArchTrackerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArchTrackerDemo-Prefix.pch"; sourceTree = "<group>"; };
 		1F11ECFB18F63CE60044C79B /* AHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AHAppDelegate.h; sourceTree = "<group>"; };
 		1F11ECFC18F63CE60044C79B /* AHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AHAppDelegate.m; sourceTree = "<group>"; };
 		1F11ECFE18F63CE60044C79B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -188,6 +188,7 @@
 		1FBBB36F19128455001D686E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1FBBB372191284C2001D686E /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		1FBBB374191284D7001D686E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1FCD61DA19161809009012C2 /* ArchTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchTracker.h; sourceTree = "<group>"; };
 		1FD1153B19151D5B00552AD5 /* MMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNavigationController.h; sourceTree = "<group>"; };
 		1FD1153C19151D5B00552AD5 /* MMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNavigationController.m; sourceTree = "<group>"; };
 		1FF4A28C190F44A20083E37B /* AHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHDataController.h; sourceTree = "<group>"; };
@@ -200,7 +201,6 @@
 		1FF4A297190F45DE0083E37B /* AHAppRunMonitorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHAppRunMonitorSource.m; sourceTree = "<group>"; };
 		1FF4A299190F45FD0083E37B /* AHNetWorkflowMonitorSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHNetWorkflowMonitorSource.h; sourceTree = "<group>"; };
 		1FF4A29A190F45FD0083E37B /* AHNetWorkflowMonitorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHNetWorkflowMonitorSource.m; sourceTree = "<group>"; };
-		1FF4A29E190F506E0083E37B /* Arch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arch.h; sourceTree = "<group>"; };
 		1FF4A29F190F7D240083E37B /* AHDemoMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHDemoMainViewController.h; sourceTree = "<group>"; };
 		1FF4A2A0190F7D240083E37B /* AHDemoMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHDemoMainViewController.m; sourceTree = "<group>"; };
 		1FF4A2A2190F813C0083E37B /* AHMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AHMainView.xib; sourceTree = "<group>"; };
@@ -238,9 +238,9 @@
 				1FBBB36E19128419001D686E /* Security.framework in Frameworks */,
 				1FBBB36A191281C1001D686E /* CFNetwork.framework in Frameworks */,
 				1FBBB368191281A6001D686E /* MobileCoreServices.framework in Frameworks */,
+				1FCD61D91916108D009012C2 /* libArchTracker.a in Frameworks */,
 				1FBBB3601911FDB7001D686E /* libz.dylib in Frameworks */,
 				1FF4A29C190F4F700083E37B /* UIKit.framework in Frameworks */,
-				1FF4A29D190F4F730083E37B /* libArch.a in Frameworks */,
 				1F11ECEE18F63CE60044C79B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,8 +262,8 @@
 		1F11ECC118F63C590044C79B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F11ECC018F63C590044C79B /* libArch.a */,
-				1F11ECED18F63CE60044C79B /* ArchDemo.app */,
+				1F11ECC018F63C590044C79B /* libArchTracker.a */,
+				1F11ECED18F63CE60044C79B /* ArchTrackerDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -298,8 +298,8 @@
 				1F11ED2218F63F8B0044C79B /* Utilit */,
 				1F11ED2E18F63F8B0044C79B /* Foundation */,
 				1F11ED3718F63F8B0044C79B /* Model */,
-				1F11ECC818F63C590044C79B /* Arch.h */,
-				1F11ECCA18F63C590044C79B /* Arch.m */,
+				1F11ECCA18F63C590044C79B /* ArchTracker.m */,
+				1F11ECC818F63C590044C79B /* ArchTracker.h */,
 				1F11ECC618F63C590044C79B /* Supporting Files */,
 			);
 			path = Arch;
@@ -308,7 +308,7 @@
 		1F11ECC618F63C590044C79B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1F11ECC718F63C590044C79B /* Arch-Prefix.pch */,
+				1F11ECC718F63C590044C79B /* ArchTracker-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -318,11 +318,11 @@
 			children = (
 				1FB726241914BB23008D3AB2 /* 3Part */,
 				1FB726231914BB07008D3AB2 /* ViewControllers */,
-				1FF4A29E190F506E0083E37B /* Arch.h */,
-				1F11ECFB18F63CE60044C79B /* AHAppDelegate.h */,
-				1F11ECFC18F63CE60044C79B /* AHAppDelegate.m */,
 				1F11ECF318F63CE60044C79B /* Supporting Files */,
 				1FF4A2A2190F813C0083E37B /* AHMainView.xib */,
+				1F11ECFB18F63CE60044C79B /* AHAppDelegate.h */,
+				1F11ECFC18F63CE60044C79B /* AHAppDelegate.m */,
+				1FCD61DA19161809009012C2 /* ArchTracker.h */,
 			);
 			path = ArchDemo;
 			sourceTree = "<group>";
@@ -332,10 +332,10 @@
 			children = (
 				1F11ECFE18F63CE60044C79B /* Images.xcassets */,
 				1FB726111913760D008D3AB2 /* silence.wav */,
-				1F11ECF418F63CE60044C79B /* ArchDemo-Info.plist */,
+				1F11ECF418F63CE60044C79B /* ArchTrackerDemo-Info.plist */,
 				1F11ECF518F63CE60044C79B /* InfoPlist.strings */,
 				1F11ECF818F63CE60044C79B /* main.m */,
-				1F11ECFA18F63CE60044C79B /* ArchDemo-Prefix.pch */,
+				1F11ECFA18F63CE60044C79B /* ArchTrackerDemo-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -554,9 +554,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1F11ECBF18F63C590044C79B /* Arch */ = {
+		1F11ECBF18F63C590044C79B /* ArchTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F11ECE318F63C590044C79B /* Build configuration list for PBXNativeTarget "Arch" */;
+			buildConfigurationList = 1F11ECE318F63C590044C79B /* Build configuration list for PBXNativeTarget "ArchTracker" */;
 			buildPhases = (
 				1F11ECBC18F63C590044C79B /* Sources */,
 				1F11ECBD18F63C590044C79B /* Frameworks */,
@@ -566,14 +566,14 @@
 			);
 			dependencies = (
 			);
-			name = Arch;
+			name = ArchTracker;
 			productName = Arch;
-			productReference = 1F11ECC018F63C590044C79B /* libArch.a */;
+			productReference = 1F11ECC018F63C590044C79B /* libArchTracker.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		1F11ECEC18F63CE60044C79B /* ArchDemo */ = {
+		1F11ECEC18F63CE60044C79B /* ArchTrackerDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1F11ED1218F63CE60044C79B /* Build configuration list for PBXNativeTarget "ArchDemo" */;
+			buildConfigurationList = 1F11ED1218F63CE60044C79B /* Build configuration list for PBXNativeTarget "ArchTrackerDemo" */;
 			buildPhases = (
 				1F11ECE918F63CE60044C79B /* Sources */,
 				1F11ECEA18F63CE60044C79B /* Frameworks */,
@@ -583,9 +583,9 @@
 			);
 			dependencies = (
 			);
-			name = ArchDemo;
+			name = ArchTrackerDemo;
 			productName = ArchDemo;
-			productReference = 1F11ECED18F63CE60044C79B /* ArchDemo.app */;
+			productReference = 1F11ECED18F63CE60044C79B /* ArchTrackerDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -602,7 +602,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1F11ECBB18F63C590044C79B /* Build configuration list for PBXProject "Arch" */;
+			buildConfigurationList = 1F11ECBB18F63C590044C79B /* Build configuration list for PBXProject "ArchTracker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -614,8 +614,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1F11ECBF18F63C590044C79B /* Arch */,
-				1F11ECEC18F63CE60044C79B /* ArchDemo */,
+				1F11ECBF18F63C590044C79B /* ArchTracker */,
+				1F11ECEC18F63CE60044C79B /* ArchTrackerDemo */,
 			);
 		};
 /* End PBXProject section */
@@ -661,7 +661,7 @@
 				1F11ED6418F644090044C79B /* AHNetWorkflowRateStatistics.m in Sources */,
 				1FF4A29B190F45FD0083E37B /* AHNetWorkflowMonitorSource.m in Sources */,
 				1F11ED6118F643130044C79B /* AHsysMonitor.m in Sources */,
-				1F11ECCB18F63C590044C79B /* Arch.m in Sources */,
+				1F11ECCB18F63C590044C79B /* ArchTracker.m in Sources */,
 				1F11ED8218F647D10044C79B /* DDASLLogger.m in Sources */,
 				1F11ED8018F647D10044C79B /* CompressingLogFileManager.m in Sources */,
 				1F11ED7218F6471B0044C79B /* AHConfigManager.m in Sources */,
@@ -780,9 +780,9 @@
 				ARCHS = armv7;
 				DSTROOT = /tmp/Arch.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Arch/Arch-Prefix.pch";
+				GCC_PREFIX_HEADER = "Arch/ArchTracker-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ArchTracker;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -793,9 +793,9 @@
 				ARCHS = armv7;
 				DSTROOT = /tmp/Arch.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Arch/Arch-Prefix.pch";
+				GCC_PREFIX_HEADER = "Arch/ArchTracker-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ArchTracker;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -813,14 +813,14 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ArchDemo/ArchDemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "ArchDemo/ArchTrackerDemo-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ArchDemo/ArchDemo-Info.plist";
+				INFOPLIST_FILE = "ArchDemo/ArchTrackerDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ArchTrackerDemo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -838,10 +838,10 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ArchDemo/ArchDemo-Prefix.pch";
-				INFOPLIST_FILE = "ArchDemo/ArchDemo-Info.plist";
+				GCC_PREFIX_HEADER = "ArchDemo/ArchTrackerDemo-Prefix.pch";
+				INFOPLIST_FILE = "ArchDemo/ArchTrackerDemo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ArchTrackerDemo;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -849,7 +849,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F11ECBB18F63C590044C79B /* Build configuration list for PBXProject "Arch" */ = {
+		1F11ECBB18F63C590044C79B /* Build configuration list for PBXProject "ArchTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F11ECE118F63C590044C79B /* Debug */,
@@ -858,7 +858,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F11ECE318F63C590044C79B /* Build configuration list for PBXNativeTarget "Arch" */ = {
+		1F11ECE318F63C590044C79B /* Build configuration list for PBXNativeTarget "ArchTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F11ECE418F63C590044C79B /* Debug */,
@@ -867,7 +867,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1F11ED1218F63CE60044C79B /* Build configuration list for PBXNativeTarget "ArchDemo" */ = {
+		1F11ED1218F63CE60044C79B /* Build configuration list for PBXNativeTarget "ArchTrackerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F11ED1318F63CE60044C79B /* Debug */,
