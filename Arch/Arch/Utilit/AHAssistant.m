@@ -368,4 +368,17 @@ static UIViewController *viewcontroller;
     return compressedData;
 }
 
+//url编码
++(NSString *)URLEncodedString:(NSString *)string
+{
+    NSString *encodedString = (NSString*)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                                 (CFStringRef)string,
+                                                                                 NULL,
+                                                                                 (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                 kCFStringEncodingUTF8));
+    return encodedString;
+
+}
+
+
 @end

@@ -12,8 +12,8 @@
 #import "AHFileTool.h"
 
 #define  cacheArchiveFileName @"RequestCache.archive"
-#define  MonitorDataServerURL @"http://192.168.1.24/PoweredByMacOSX.gif"
-#define  EventDataServerURL @"http://127.0.0.1/b.jpg"
+#define  MonitorDataServerURL @"http://119.161.211.240/sijla/m.gif"
+#define  EventDataServerURL @"http://119.161.211.240/sijla/e.gif"
 
 
 @interface AHTransmitController()
@@ -81,7 +81,7 @@
 -(void)sendJsonData:(NSString *)jsonstr withTarget:(sendTarget)target
 {
     if (jsonstr  != nil) {
-        NSString *compressStr = [self gzipCompressStr:jsonstr];
+        NSString *compressStr = [self gzipCompressAndEncryptStr:jsonstr];
 //        NSString *restoreStr = [self gzipUncompressStr:compressStr];
         if (compressStr) {
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -91,6 +91,11 @@
             [self sendDataToServerNow:dic];
         }
     }
+}
+
+-(void)sendData:(NSString *)str withTarget:(sendTarget)target
+{
+    [self sendJsonData:str withTarget:target];
 }
 
 -(void)sendDataToServerNow:(NSDictionary *)data
@@ -138,20 +143,25 @@
 }
 
 
--(NSString *)gzipCompressStr:(NSString *)jsonstr
+-(NSString *)gzipCompressAndEncryptStr:(NSString *)jsonstr
 {
     NSData *inputData = [jsonstr dataUsingEncoding:NSUTF8StringEncoding];
     NSData *compressedData = [AHAssistant gzipData:inputData] ;
-    NSString *compressStr  = [compressedData base64EncodedStringWithOptions:0];
-    return compressStr;
+    //数据反转加密
+    NSData *reverseCompressedData = [self reverseData:compressedData];
+    NSString *compressStr  = [reverseCompressedData base64EncodedStringWithOptions:0];
+    NSString *urlencodeStr = [AHAssistant URLEncodedString:compressStr];
+
+    return urlencodeStr;
 }
 
--(NSString *)gzipUncompressStr:(NSString *)compressStr
+-(NSString *)dencryptAndgzipUncompressStr:(NSString *)compressStr
 {
    NSData *inputData =[[NSData alloc] initWithBase64EncodedString:compressStr options:0];
-    NSData *uncompressedData = [AHAssistant ungzipData:inputData] ;
+    //数据反转还原
+    NSData *reverseCompressedData = [self reverseData:inputData];
+    NSData *uncompressedData = [AHAssistant ungzipData:reverseCompressedData] ;
     NSString *uncompressStr =  [[NSString alloc] initWithData:uncompressedData encoding:NSUTF8StringEncoding];
-
     return uncompressStr;
 }
 
@@ -160,6 +170,44 @@
     NSString *archiveFilePath = [[AHFileTool getDocumentPath] stringByAppendingPathComponent:cacheArchiveFileName];
     return archiveFilePath;
 }
+
+
+//封装的方法
+-(NSData *)reverseData:(NSData *)data
+{
+    size_t length = [data length];
+    
+    Byte * byteData = malloc(length+1);
+    bzero(byteData, sizeof(byteData));
+    memcpy(byteData, [data bytes],length+1);
+    
+    Byte *byteResult = malloc(length+1);
+    bzero(byteResult, sizeof(byteResult));
+    
+    
+    for(int i = 0; i < length; i ++)
+    {
+        unsigned char c = byteData[i];
+        unsigned char newchar = reverse8(c);
+        byteResult[i] = newchar;
+    }
+    
+    NSData *resutData = [NSData dataWithBytes:byteResult length:length];
+    free(byteData);
+    free(byteResult);
+    return resutData;
+}
+
+//翻转算法
+unsigned char reverse8( unsigned char c )
+{
+    c = ( c & 0x55 ) << 1 | ( c & 0xAA ) >> 1;
+    c = ( c & 0x33 ) << 2 | ( c & 0xCC ) >> 2;
+    c = ( c & 0x0F ) << 4 | ( c & 0xF0 ) >> 4;
+    return c;
+}
+
+
 
 
 @end

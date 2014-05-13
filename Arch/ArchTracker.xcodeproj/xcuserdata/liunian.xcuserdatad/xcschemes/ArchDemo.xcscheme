@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-               BuildableName = "ArchDemo.app"
+               BuildableName = "ArchTrackerDemo.app"
                BlueprintName = "ArchTrackerDemo"
                ReferencedContainer = "container:ArchTracker.xcodeproj">
             </BuildableReference>
@@ -28,12 +28,22 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1FDD8B8B1921F2B000AC4EB6"
+               BuildableName = "ArchTrackerDemoTests.xctest"
+               BlueprintName = "ArchTrackerDemoTests"
+               ReferencedContainer = "container:ArchTracker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-            BuildableName = "ArchDemo.app"
+            BuildableName = "ArchTrackerDemo.app"
             BlueprintName = "ArchTrackerDemo"
             ReferencedContainer = "container:ArchTracker.xcodeproj">
          </BuildableReference>
@@ -52,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-            BuildableName = "ArchDemo.app"
+            BuildableName = "ArchTrackerDemo.app"
             BlueprintName = "ArchTrackerDemo"
             ReferencedContainer = "container:ArchTracker.xcodeproj">
          </BuildableReference>
@@ -70,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1F11ECEC18F63CE60044C79B"
-            BuildableName = "ArchDemo.app"
+            BuildableName = "ArchTrackerDemo.app"
             BlueprintName = "ArchTrackerDemo"
             ReferencedContainer = "container:ArchTracker.xcodeproj">
          </BuildableReference>

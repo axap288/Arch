@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1F11ECBF18F63C590044C79B"
-               BuildableName = "libArch.a"
+               BuildableName = "libArchTracker.a"
                BlueprintName = "ArchTracker"
                ReferencedContainer = "container:ArchTracker.xcodeproj">
             </BuildableReference>
@@ -28,6 +28,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1FDD8BA11921F31900AC4EB6"
+               BuildableName = "ArchTrackerTests.xctest"
+               BlueprintName = "ArchTrackerTests"
+               ReferencedContainer = "container:ArchTracker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

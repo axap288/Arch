@@ -44,6 +44,11 @@
 //gzip解压缩数据
 + (NSData *)ungzipData:(NSData *)compressedData;
 
+//url编码
++(NSString *)URLEncodedString:(NSString *)string;
+//url解码
+//+(NSString *)URLDEcodedString:(NSString *)string;
+
 
 
 @end

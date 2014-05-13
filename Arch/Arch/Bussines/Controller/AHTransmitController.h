@@ -22,4 +22,7 @@ typedef enum
 
 -(void)sendJsonData:(NSString *)jsonstr withTarget:(sendTarget)target;
 
+-(void)sendData:(NSString *)str withTarget:(sendTarget)target;
+
+
 @end

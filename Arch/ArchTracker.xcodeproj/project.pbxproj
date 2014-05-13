@@ -68,6 +68,17 @@
 		1FBBB378191286D5001D686E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36619126F03001D686E /* SystemConfiguration.framework */; };
 		1FCD61D91916108D009012C2 /* libArchTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC018F63C590044C79B /* libArchTracker.a */; };
 		1FD1153D19151D5B00552AD5 /* MMNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD1153C19151D5B00552AD5 /* MMNavigationController.m */; };
+		1FDD8BA31921F31900AC4EB6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECD118F63C590044C79B /* XCTest.framework */; };
+		1FDD8BA41921F31900AC4EB6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC318F63C590044C79B /* Foundation.framework */; };
+		1FDD8BA51921F31900AC4EB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ED5D18F641E70044C79B /* UIKit.framework */; };
+		1FDD8BAB1921F31900AC4EB6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1FDD8BA91921F31900AC4EB6 /* InfoPlist.strings */; };
+		1FDD8BAD1921F31900AC4EB6 /* ArchTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD8BAC1921F31900AC4EB6 /* ArchTrackerTests.m */; };
+		1FDD8BB51921F7B100AC4EB6 /* data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1FDD8BB41921F7B100AC4EB6 /* data.txt */; };
+		1FDD8BB61921F88500AC4EB6 /* libArchTracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F11ECC018F63C590044C79B /* libArchTracker.a */; };
+		1FDD8BB71921F93200AC4EB6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB369191281C1001D686E /* CFNetwork.framework */; };
+		1FDD8BB81921F96D00AC4EB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36419126EF2001D686E /* MobileCoreServices.framework */; };
+		1FDD8BB91921F9BD00AC4EB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36619126F03001D686E /* SystemConfiguration.framework */; };
+		1FDD8BBA1921F9EE00AC4EB6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB35E1911FD8D001D686E /* libz.dylib */; };
 		1FF4A292190F44A20083E37B /* AHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28D190F44A20083E37B /* AHDataController.m */; };
 		1FF4A293190F44A20083E37B /* AHMonitorSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28F190F44A20083E37B /* AHMonitorSourceController.m */; };
 		1FF4A294190F44A20083E37B /* AHTransmitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A291190F44A20083E37B /* AHTransmitController.m */; };
@@ -78,6 +89,16 @@
 		1FF4A2A3190F813C0083E37B /* AHMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF4A2A2190F813C0083E37B /* AHMainView.xib */; };
 		1FF4A2AB19109FFF0083E37B /* AHDeviceInfoMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A2AA19109FFF0083E37B /* AHDeviceInfoMonitorSource.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1FDD8BAF1921F31900AC4EB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F11ECB818F63C590044C79B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F11ECBF18F63C590044C79B;
+			remoteInfo = ArchTracker;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		1F11ECBE18F63C590044C79B /* CopyFiles */ = {
@@ -191,6 +212,12 @@
 		1FCD61DA19161809009012C2 /* ArchTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchTracker.h; sourceTree = "<group>"; };
 		1FD1153B19151D5B00552AD5 /* MMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNavigationController.h; sourceTree = "<group>"; };
 		1FD1153C19151D5B00552AD5 /* MMNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNavigationController.m; sourceTree = "<group>"; };
+		1FDD8BA21921F31900AC4EB6 /* ArchTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ArchTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FDD8BA81921F31900AC4EB6 /* ArchTrackerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ArchTrackerTests-Info.plist"; sourceTree = "<group>"; };
+		1FDD8BAA1921F31900AC4EB6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1FDD8BAC1921F31900AC4EB6 /* ArchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArchTrackerTests.m; sourceTree = "<group>"; };
+		1FDD8BAE1921F31900AC4EB6 /* ArchTrackerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArchTrackerTests-Prefix.pch"; sourceTree = "<group>"; };
+		1FDD8BB41921F7B100AC4EB6 /* data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
 		1FF4A28C190F44A20083E37B /* AHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHDataController.h; sourceTree = "<group>"; };
 		1FF4A28D190F44A20083E37B /* AHDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHDataController.m; sourceTree = "<group>"; };
 		1FF4A28E190F44A20083E37B /* AHMonitorSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHMonitorSourceController.h; sourceTree = "<group>"; };
@@ -245,6 +272,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1FDD8B9F1921F31900AC4EB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FDD8BBA1921F9EE00AC4EB6 /* libz.dylib in Frameworks */,
+				1FDD8BB91921F9BD00AC4EB6 /* SystemConfiguration.framework in Frameworks */,
+				1FDD8BB81921F96D00AC4EB6 /* MobileCoreServices.framework in Frameworks */,
+				1FDD8BB71921F93200AC4EB6 /* CFNetwork.framework in Frameworks */,
+				1FDD8BA31921F31900AC4EB6 /* XCTest.framework in Frameworks */,
+				1FDD8BA51921F31900AC4EB6 /* UIKit.framework in Frameworks */,
+				1FDD8BA41921F31900AC4EB6 /* Foundation.framework in Frameworks */,
+				1FDD8BB61921F88500AC4EB6 /* libArchTracker.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -253,6 +295,7 @@
 			children = (
 				1F11ECC518F63C590044C79B /* Arch */,
 				1F11ECF218F63CE60044C79B /* ArchDemo */,
+				1FDD8BA61921F31900AC4EB6 /* ArchTrackerTests */,
 				1F11ECC218F63C590044C79B /* Frameworks */,
 				1F11ECC118F63C590044C79B /* Products */,
 				1F36582A1910E18200F67293 /* interface_doc */,
@@ -264,6 +307,7 @@
 			children = (
 				1F11ECC018F63C590044C79B /* libArchTracker.a */,
 				1F11ECED18F63CE60044C79B /* ArchTrackerDemo.app */,
+				1FDD8BA21921F31900AC4EB6 /* ArchTrackerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -525,6 +569,26 @@
 			name = MMTableViewHelpers;
 			sourceTree = "<group>";
 		};
+		1FDD8BA61921F31900AC4EB6 /* ArchTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				1FDD8BB41921F7B100AC4EB6 /* data.txt */,
+				1FDD8BAC1921F31900AC4EB6 /* ArchTrackerTests.m */,
+				1FDD8BA71921F31900AC4EB6 /* Supporting Files */,
+			);
+			path = ArchTrackerTests;
+			sourceTree = "<group>";
+		};
+		1FDD8BA71921F31900AC4EB6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1FDD8BA81921F31900AC4EB6 /* ArchTrackerTests-Info.plist */,
+				1FDD8BA91921F31900AC4EB6 /* InfoPlist.strings */,
+				1FDD8BAE1921F31900AC4EB6 /* ArchTrackerTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		1FF4A28B190F44A20083E37B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +652,24 @@
 			productReference = 1F11ECED18F63CE60044C79B /* ArchTrackerDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1FDD8BA11921F31900AC4EB6 /* ArchTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FDD8BB11921F31900AC4EB6 /* Build configuration list for PBXNativeTarget "ArchTrackerTests" */;
+			buildPhases = (
+				1FDD8B9E1921F31900AC4EB6 /* Sources */,
+				1FDD8B9F1921F31900AC4EB6 /* Frameworks */,
+				1FDD8BA01921F31900AC4EB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FDD8BB01921F31900AC4EB6 /* PBXTargetDependency */,
+			);
+			name = ArchTrackerTests;
+			productName = ArchTrackerTests;
+			productReference = 1FDD8BA21921F31900AC4EB6 /* ArchTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -599,6 +681,9 @@
 				TargetAttributes = {
 					1F11ECEC18F63CE60044C79B = {
 						DevelopmentTeam = H4TG7H4M52;
+					};
+					1FDD8BA11921F31900AC4EB6 = {
+						TestTargetID = 1F11ECBF18F63C590044C79B;
 					};
 				};
 			};
@@ -616,6 +701,7 @@
 			targets = (
 				1F11ECBF18F63C590044C79B /* ArchTracker */,
 				1F11ECEC18F63CE60044C79B /* ArchTrackerDemo */,
+				1FDD8BA11921F31900AC4EB6 /* ArchTrackerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -629,6 +715,15 @@
 				1FF4A2A3190F813C0083E37B /* AHMainView.xib in Resources */,
 				1FB726121913760D008D3AB2 /* silence.wav in Resources */,
 				1F11ECFF18F63CE60044C79B /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FDD8BA01921F31900AC4EB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FDD8BB51921F7B100AC4EB6 /* data.txt in Resources */,
+				1FDD8BAB1921F31900AC4EB6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,13 +787,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1FDD8B9E1921F31900AC4EB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FDD8BAD1921F31900AC4EB6 /* ArchTrackerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1FDD8BB01921F31900AC4EB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F11ECBF18F63C590044C79B /* ArchTracker */;
+			targetProxy = 1FDD8BAF1921F31900AC4EB6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1F11ECF518F63CE60044C79B /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				1F11ECF618F63CE60044C79B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1FDD8BA91921F31900AC4EB6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1FDD8BAA1921F31900AC4EB6 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -846,6 +965,42 @@
 			};
 			name = Release;
 		};
+		1FDD8BB21921F31900AC4EB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ArchTrackerTests/ArchTrackerTests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ArchTrackerTests/ArchTrackerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		1FDD8BB31921F31900AC4EB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ArchTrackerTests/ArchTrackerTests-Prefix.pch";
+				INFOPLIST_FILE = "ArchTrackerTests/ArchTrackerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -875,6 +1030,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1FDD8BB11921F31900AC4EB6 /* Build configuration list for PBXNativeTarget "ArchTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FDD8BB21921F31900AC4EB6 /* Debug */,
+				1FDD8BB31921F31900AC4EB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 
