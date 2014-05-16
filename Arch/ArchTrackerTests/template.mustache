@@ -1,0 +1,7 @@
+{{# sessionDatas.count}}
+NSERT INTO `session` 
+(`uid`, `sid`, `aciivity_name`, `app_name`, `app_id`, `app_ver`, `sys_or_user`, `begin_time`, `end_time`, `create_time`)
+VALUES
+{{# myfilter(sessionDatas)}}('{{uid}}', '{{sid}}', '{{aciivityName}}', '{{appName}}', '{{appId}}', '{{appVer}}', 'user', '{{beginTime}}', '{{endTime}}', '{{creatTime}}'){{^ isLast }},{{/}}{{# isLast }};{{/}}
+{{/ myfilter(sessionDatas)}}
+{{/ sessionDatas.count}}

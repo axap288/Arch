@@ -36,6 +36,11 @@
 		1F11ED9618F649940044C79B /* AppRunTimeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED9018F649940044C79B /* AppRunTimeInfo.m */; };
 		1F11ED9718F649940044C79B /* LocationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F11ED9218F649940044C79B /* LocationInfo.m */; };
 		1F3658291910DB1000F67293 /* MSWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3658281910DB1000F67293 /* MSWeakTimer.m */; };
+		1F422D641926022000833BCD /* PositionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F422D4E1926022000833BCD /* PositionFilter.m */; };
+		1F422D651926022000833BCD /* libGRMustache7-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F422D621926022000833BCD /* libGRMustache7-iOS.a */; };
+		1F422D661926022000833BCD /* libGRMustache7-MacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F422D631926022000833BCD /* libGRMustache7-MacOS.a */; };
+		1F422D6819261AE000833BCD /* template.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 1F422D6719261AE000833BCD /* template.mustache */; };
+		1F422D6919261AE000833BCD /* template.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 1F422D6719261AE000833BCD /* template.mustache */; };
 		1FB7260A19137390008D3AB2 /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7260919137390008D3AB2 /* MTAudioPlayer.m */; };
 		1FB7260F19137596008D3AB2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36F19128455001D686E /* AudioToolbox.framework */; };
 		1FB72610191375A5008D3AB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB7260C19137555008D3AB2 /* AVFoundation.framework */; };
@@ -79,6 +84,7 @@
 		1FDD8BB81921F96D00AC4EB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36419126EF2001D686E /* MobileCoreServices.framework */; };
 		1FDD8BB91921F9BD00AC4EB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36619126F03001D686E /* SystemConfiguration.framework */; };
 		1FDD8BBA1921F9EE00AC4EB6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB35E1911FD8D001D686E /* libz.dylib */; };
+		1FE543141924B5D90087407F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FE543131924B5D90087407F /* libicucore.dylib */; };
 		1FF4A292190F44A20083E37B /* AHDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28D190F44A20083E37B /* AHDataController.m */; };
 		1FF4A293190F44A20083E37B /* AHMonitorSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A28F190F44A20083E37B /* AHMonitorSourceController.m */; };
 		1FF4A294190F44A20083E37B /* AHTransmitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF4A291190F44A20083E37B /* AHTransmitController.m */; };
@@ -173,6 +179,28 @@
 		1F3658281910DB1000F67293 /* MSWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSWeakTimer.m; sourceTree = "<group>"; };
 		1F36582B1910E18200F67293 /* tosjson (1).txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "tosjson (1).txt"; sourceTree = "<group>"; };
 		1F36582C1910E18200F67293 /* tosjson.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tosjson.txt; sourceTree = "<group>"; };
+		1F422D4D1926022000833BCD /* PositionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PositionFilter.h; sourceTree = "<group>"; };
+		1F422D4E1926022000833BCD /* PositionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PositionFilter.m; sourceTree = "<group>"; };
+		1F422D501926022000833BCD /* GRMustache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustache.h; sourceTree = "<group>"; };
+		1F422D511926022000833BCD /* GRMustacheAvailabilityMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheAvailabilityMacros.h; sourceTree = "<group>"; };
+		1F422D521926022000833BCD /* GRMustacheConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheConfiguration.h; sourceTree = "<group>"; };
+		1F422D531926022000833BCD /* GRMustacheContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheContentType.h; sourceTree = "<group>"; };
+		1F422D541926022000833BCD /* GRMustacheContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheContext.h; sourceTree = "<group>"; };
+		1F422D551926022000833BCD /* GRMustacheError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheError.h; sourceTree = "<group>"; };
+		1F422D561926022000833BCD /* GRMustacheFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheFilter.h; sourceTree = "<group>"; };
+		1F422D571926022000833BCD /* GRMustacheLocalizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheLocalizer.h; sourceTree = "<group>"; };
+		1F422D581926022000833BCD /* GRMustacheRendering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheRendering.h; sourceTree = "<group>"; };
+		1F422D591926022000833BCD /* GRMustacheSafeKeyAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheSafeKeyAccess.h; sourceTree = "<group>"; };
+		1F422D5A1926022000833BCD /* GRMustacheTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheTag.h; sourceTree = "<group>"; };
+		1F422D5B1926022000833BCD /* GRMustacheTagDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheTagDelegate.h; sourceTree = "<group>"; };
+		1F422D5C1926022000833BCD /* GRMustacheTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplate.h; sourceTree = "<group>"; };
+		1F422D5D1926022000833BCD /* GRMustacheTemplateRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheTemplateRepository.h; sourceTree = "<group>"; };
+		1F422D5E1926022000833BCD /* GRMustacheVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GRMustacheVersion.h; sourceTree = "<group>"; };
+		1F422D5F1926022000833BCD /* NSFormatter+GRMustache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFormatter+GRMustache.h"; sourceTree = "<group>"; };
+		1F422D601926022000833BCD /* NSValueTransformer+GRMustache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValueTransformer+GRMustache.h"; sourceTree = "<group>"; };
+		1F422D621926022000833BCD /* libGRMustache7-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache7-iOS.a"; sourceTree = "<group>"; };
+		1F422D631926022000833BCD /* libGRMustache7-MacOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache7-MacOS.a"; sourceTree = "<group>"; };
+		1F422D6719261AE000833BCD /* template.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.mustache; sourceTree = "<group>"; };
 		1FB7260819137390008D3AB2 /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAudioPlayer.h; sourceTree = "<group>"; };
 		1FB7260919137390008D3AB2 /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAudioPlayer.m; sourceTree = "<group>"; };
 		1FB7260C19137555008D3AB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -218,6 +246,7 @@
 		1FDD8BAC1921F31900AC4EB6 /* ArchTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArchTrackerTests.m; sourceTree = "<group>"; };
 		1FDD8BAE1921F31900AC4EB6 /* ArchTrackerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArchTrackerTests-Prefix.pch"; sourceTree = "<group>"; };
 		1FDD8BB41921F7B100AC4EB6 /* data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.txt; sourceTree = "<group>"; };
+		1FE543131924B5D90087407F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib/libicucore.dylib; sourceTree = DEVELOPER_DIR; };
 		1FF4A28C190F44A20083E37B /* AHDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHDataController.h; sourceTree = "<group>"; };
 		1FF4A28D190F44A20083E37B /* AHDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHDataController.m; sourceTree = "<group>"; };
 		1FF4A28E190F44A20083E37B /* AHMonitorSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHMonitorSourceController.h; sourceTree = "<group>"; };
@@ -240,6 +269,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FE543141924B5D90087407F /* libicucore.dylib in Frameworks */,
+				1F422D651926022000833BCD /* libGRMustache7-iOS.a in Frameworks */,
+				1F422D661926022000833BCD /* libGRMustache7-MacOS.a in Frameworks */,
 				1FBBB375191284D7001D686E /* CoreTelephony.framework in Frameworks */,
 				1FBBB373191284C2001D686E /* CoreFoundation.framework in Frameworks */,
 				1FBBB36D19128407001D686E /* Security.framework in Frameworks */,
@@ -315,6 +347,7 @@
 		1F11ECC218F63C590044C79B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FE543131924B5D90087407F /* libicucore.dylib */,
 				1FB726131913A765008D3AB2 /* AdSupport.framework */,
 				1FB7260C19137555008D3AB2 /* AVFoundation.framework */,
 				1FBBB374191284D7001D686E /* CoreTelephony.framework */,
@@ -387,6 +420,7 @@
 		1F11ED1818F63F8B0044C79B /* 3Part */ = {
 			isa = PBXGroup;
 			children = (
+				1F422D4B1926022000833BCD /* GRMustache */,
 				1FB7260719137390008D3AB2 /* MTAudioPlayer */,
 				1F3658261910DB1000F67293 /* MSWeakTimer */,
 				1F11ED7318F647D10044C79B /* Lumberjack */,
@@ -505,6 +539,58 @@
 			path = interface_doc;
 			sourceTree = "<group>";
 		};
+		1F422D4B1926022000833BCD /* GRMustache */ = {
+			isa = PBXGroup;
+			children = (
+				1F422D4C1926022000833BCD /* filter */,
+				1F422D4F1926022000833BCD /* include */,
+				1F422D611926022000833BCD /* lib */,
+			);
+			path = GRMustache;
+			sourceTree = "<group>";
+		};
+		1F422D4C1926022000833BCD /* filter */ = {
+			isa = PBXGroup;
+			children = (
+				1F422D4D1926022000833BCD /* PositionFilter.h */,
+				1F422D4E1926022000833BCD /* PositionFilter.m */,
+			);
+			path = filter;
+			sourceTree = "<group>";
+		};
+		1F422D4F1926022000833BCD /* include */ = {
+			isa = PBXGroup;
+			children = (
+				1F422D501926022000833BCD /* GRMustache.h */,
+				1F422D511926022000833BCD /* GRMustacheAvailabilityMacros.h */,
+				1F422D521926022000833BCD /* GRMustacheConfiguration.h */,
+				1F422D531926022000833BCD /* GRMustacheContentType.h */,
+				1F422D541926022000833BCD /* GRMustacheContext.h */,
+				1F422D551926022000833BCD /* GRMustacheError.h */,
+				1F422D561926022000833BCD /* GRMustacheFilter.h */,
+				1F422D571926022000833BCD /* GRMustacheLocalizer.h */,
+				1F422D581926022000833BCD /* GRMustacheRendering.h */,
+				1F422D591926022000833BCD /* GRMustacheSafeKeyAccess.h */,
+				1F422D5A1926022000833BCD /* GRMustacheTag.h */,
+				1F422D5B1926022000833BCD /* GRMustacheTagDelegate.h */,
+				1F422D5C1926022000833BCD /* GRMustacheTemplate.h */,
+				1F422D5D1926022000833BCD /* GRMustacheTemplateRepository.h */,
+				1F422D5E1926022000833BCD /* GRMustacheVersion.h */,
+				1F422D5F1926022000833BCD /* NSFormatter+GRMustache.h */,
+				1F422D601926022000833BCD /* NSValueTransformer+GRMustache.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		1F422D611926022000833BCD /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				1F422D621926022000833BCD /* libGRMustache7-iOS.a */,
+				1F422D631926022000833BCD /* libGRMustache7-MacOS.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		1FB7260719137390008D3AB2 /* MTAudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -572,6 +658,7 @@
 		1FDD8BA61921F31900AC4EB6 /* ArchTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
+				1F422D6719261AE000833BCD /* template.mustache */,
 				1FDD8BB41921F7B100AC4EB6 /* data.txt */,
 				1FDD8BAC1921F31900AC4EB6 /* ArchTrackerTests.m */,
 				1FDD8BA71921F31900AC4EB6 /* Supporting Files */,
@@ -693,6 +780,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 1F11ECB718F63C590044C79B;
 			productRefGroup = 1F11ECC118F63C590044C79B /* Products */;
@@ -713,6 +801,7 @@
 			files = (
 				1F11ECF718F63CE60044C79B /* InfoPlist.strings in Resources */,
 				1FF4A2A3190F813C0083E37B /* AHMainView.xib in Resources */,
+				1F422D6819261AE000833BCD /* template.mustache in Resources */,
 				1FB726121913760D008D3AB2 /* silence.wav in Resources */,
 				1F11ECFF18F63CE60044C79B /* Images.xcassets in Resources */,
 			);
@@ -723,6 +812,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FDD8BB51921F7B100AC4EB6 /* data.txt in Resources */,
+				1F422D6919261AE000833BCD /* template.mustache in Resources */,
 				1FDD8BAB1921F31900AC4EB6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -748,6 +838,7 @@
 				1FF4A292190F44A20083E37B /* AHDataController.m in Sources */,
 				1F11ED9718F649940044C79B /* LocationInfo.m in Sources */,
 				1F11ED9418F649940044C79B /* Model.xcdatamodeld in Sources */,
+				1F422D641926022000833BCD /* PositionFilter.m in Sources */,
 				1F11ED9618F649940044C79B /* AppRunTimeInfo.m in Sources */,
 				1F11ED8118F647D10044C79B /* DDAbstractDatabaseLogger.m in Sources */,
 				1F11ED8518F647D10044C79B /* DDTTYLogger.m in Sources */,
@@ -900,6 +991,11 @@
 				DSTROOT = /tmp/Arch.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Arch/ArchTracker-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib",
+					"$(PROJECT_DIR)/Arch/3Part/GRMustache/lib",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ArchTracker;
 				SKIP_INSTALL = YES;
@@ -913,6 +1009,11 @@
 				DSTROOT = /tmp/Arch.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Arch/ArchTracker-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/usr/lib",
+					"$(PROJECT_DIR)/Arch/3Part/GRMustache/lib",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = ArchTracker;
 				SKIP_INSTALL = YES;
@@ -1038,6 +1139,7 @@
 				1FDD8BB31921F31900AC4EB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

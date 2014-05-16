@@ -14,6 +14,12 @@
 #import "AHTransmitController.h"
 #import "AHFileTool.h"
 
+#import "GRMustache.h"
+#import "PositionFilter.h"
+
+
+
+
 
 #define  dataArchiveFileName @"archData.archive"
 
@@ -75,9 +81,11 @@
 {
     if (self.totalDic != nil) {
         //输出json串
-        [self outputJsonString];
+//        [self outputJsonString];
+        
+        [self coverDictionaryToSQLString:self.totalDic];
         //数据清理
-        [self clearData];
+//        [self clearData];
     }
 }
 
@@ -131,7 +139,7 @@
 {
     NSString *jsonStr = [AHAssistant makeJsonString:self.totalDic];
     NSLog(@"json Str:%@",jsonStr);
-//    [transmitController sendJsonData:jsonStr withTarget:monitorTarget];
+    [transmitController sendJsonData:jsonStr withTarget:monitorTarget];
 }
 
 -(void)clearData
@@ -144,6 +152,57 @@
 -(NSString *)getDocumentPath
 {
     return [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+}
+
+//转换成SQL
+-(NSString *)coverDictionaryToSQLString:(NSDictionary *)dic
+{
+    
+    GRMustacheTemplate *template = [GRMustacheTemplate templateFromResource:@"template" bundle:nil error:nil];
+    
+    
+    NSDictionary *session1 = @{@"uid":@"12345",
+                               @"sid":@"2121322323",
+                               @"appName":@"weixin",
+                               @"appId":@"com.tencent.weixin",
+                               @"appVer":@"1.0.0",
+                               @"beginTime":@"2012-12-11",
+                               @"endTime":@"2012-12-12",
+                               @"creatTime":@"2012-12-12",
+                               };
+    NSDictionary *session2 = @{@"uid":@"12345",
+                               @"sid":@"2121322323",
+                               @"appName":@"QQ",
+                               @"appId":@"com.tencent.weixin",
+                               @"appVer":@"1.0.0",
+                               @"beginTime":@"2012-12-11",
+                               @"endTime":@"2012-12-12",
+                               @"creatTime":@"2012-12-12",
+                               };
+    NSDictionary *session3 = @{@"uid":@"12345",
+                               @"sid":@"2121322323",
+                               @"appName":@"QQ121",
+                               @"appId":@"com.tencent.weixin",
+                               @"appVer":@"1.0.0",
+                               @"beginTime":@"2012-12-11",
+                               @"endTime":@"2012-12-12",
+                               @"creatTime":@"2012-12-12",
+                               };
+    
+    NSDictionary *sessions = @{@"sessionDatas":@[session1,session2,session3],
+                          @"myfilter":[PositionFilter new]};
+    
+    NSError *error;
+    NSString *result = [template renderObject:sessions error:&error];
+    if (error) {
+        NSLog(@"%@",[error description]);
+    }else{
+        NSLog(@"result:%@",result);
+    }
+    
+    NSLog(@"totalDic %@:",[self.totalDic description]);
+    NSString *sqlStr = @"";
+    return sqlStr;
 }
 
 @end

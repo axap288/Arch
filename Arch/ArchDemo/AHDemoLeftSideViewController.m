@@ -39,7 +39,7 @@
                               @[@"价格",@"级别",@"国别"],
                               @[@"降价",@"活动"],
                               ];
-        self.archTracker = [ArchTracker shareInstanceWithAppid:@"arch demo"];
+        self.archTracker = [ArchTracker shareInstance];
     }
     return self;
 }
@@ -195,7 +195,7 @@
     
     //加一个用户行为采集点
     NSDictionary *params = @{@"section":title};
-    [_archTracker addEventPoint: @"选择栏目" withUserInfo:params];
+    [_archTracker trackEvent:@"" action:@"" withUserInfo:nil];
     
     [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

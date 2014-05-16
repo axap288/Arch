@@ -22,7 +22,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.archTracker = [ArchTracker shareInstanceWithAppid:@"ArchDemo"];
+        self.archTracker = [ArchTracker shareInstance];
     }
     return self;
 }
@@ -37,6 +37,8 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.extendedLayoutIncludesOpaqueBars = NO;
 //    self.modalPresentationCapturesStatusBarAppearance = NO;
+    [self.archTracker startMonitor];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,7 +49,6 @@
 
 -(IBAction)clickStartMonitorAction:(id)sender
 {
-    [self.archTracker startMonitor];
 }
 
 -(IBAction)clickStopMonitorAction:(id)sender

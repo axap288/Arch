@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>778D952C-809F-42DE-A42F-C02F66A2F39C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MGTemplateEngine</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>823FD82A-30F3-4375-93CF-E907BC800F31</key>
+		<string>https://github.com/nxtbgthng/MGTemplateEngine.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MGTemplateEngine.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>823FD82A-30F3-4375-93CF-E907BC800F31</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/nxtbgthng/MGTemplateEngine.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>823FD82A-30F3-4375-93CF-E907BC800F31</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>823FD82A-30F3-4375-93CF-E907BC800F31</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MGTemplateEngine</string>
+		</dict>
+	</array>
+</dict>
+</plist>
