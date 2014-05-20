@@ -12,7 +12,8 @@ typedef enum
 {
     baseInfoCategory,
     apprunCategory,
-    networkflowCategory
+    networkflowCategory,
+    locationCategory
     
 }MonitorSourceCategory;
 

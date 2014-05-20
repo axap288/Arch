@@ -60,8 +60,9 @@ typedef enum {
 +(NSString *)getCarrierName;
 
 +(NSString *)getCountryCode;
-//时间戳
+//unix时间戳
 +(NSString *)getUnixTimeStamp:(NSDate *)date;
+
 
 //显示电池电量
 //+ (double) batteryLevel;

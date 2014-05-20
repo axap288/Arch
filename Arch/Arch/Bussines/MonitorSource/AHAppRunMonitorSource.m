@@ -10,13 +10,14 @@
 #import "AppInfo.h"
 #import "AppRunTimeInfo.h"
 #import "AHsysMonitor.h"
+#import "AHAssistant.h"
 
 
 @implementation AHAppRunMonitorSource
 {
     NSString *preAppID;
     NSString *preAppName;
-    NSString *preUnixTime;
+    NSString *preTime;
     NSTimer *timerforColllect;
 }
 
@@ -51,7 +52,8 @@
     if ([locked isEqualToString:@"0"] && ![app_id isEqualToString:@""]) {
         
         
-        NSString *currentUnixTime = [NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970]];
+//        NSString *currentUnixTime = [NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970]];
+        NSString *currentTime = [AHAssistant getTimeStamp];
         NSString *app_name = [dict objectForKey:@"app_name"];
         
         //排除包名app_id 中无效的字符串
@@ -62,42 +64,42 @@
         if (userNameRange.location != NSNotFound) {
             //存储上一次App运行信息
             if (preAppName) {
-                result =  [self recordApprunInfo:currentUnixTime];
+                result =  [self recordApprunInfo:currentTime];
                 preAppID = nil;
                 preAppName = nil;
-                preUnixTime = currentUnixTime;
+                preTime = currentTime;
             }
             
         } else if (![preAppID isEqualToString:app_id]) {
             //存储上一次App运行信息
             if (preAppName) {
-                 result =  [self recordApprunInfo:currentUnixTime];
+                 result =  [self recordApprunInfo:currentTime];
             }
             
             //记录当前App运行信息到内存
             preAppID = app_id;
             preAppName = app_name;
-            preUnixTime = currentUnixTime;
+            preTime = currentTime;
             
         }
     }else {
         //存储上一次App运行信息
         if (preAppName &&  ![preAppName isEqualToString:@"(null)"]) {
-            NSString *currentUnixTime = [NSString stringWithFormat:@"%d", (int)[[NSDate date] timeIntervalSince1970]];
-            result =  [self recordApprunInfo:currentUnixTime];
+            NSString *currentTime = [AHAssistant getTimeStamp];
+            result =  [self recordApprunInfo:currentTime];
             
             preAppID = nil;
             preAppName = nil;
-            preUnixTime = currentUnixTime;
+            preTime = currentTime;
         }
     }
     
     return result;
 }
 
--(NSDictionary *) recordApprunInfo:(NSString *)currentUnixTime{
+-(NSDictionary *) recordApprunInfo:(NSString *)currentTime{
     
-    NSInteger stufTime = [currentUnixTime integerValue] - [preUnixTime integerValue];
+    NSInteger stufTime = [currentTime integerValue] - [preTime integerValue];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     if ([preAppID isEqualToString:@"0"] ) {
         return nil;
@@ -105,8 +107,8 @@
     [dic setObject:[NSNumber numberWithInt:apprunCategory] forKey:@"MonitorSourceCategory"];
     [dic setObject:preAppID forKey:@"packageName"];
     [dic setObject:preAppName forKey:@"appName"];
-    [dic setObject:preUnixTime forKey:@"start_time"];
-    [dic setObject:currentUnixTime forKey:@"end_time"];
+    [dic setObject:preTime forKey:@"start_time"];
+    [dic setObject:currentTime forKey:@"end_time"];
     [dic setObject:[NSString stringWithFormat:@"%d",stufTime] forKey:@"duration"];
     
     return dic;

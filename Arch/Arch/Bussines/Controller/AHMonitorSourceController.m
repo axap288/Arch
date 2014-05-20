@@ -11,6 +11,7 @@
 #import "AHNetWorkflowMonitorSource.h"
 #import "AHDataController.h"
 #import "AHDeviceInfoMonitorSource.h"
+#import "AHLocationMonitorSource.h"
 #import "MSWeakTimer.h"
 
 @interface AHMonitorSourceController()
@@ -97,11 +98,13 @@
                     float delayInSeconds = [monitorSource delayTime];
                     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
                     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                        timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+//                        timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+                        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES];
                         [timer fire];
                     });
                 }else{
-                    timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+//                    timer = [MSWeakTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES dispatchQueue:dispatch_get_main_queue()];
+                    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval target:self selector:@selector(timeTaskWithMonitorSource:) userInfo:dic repeats:YES];
                       [timer fire];
                 }
             }
@@ -109,7 +112,7 @@
     }
 }
 
--(void)timeTaskWithMonitorSource:(MSWeakTimer*)theTimer
+-(void)timeTaskWithMonitorSource:(NSTimer*)theTimer
 {
     id<MonitorSource> monitorSource = [theTimer.userInfo objectForKey:@"monitorSource"];
     NSDictionary *result = [monitorSource startMonitorSourceAndGetResult];

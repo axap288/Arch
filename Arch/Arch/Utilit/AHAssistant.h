@@ -32,6 +32,9 @@
 
 +(NSString *)getDateFormateYYMMDD;
 
++(NSString *)getTimeStamp;
+
+
 //网络请求
 +(NSString *)serverRequest:(NSString *)url;
 
@@ -48,6 +51,7 @@
 +(NSString *)URLEncodedString:(NSString *)string;
 //url解码
 //+(NSString *)URLDEcodedString:(NSString *)string;
+
 
 
 

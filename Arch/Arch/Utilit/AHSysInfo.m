@@ -240,6 +240,8 @@
    return [NSString stringWithFormat:@"%d", (int)[date timeIntervalSince1970]];
 }
 
+
+
 /*
 + (double) batteryLevel
 {

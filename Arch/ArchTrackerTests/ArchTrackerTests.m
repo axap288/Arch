@@ -44,7 +44,7 @@
 //    NSLog(@"bundle:%@",[[NSBundle bundleForClass:[self class]] pathForResource:@"data" ofType:@"txt"]);
 //    NSLog(@"dataFilePath:%@",dataFilePath);
     NSString *data = [AHFileTool readContentFromFile:dataFilePath];
-//    NSLog(@"data:%@",data);
+    NSLog(@"data:%@",data);
     [_transmitController sendData:data withTarget:monitorTarget];
 }
 

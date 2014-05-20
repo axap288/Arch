@@ -41,6 +41,8 @@
 		1F422D661926022000833BCD /* libGRMustache7-MacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F422D631926022000833BCD /* libGRMustache7-MacOS.a */; };
 		1F422D6819261AE000833BCD /* template.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 1F422D6719261AE000833BCD /* template.mustache */; };
 		1F422D6919261AE000833BCD /* template.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 1F422D6719261AE000833BCD /* template.mustache */; };
+		1F9657451929FEF400B3E73E /* AHLocationMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9657441929FEF400B3E73E /* AHLocationMonitorSource.m */; };
+		1F9657461929FEF400B3E73E /* AHLocationMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9657441929FEF400B3E73E /* AHLocationMonitorSource.m */; };
 		1FB7260A19137390008D3AB2 /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7260919137390008D3AB2 /* MTAudioPlayer.m */; };
 		1FB7260F19137596008D3AB2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBBB36F19128455001D686E /* AudioToolbox.framework */; };
 		1FB72610191375A5008D3AB2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB7260C19137555008D3AB2 /* AVFoundation.framework */; };
@@ -201,6 +203,9 @@
 		1F422D621926022000833BCD /* libGRMustache7-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache7-iOS.a"; sourceTree = "<group>"; };
 		1F422D631926022000833BCD /* libGRMustache7-MacOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache7-MacOS.a"; sourceTree = "<group>"; };
 		1F422D6719261AE000833BCD /* template.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.mustache; sourceTree = "<group>"; };
+		1F9657421929DC8900B3E73E /* IRConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRConstant.h; sourceTree = "<group>"; };
+		1F9657431929FEF400B3E73E /* AHLocationMonitorSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHLocationMonitorSource.h; sourceTree = "<group>"; };
+		1F9657441929FEF400B3E73E /* AHLocationMonitorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHLocationMonitorSource.m; sourceTree = "<group>"; };
 		1FB7260819137390008D3AB2 /* MTAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTAudioPlayer.h; sourceTree = "<group>"; };
 		1FB7260919137390008D3AB2 /* MTAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTAudioPlayer.m; sourceTree = "<group>"; };
 		1FB7260C19137555008D3AB2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -444,6 +449,7 @@
 		1F11ED2218F63F8B0044C79B /* Utilit */ = {
 			isa = PBXGroup;
 			children = (
+				1F9657421929DC8900B3E73E /* IRConstant.h */,
 				1FBBB36119126E84001D686E /* AHReachability.h */,
 				1FBBB36219126E84001D686E /* AHReachability.m */,
 				1F11ED6918F645230044C79B /* AHAssistant.m */,
@@ -698,6 +704,8 @@
 				1FF4A29A190F45FD0083E37B /* AHNetWorkflowMonitorSource.m */,
 				1FF4A2A919109FFF0083E37B /* AHDeviceInfoMonitorSource.h */,
 				1FF4A2AA19109FFF0083E37B /* AHDeviceInfoMonitorSource.m */,
+				1F9657431929FEF400B3E73E /* AHLocationMonitorSource.h */,
+				1F9657441929FEF400B3E73E /* AHLocationMonitorSource.m */,
 			);
 			path = MonitorSource;
 			sourceTree = "<group>";
@@ -833,6 +841,7 @@
 				1F11ED8318F647D10044C79B /* DDFileLogger.m in Sources */,
 				1F11ED5C18F6405E0044C79B /* OpenUDID.m in Sources */,
 				1FF4A293190F44A20083E37B /* AHMonitorSourceController.m in Sources */,
+				1F9657451929FEF400B3E73E /* AHLocationMonitorSource.m in Sources */,
 				1F11ED9518F649940044C79B /* DeviceFlowRateInfo.m in Sources */,
 				1F11ED6B18F645230044C79B /* AHAssistant.m in Sources */,
 				1FF4A292190F44A20083E37B /* AHDataController.m in Sources */,
@@ -871,6 +880,7 @@
 				1FB726371914C65B008D3AB2 /* MMSideDrawerSectionHeaderView.m in Sources */,
 				1FB726221914BA33008D3AB2 /* UIViewController+MMDrawerController.m in Sources */,
 				1FB726341914C65B008D3AB2 /* MMTableViewCell.m in Sources */,
+				1F9657461929FEF400B3E73E /* AHLocationMonitorSource.m in Sources */,
 				1FB726201914BA33008D3AB2 /* MMDrawerController.m in Sources */,
 				1FB7261F1914BA33008D3AB2 /* MMDrawerBarButtonItem.m in Sources */,
 				1F11ECF918F63CE60044C79B /* main.m in Sources */,
@@ -1082,6 +1092,7 @@
 				);
 				INFOPLIST_FILE = "ArchTrackerTests/ArchTrackerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "41AA7190-B58B-4AB6-95C0-67BE2016BCBF";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1098,6 +1109,7 @@
 				GCC_PREFIX_HEADER = "ArchTrackerTests/ArchTrackerTests-Prefix.pch";
 				INFOPLIST_FILE = "ArchTrackerTests/ArchTrackerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "41AA7190-B58B-4AB6-95C0-67BE2016BCBF";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

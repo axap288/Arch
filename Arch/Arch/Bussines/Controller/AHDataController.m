@@ -13,6 +13,7 @@
 #import "AHFileTool.h"
 #import "AHTransmitController.h"
 #import "AHFileTool.h"
+#import "AHConstant.h"
 
 #import "GRMustache.h"
 #import "PositionFilter.h"
@@ -158,6 +159,60 @@
 -(NSString *)coverDictionaryToSQLString:(NSDictionary *)dic
 {
     
+    NSMutableString *template = [NSMutableString string];
+    
+    
+    [[dic allKeys] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSString *key = obj;
+        //app运行信息
+        if ([key isEqualToString:@"app_run"]) {
+            if (dic[@"app_run"] != nil && [dic[@"app_run"] count] != 0) {
+                [template appendString:@"INSERT INTO `session` \n(`uid`, `sid`, `aciivity_name`, `app_name`, `app_id`, `app_ver`, `sys_or_user`, `begin_time`, `end_time`, `create_time`)\nVALUES\n"];
+                [dic[@"app_run"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSDictionary *perAppSession = obj;
+                    [template appendString:@"("];
+                    [template appendFormat:@"\'%@\',",V_UID];//uid
+                    [template appendString:@"NULL,"];//sid
+                    [template appendString:@"NULL,"];  //aciivity_name
+                    [template appendFormat:@"\'%@\',",perAppSession[@"appName"]];//app_name
+                    [template appendFormat:@"\'%@\',",perAppSession[@"packageName"]];//app_id
+                    [template appendString:@"NULL,"];//app_ver
+                    [template appendString:@"NULL,"];//sys_or_user
+                    [template appendFormat:@"\'%@\',",perAppSession[@"start_time"]];//begin_time
+                    [template appendFormat:@"\'%@\',",perAppSession[@"end_time"]];//end_time
+                    [template appendFormat:@"\'%@\'",V_TS];//create_time
+                    [template appendString:@")"];
+                    
+                    if (idx == [dic[@"app_run"] count] - 1) {
+                        [template appendString:@";"];
+                    }else{
+                        [template appendString:@","];
+                    }
+                }];
+            }
+        }
+        
+        //设备信息
+        if ([key isEqualToString:@"baseinfo"]) {
+            
+        }
+        
+        //地理位置信息
+        if ([key isEqualToString:@"locationinfo"]) {
+            
+        }
+        
+        //流量信息
+        if ([key isEqualToString:@"sysTraffic"]) {
+            
+        }
+        
+        
+    }];
+    
+    
+    
+    /*
     GRMustacheTemplate *template = [GRMustacheTemplate templateFromResource:@"template" bundle:nil error:nil];
     
     
@@ -203,6 +258,9 @@
     NSLog(@"totalDic %@:",[self.totalDic description]);
     NSString *sqlStr = @"";
     return sqlStr;
+     */
+    NSLog(@"sql result:%@",template);
+    return template;
 }
 
 @end

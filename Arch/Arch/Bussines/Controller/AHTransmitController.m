@@ -83,6 +83,7 @@
     if (jsonstr  != nil) {
         NSString *compressStr = [self gzipCompressAndEncryptStr:jsonstr];
 //        NSString *restoreStr = [self gzipUncompressStr:compressStr];
+        NSLog(@"Result:%@",compressStr);
         if (compressStr) {
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
             [dic setObject:compressStr forKey:@"data"];

@@ -96,6 +96,14 @@ static UIViewController *viewcontroller;
     return ts;
 }
 
++(NSString *)getTimeStamp
+{
+    NSDateFormatter*dateFormatter =[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *timestamp =[dateFormatter stringFromDate:[NSDate date]];
+    return timestamp;
+}
+
 // 网络可用检查
 + (BOOL)reachabilityCheck {
     if ([AHReachability networkAvailable]) {
