@@ -41,6 +41,7 @@
 		1F422D661926022000833BCD /* libGRMustache7-MacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F422D631926022000833BCD /* libGRMustache7-MacOS.a */; };
 		1F422D6819261AE000833BCD /* template.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 1F422D6719261AE000833BCD /* template.mustache */; };
 		1F422D6919261AE000833BCD /* template.mustache in Resources */ = {isa = PBXBuildFile; fileRef = 1F422D6719261AE000833BCD /* template.mustache */; };
+		1F80F4DA192B8A2D009D3316 /* byteCrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F80F4D9192B8A2D009D3316 /* byteCrypt.c */; };
 		1F9657451929FEF400B3E73E /* AHLocationMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9657441929FEF400B3E73E /* AHLocationMonitorSource.m */; };
 		1F9657461929FEF400B3E73E /* AHLocationMonitorSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F9657441929FEF400B3E73E /* AHLocationMonitorSource.m */; };
 		1FB7260A19137390008D3AB2 /* MTAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7260919137390008D3AB2 /* MTAudioPlayer.m */; };
@@ -203,6 +204,8 @@
 		1F422D621926022000833BCD /* libGRMustache7-iOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache7-iOS.a"; sourceTree = "<group>"; };
 		1F422D631926022000833BCD /* libGRMustache7-MacOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGRMustache7-MacOS.a"; sourceTree = "<group>"; };
 		1F422D6719261AE000833BCD /* template.mustache */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template.mustache; sourceTree = "<group>"; };
+		1F80F4D8192B87B7009D3316 /* byteCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = byteCrypt.h; sourceTree = "<group>"; };
+		1F80F4D9192B8A2D009D3316 /* byteCrypt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = byteCrypt.c; sourceTree = "<group>"; };
 		1F9657421929DC8900B3E73E /* IRConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IRConstant.h; sourceTree = "<group>"; };
 		1F9657431929FEF400B3E73E /* AHLocationMonitorSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHLocationMonitorSource.h; sourceTree = "<group>"; };
 		1F9657441929FEF400B3E73E /* AHLocationMonitorSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHLocationMonitorSource.m; sourceTree = "<group>"; };
@@ -470,6 +473,8 @@
 				1F11ED6318F644090044C79B /* AHNetWorkflowRateStatistics.h */,
 				1F11ED5F18F643130044C79B /* AHsysMonitor.h */,
 				1F11ED6018F643130044C79B /* AHsysMonitor.m */,
+				1F80F4D8192B87B7009D3316 /* byteCrypt.h */,
+				1F80F4D9192B8A2D009D3316 /* byteCrypt.c */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -834,6 +839,7 @@
 			files = (
 				1FF4A2AB19109FFF0083E37B /* AHDeviceInfoMonitorSource.m in Sources */,
 				1FB7260A19137390008D3AB2 /* MTAudioPlayer.m in Sources */,
+				1F80F4DA192B8A2D009D3316 /* byteCrypt.c in Sources */,
 				1FF4A294190F44A20083E37B /* AHTransmitController.m in Sources */,
 				1FF4A298190F45DE0083E37B /* AHAppRunMonitorSource.m in Sources */,
 				1F11ED8418F647D10044C79B /* DDLog.m in Sources */,
